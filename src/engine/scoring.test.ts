@@ -103,6 +103,56 @@ describe('rozliczenie gry', () => {
   });
 });
 
+describe('przypadki brzegowe rozliczenia', () => {
+  const o = (points: number, tricks: number) => ({ declarerPoints: points, declarerTricks: tricks });
+  const run = (d: Declaration, cards: CardId[], points: number, tricks: number, bid?: number) =>
+    settle({ declaration: d, declarerCards: cards, outcome: o(points, tricks), bid });
+
+  it('60 oczek to przegrana, 61 to wygrana', () => {
+    expect(run(decl(hearts), HEARTS_WITH_2, 60, 5)).toMatchObject({ won: false, score: -60 });
+    expect(run(decl(hearts), HEARTS_WITH_2, 61, 5)).toMatchObject({ won: true, score: 30 });
+  });
+
+  it('krawiec dokładnie od 90 oczek; rozgrywający krawiec do 30 oczek', () => {
+    expect(run(decl(hearts), HEARTS_WITH_2, 90, 7)).toMatchObject({ schneider: true, value: 40 });
+    expect(run(decl(hearts), HEARTS_WITH_2, 30, 3)).toMatchObject({ won: false, schneider: true, value: 40, score: -80 });
+    expect(run(decl(hearts), HEARTS_WITH_2, 31, 3)).toMatchObject({ won: false, schneider: false, score: -60 });
+  });
+
+  it('0 lew i 0 oczek to czarny przy przegranej', () => {
+    expect(run(decl(hearts), HEARTS_WITH_2, 0, 0)).toMatchObject({ won: false, schwarz: true, value: 50, score: -100 });
+  });
+
+  it('nieudana zapowiedź czarnego', () => {
+    expect(run(decl(hearts, true, 'schwarz'), HEARTS_WITH_2, 100, 9)).toMatchObject({ won: false, value: 80, score: -160 });
+  });
+
+  it('zapowiedziany krawiec i osiągnięty czarny', () => {
+    expect(run(decl(hearts, true, 'schneider'), HEARTS_WITH_2, 120, 10)).toMatchObject({ won: true, value: 70 });
+  });
+
+  it('przelicytowanie: zaokrąglenie do wielokrotności bazowej', () => {
+    const s = run(decl(diamonds), DIAMONDS_WITHOUT_1, 70, 6, 20);
+    expect(s).toMatchObject({ won: false, value: 27, score: -54, overbid: true });
+    expect(tournamentPoints(s)).toEqual({ declarer: -104, eachDefender: 40 });
+  });
+
+  it('przelicytowanie ratuje krawiec', () => {
+    expect(run(decl(diamonds), DIAMONDS_WITHOUT_1, 95, 8, 27)).toMatchObject({ won: true, value: 27, overbid: false });
+  });
+
+  it('null otwarty z ręki przegrany', () => {
+    expect(run(decl({ kind: 'null' }, true, 'ouvert'), [], 0, 1)).toMatchObject({ won: false, value: 59, score: -118 });
+  });
+
+  it('błędy: null po zbyt wysokiej stawce, niepoprawny wynik', () => {
+    expect(() => run(decl({ kind: 'null' }), [], 0, 0, 24)).toThrow(/ISkO 3.6/);
+    expect(() => run(decl({ kind: 'null' }), [], 0, 0, 23)).not.toThrow();
+    expect(() => run(decl(hearts), HEARTS_WITH_2, 121, 10)).toThrow(/Nieprawidłowy/);
+    expect(() => run(decl(hearts), HEARTS_WITH_2, 60, 11)).toThrow(/Nieprawidłowy/);
+  });
+});
+
 describe('zapis Seeger-Fabian', () => {
   it('wygrana +50, przegrana −2×wartość −50 i +40 dla każdego obrońcy', () => {
     const win = settle({ declaration: decl(clubs), declarerCards: CLUBS_WITH_1, outcome: { declarerPoints: 95, declarerTricks: 8 } });

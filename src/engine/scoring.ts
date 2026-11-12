@@ -93,15 +93,28 @@ export function settle({ declaration: d, declarerCards, outcome, bid }: SettleIn
   const issue = declarationIssue(d);
   if (issue) throw new Error(issue);
   const totalTricks = outcome.totalTricks ?? 10;
+  if (
+    !Number.isInteger(outcome.declarerPoints) ||
+    !Number.isInteger(outcome.declarerTricks) ||
+    !Number.isInteger(totalTricks) ||
+    outcome.declarerPoints < 0 ||
+    outcome.declarerPoints > 120 ||
+    outcome.declarerTricks < 0 ||
+    outcome.declarerTricks > totalTricks
+  ) {
+    throw new Error('Nieprawidłowy wynik rozdania');
+  }
 
   if (d.game.kind === 'null') {
     const value = nullValue(d);
-    const overbid = bid !== undefined && bid > value;
-    const won = outcome.declarerTricks === 0 && !overbid;
-    return { won, value, score: won ? value : -2 * value, overbid, schneider: false, schwarz: false };
+    if (bid !== undefined && bid > value) {
+      throw new Error(`Nulla (${value}) nie można zgłosić po stawce ${bid} (ISkO 3.6)`);
+    }
+    const won = outcome.declarerTricks === 0;
+    return { won, value, score: won ? value : -2 * value, overbid: false, schneider: false, schwarz: false };
   }
 
-  const base = baseValue(d.game) as number;
+  const base = d.game.kind === 'grand' ? GRAND_BASE : SUIT_BASE[d.game.trump];
   const schneider = outcome.declarerPoints >= 90 || outcome.declarerPoints <= 30;
   const schwarz = outcome.declarerTricks === totalTricks || outcome.declarerTricks === 0;
   const announcedSchneider = d.announce !== 'none';

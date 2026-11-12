@@ -27,7 +27,11 @@ export function nextBid(after: number | null): number | null {
   return BID_VALUES.find((v) => v > after) ?? null;
 }
 
-/** Do ilu można licytować daną ręką w danej grze (bez krawca i czarnego). */
+/**
+ * Do ilu można licytować daną ręką w danej grze (bez krawca i czarnego).
+ * Matadory liczone są tylko z podanych kart (zwykle 10 kart ręki) — brakujący walet
+ * w skacie może obniżyć liczbę „bez” i spowodować przelicytowanie.
+ */
 export function maxBidFor(cards: readonly CardId[], game: GameType, hand = false): number {
   const base = baseValue(game);
   if (base === null) return hand ? NULL_VALUES.hand : NULL_VALUES.plain;
