@@ -104,6 +104,19 @@ describe('MiniDealExercise', () => {
     expect(onAnswered).toHaveBeenCalledWith(false);
   });
 
+  it('ukrywa wynik oczek w trakcie rozdania z punktami kontrolnymi', async () => {
+    renderWithProviders(
+      <MiniDealExercise exercise={{ ...declarerDeal, checkpoints: [{ afterTrick: 1, ask: 'yourPoints' }] }} onAnswered={vi.fn()} delayMs={0} />,
+    );
+    expect(await screen.findByRole('button', { name: 'niżnik żołędny' })).toBeInTheDocument();
+    expect(screen.queryByText(/Twoja strona/)).not.toBeInTheDocument();
+  });
+
+  it('bez punktów kontrolnych wynik oczek jest widoczny', async () => {
+    renderWithProviders(<MiniDealExercise exercise={declarerDeal} onAnswered={vi.fn()} delayMs={0} />);
+    expect(await screen.findByText(/Twoja strona/)).toBeInTheDocument();
+  });
+
   it('bot wychodzi, a niedozwolona karta daje podpowiedź', async () => {
     const user = userEvent.setup();
     const defending: MiniDealExerciseData = {

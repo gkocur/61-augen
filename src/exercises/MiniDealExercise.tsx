@@ -187,9 +187,11 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
             : ''}
         </p>
       )}
-      <p className="mini-deal__score">
-        Twoja strona: {pointsText(points.yours)} · druga strona: {pointsText(points.theirs)}
-      </p>
+      {!(exercise.checkpoints?.length && !over) && (
+        <p className="mini-deal__score">
+          Twoja strona: {pointsText(points.yours)} · druga strona: {pointsText(points.theirs)}
+        </p>
+      )}
       <p className="hint hint--warn" role="status">
         {hint}
       </p>
