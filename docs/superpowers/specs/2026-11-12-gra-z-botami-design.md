@@ -197,7 +197,8 @@ Implementacja w trzech planach:
 
 ## 11. Decyzje z implementacji (Plan 7)
 
-- **Rozdanie** = ziarno + lista ruchów (`history`). Zapis serii przechowuje tylko ruchy bieżącego rozdania, a przy wczytaniu rozdanie jest odtwarzane.
+- **Rozdanie** = ziarno + lista ruchów (`history`). Zapis serii przechowuje ziarno, opcje i listy ruchów wszystkich rozdań (zakończonych i bieżącego); przy wczytaniu rozdania są odtwarzane, a wiersze tabeli liczone na nowo — zapisu nie da się podrobić, a każdy niedozwolony ruch oznacza uszkodzony zapis.
+- **Podpowiedź przy grze z ręki** nie korzysta z zakrytego skata; null po podniesieniu skata bot ocenia na kartach, które zostaną po wyrzuceniu.
 - **Kolejność miejsc:** w 1. rozdaniu rozdaje bot po prawej, więc gracz zaczyna na ręku. Potem rozdający przechodzi zgodnie z ruchem wskazówek zegara.
 - **Heurystyki botów** (`src/bots/evaluate.ts`):
   - kolor: co najmniej 6 atu albo 5 atu z waletem i razem co najmniej 3 waletami lub asami z boku;
