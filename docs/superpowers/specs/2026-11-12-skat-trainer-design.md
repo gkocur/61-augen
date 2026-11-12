@@ -12,7 +12,7 @@ Aplikacja web ucząca gry w skata krok po kroku, od zupełnych podstaw po taktyk
 - Interfejs i treść wyłącznie po polsku.
 - Brak logowania i serwera — stan kursu i ustawienia w przeglądarce (`localStorage`).
 - Statyczna strona, projektowana najpierw pod telefon (mobile-first), działa też na desktopie.
-- Zasady: oficjalne zasady turniejowe (ISkO), w tym kontra/re. Warianty towarzyskie (ramsz, bocki) w osobnym, opcjonalnym dodatku.
+- Zasady: oficjalne zasady turniejowe (ISkO); kontra/re jako typowy dodatek spoza ISkO. Warianty towarzyskie (ramsz, bocki) w osobnym, opcjonalnym dodatku.
 - Ustawienia: talia **Altenburg (domyślna)** lub francuska; „język” **oficjalny turniejowy (domyślny)** lub potoczny oparty na niemieckim.
 - Grafiki kart z otwartych talii z Wikimedia Commons (z atrybucją).
 
@@ -65,7 +65,7 @@ Czysty TypeScript, w pełni pokryty testami. Ten sam silnik obsłuży w przyszł
   - nulle: 23, z ręki 35, otwarty 46, otwarty z ręki 59;
   - przegrana: wartość ujemna podwójna (ISkO);
   - przelicytowanie: gra przegrana; wartość = najmniejsza wielokrotność wartości bazowej ≥ licytowanej stawki;
-  - kontra ×2, re ×2 (dodatkowo);
+  - kontra ×2, re ×4 (dodatek spoza ISkO);
   - zapis turniejowy (Seeger-Fabian): wygrana +50 dla rozgrywającego, przegrana −50 i po +40 dla każdego obrońcy (stół 3-osobowy).
 - **Licytacja**: kolejne stawki 18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50, 54, 55, 59, 60, 63, 66, 70, 72, 77, 80, 81, 84, 88, 90, 96, 99, 100, 108, 110, 117, 120, 121, 126, 130, 132, 135, 140, 143, 144, 150, 153, 154, 156, 160, 162, 165, 168, 170, 176, 180, 187, 192, 198, 204, 216, 240, 264 (lista generowana i sprawdzana testem, nie wpisywana ręcznie w kod); kolejność: środek licytuje przodkowi, następnie zadek zwycięzcy; wszyscy pasują → rozdanie bez gry.
 

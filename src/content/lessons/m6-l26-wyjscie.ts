@@ -36,7 +36,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm6-l26-p1',
       prompt:
-        '[[Rozgrywajacy]] siedzi zaraz po tobie ([[srodek]]) i gra z [[atu:Nlm]] w kolorze [[suit:c]]. Wychodzisz. Którą kartę zagrać?',
+        '[[Rozgrywajacy]] siedzi zaraz po tobie ([[srodek]]). [[Atu]]: [[suit:c]]. Wychodzisz. Którą kartę zagrać?',
       game: CLUBS,
       leader: 0,
       trick: [],
@@ -73,7 +73,7 @@ export const lesson: Lesson = {
         'c-8': NO_TRUMP_LEAD,
       },
       explain:
-        'Długa droga — krótki kolor: [[card:s-7]] to twoja jedyna karta w kolorze [[suit:s]]. Gdy ten kolor wróci, możesz go przebić [[atu:N]].',
+        'Długa droga — krótki kolor: [[card:s-7]] to twoja jedyna karta w tym kolorze. Gdy ten kolor wróci, możesz go przebić [[atu:N]].',
     },
     {
       type: 'quiz',

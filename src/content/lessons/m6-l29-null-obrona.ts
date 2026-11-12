@@ -39,7 +39,7 @@ export const lesson: Lesson = {
       type: 'quiz',
       id: 'm6-l29-q2',
       prompt:
-        '[[Rozgrywajacy]] ma w kolorze [[suit:s]] tylko [[card:s-7:B]], [[card:s-8:B]] i [[card:s-9:B]]. Czy da się go złapać w tym kolorze?',
+        'W jednym z kolorów [[rozgrywajacy]] ma tylko [[card:s-7:B]], [[card:s-8:B]] i [[card:s-9:B]]. Czy da się go złapać w tym kolorze?',
       options: [
         { id: 'a', text: 'Nie — zawsze zejdzie niżej' },
         { id: 'b', text: 'Tak — wystarczy wyjść dziesiątką' },
@@ -66,7 +66,7 @@ export const lesson: Lesson = {
       mistakes: [['d-8', 'd-9', 'h-10', 'd-10', 's-J', 'h-J', 'd-J', 'c-Q', 'd-K', 's-A']],
       goal: { kind: 'win' },
       explain:
-        '[[Rozgrywajacy]] ma w kolorze [[suit:h]] tylko [[card:h-7:B]], [[card:h-Q:B]] i [[card:h-A:B]]. Po [[card:h-10:Ms]] schodzi siódemką, ale po [[card:h-J:Ms]] musi dołożyć [[dama:B]] albo [[as:B]] — i bierze [[lewa:B]].',
+        '[[Rozgrywajacy]] ma tylko [[card:h-7:B]], [[card:h-Q:B]] i [[card:h-A:B]] — między siódemką a wysokimi kartami jest luka. Po [[card:h-10:Ms]] schodzi siódemką, ale po [[card:h-J:Ms]] musi dołożyć [[dama:B]] albo [[as:B]] — i bierze [[lewa:B]]. Gdy wyjdziesz w kolor, którego [[rozgrywajacy]] nie ma (tu: [[suit:d]]), zrzuci [[card:h-A:B]] i [[card:h-Q:B]] — luka zniknie.',
     },
   ],
 };

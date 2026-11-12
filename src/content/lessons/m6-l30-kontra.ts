@@ -31,7 +31,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm6-l30-q1',
-      prompt: '[[Atu]]: [[suit:h]], [[mit]] 2. Gra jest wygrana, a była kontra. Ile jest warta?',
+      prompt: '[[Atu]]: [[suit:h]], [[mit]] 2. Gra jest wygrana bez [[krawiec:D]], a była kontra. Ile jest warta?',
       cards: [...HEARTS_WITH_2],
       options: [
         { id: 'a', text: '30' },
@@ -80,7 +80,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm6-l30-q4',
-      prompt: 'Zgłoszono grę z [[atu:Nlm]] w kolorze [[suit:s]]. Czy z tymi kartami kontrować?',
+      prompt: '[[Rozgrywajacy]] zgłosił [[graKolorowa:B]], [[atu]]: [[suit:s]]. Czy z tymi kartami kontrować?',
       cards: ['c-J', 's-J', 's-A', 's-10', 'h-A', 'h-10', 'd-A', 'c-8', 'd-7', 'h-9'],
       options: [
         { id: 'a', text: 'Tak — mocne [[atu:Mlm]] i [[as:Mlm]]' },

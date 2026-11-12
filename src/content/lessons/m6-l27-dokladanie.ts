@@ -6,18 +6,18 @@ const HEARTS: GameType = { kind: 'suit', trump: 'h' };
 
 export const lesson: Lesson = {
   id: 'm6-l27-dokladanie',
-  title: '[[Szmirowanie]] oczek partnerowi',
+  title: '[[Szmirowanie]] [[oczko:Dlm]] partnerowi',
   summary: 'Dokładaj [[oczko:Blm]] tam, gdzie [[lewa:B]] na pewno bierze partner.',
   steps: [
     {
       title: 'Gdy [[lewa:B]] bierze partner',
       text:
-        'Jeśli wiadomo, że [[lewa:B]] bierze twój partner, dołóż do niej jak najwięcej [[oczko:Dlm]] — dziesiątkę albo [[as:B]]. Wszystkie oczka w niej liczą się dla waszej strony.',
+        'Jeśli wiadomo, że [[lewa:B]] bierze twój partner, dołóż do {niej|niego} jak najwięcej [[oczko:Dlm]] — dziesiątkę albo [[as:B]]. Wszystkie [[oczko:Mlm]] w {niej|nim} liczą się dla waszej strony.',
     },
     {
       title: 'Tylko gdy to pewne',
       text:
-        'Dokładaj dopiero wtedy, gdy [[rozgrywajacy]] już zagrał albo na pewno nie przebije. Jeśli [[rozgrywajacy]] gra po tobie, może wziąć [[lewa:B]] razem z twoimi oczkami.',
+        'Dokładaj dopiero wtedy, gdy [[rozgrywajacy]] już zagrał albo na pewno nie przebije. Jeśli [[rozgrywajacy]] gra po tobie, może wziąć [[lewa:B]] razem z twoimi [[oczko:Nlm]].',
     },
     {
       title: 'Gdy bierze [[rozgrywajacy]]',
@@ -43,7 +43,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm6-l27-p2',
       prompt:
-        'Partner ([[przodek]]) wyszedł [[card:d-A:N]]. Po tobie zagra jeszcze [[rozgrywajacy]] — może nie mieć koloru [[suit:d]] i przebić. Którą kartę dołożyć?',
+        'Partner ([[przodek]]) wyszedł [[card:d-A:N]]. Po tobie zagra jeszcze [[rozgrywajacy]] — może nie mieć tego koloru i przebić. Którą kartę dołożyć?',
       game: HEARTS,
       leader: 0,
       trick: ['d-A'],
@@ -59,7 +59,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm6-l27-p3',
       prompt:
-        '[[Rozgrywajacy]] ([[przodek]]) wyszedł [[card:c-A:N]], partner dołożył [[card:c-7:B]]. Nie masz koloru [[suit:c]] ani [[atu:Dlm]]. Którą kartę oddać?',
+        '[[Rozgrywajacy]] ([[przodek]]) wyszedł [[card:c-A:N]], partner dołożył [[card:c-7:B]]. Nie masz tego koloru ani [[atu:Dlm]]. Którą kartę oddać?',
       game: HEARTS,
       leader: 0,
       trick: ['c-A', 'c-7'],
@@ -82,7 +82,7 @@ export const lesson: Lesson = {
         { id: 'c', text: 'Nigdy' },
       ],
       correct: 'a',
-      explain: 'Oczka dokłada się tylko do [[lewa:D]], {którą|który} partner na pewno weźmie — inaczej mogą trafić do [[rozgrywajacy:D]].',
+      explain: '[[Oczko:Mlm]] dokłada się tylko do [[lewa:D]], {którą|który} partner na pewno weźmie — inaczej mogą trafić do [[rozgrywajacy:D]].',
     },
   ],
 };

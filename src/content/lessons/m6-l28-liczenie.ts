@@ -41,7 +41,7 @@ export const lesson: Lesson = {
       type: 'miniDeal',
       id: 'm6-l28-d1',
       prompt:
-        'Grasz w obronie przeciwko grze z [[atu:Nlm]] w kolorze [[suit:h]]. Pilnuj liczby [[oczko:Dlm]] i [[atu:Dlm]] — w trakcie gry padną pytania.',
+        'Grasz w obronie. [[Atu]]: [[suit:h]]. Pilnuj liczby [[oczko:Dlm]] i [[atu:Dlm]] — w trakcie gry padną pytania.',
       game: HEARTS,
       declarer: 2,
       you: 0,
