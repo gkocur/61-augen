@@ -17,8 +17,8 @@ export const lesson: Lesson = {
     {
       title: 'Kto do kogo',
       text:
-        'Najpierw **[[srodek]] {licytuje|reizuje} do [[przodek:D]]**: podaje kolejne stawki, a [[przodek]] odpowiada „tak” (trzyma) albo „[[pas]]”. ' +
-        'Potem **[[zadek]] {licytuje|reizuje} do zwycięzcy** pierwszej części.\n\n' +
+        'Najpierw **[[srodek]] {licytuje|rajcuje} do [[przodek:D]]**: podaje kolejne stawki, a [[przodek]] odpowiada „tak” (trzyma) albo „[[pas]]”. ' +
+        'Potem **[[zadek]] {licytuje|rajcuje} do zwycięzcy** pierwszej części.\n\n' +
         'Przy tej samej stawce wygrywa ten, kto odpowiada — wystarczy mu „tak”.',
     },
     {
@@ -91,7 +91,7 @@ export const lesson: Lesson = {
         { id: 'c', text: '[[Zadek]]' },
       ],
       correct: 'b',
-      explain: 'Najpierw [[srodek]] {licytuje|reizuje} do [[przodek:D]], potem [[zadek]] do zwycięzcy.',
+      explain: 'Najpierw [[srodek]] {licytuje|rajcuje} do [[przodek:D]], potem [[zadek]] do zwycięzcy.',
     },
     {
       type: 'quiz',

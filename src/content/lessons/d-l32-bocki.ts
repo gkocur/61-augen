@@ -24,7 +24,7 @@ export const lesson: Lesson = {
     {
       title: 'Jak liczyć',
       text:
-        '[[Bock]] podwaja wynik gry, a nie stawki w [[licytacja:Ms]] — {licytujesz|reizujesz} tak samo jak zwykle. ' +
+        '[[Bock]] podwaja wynik gry, a nie stawki w [[licytacja:Ms]] — {licytujesz|rajcujesz} tak samo jak zwykle. ' +
         '[[Bock]] łączy się z kontrą: gra z kontrą w rundzie [[bock:Dlm]] liczy się czterokrotnie.',
     },
     {
@@ -100,7 +100,7 @@ export const lesson: Lesson = {
       id: 'd-l32-q5',
       prompt: 'Czy [[bock]] zmienia stawki w [[licytacja:Ms]]?',
       options: [
-        { id: 'a', text: 'Nie — {licytuje|reizuje} się tak samo, podwaja się tylko wynik' },
+        { id: 'a', text: 'Nie — {licytuje|rajcuje} się tak samo, podwaja się tylko wynik' },
         { id: 'b', text: 'Tak — wszystkie stawki są podwójne' },
       ],
       correct: 'a',

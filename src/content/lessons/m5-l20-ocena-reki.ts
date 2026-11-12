@@ -74,7 +74,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm5-l20-q4',
-      prompt: 'Te same karty, [[atu]]: [[suit:c]]. Do ilu możesz {licytować|reizować}?',
+      prompt: 'Te same karty, [[atu]]: [[suit:c]]. Do ilu możesz {licytować|rajcować}?',
       cards: [...CLUB_HAND],
       options: [
         { id: 'a', text: '24' },

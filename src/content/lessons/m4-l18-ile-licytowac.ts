@@ -2,24 +2,24 @@
 import type { GameType } from '../../engine';
 import type { Lesson } from '../types';
 
-const ASK = 'Do ilu najwyżej możesz {licytować|reizować} z tymi kartami?';
+const ASK = 'Do ilu najwyżej możesz {licytować|rajcować} z tymi kartami?';
 const suit = (trump: 'c' | 's' | 'h' | 'd'): GameType => ({ kind: 'suit', trump });
 
 export const lesson: Lesson = {
   id: 'm4-l18-ile-licytowac',
-  title: 'Do ilu {licytować|reizować}',
+  title: 'Do ilu {licytować|rajcować}',
   summary: 'Policz wartość swojej gry, zanim podasz stawkę.',
   steps: [
     {
       title: 'Licz, zanim powiesz',
       text:
         'Przed [[licytacja:N]] wybierz grę, którą chcesz zagrać, i policz jej wartość: **wartość bazowa × ([[matador:Mlm]] + 1)**. ' +
-        'To twoja górna granica — {licytuj|reizuj} do niej, ale nie wyżej.',
+        'To twoja górna granica — {licytuj|rajcuj} do niej, ale nie wyżej.',
     },
     {
       title: 'Przykład',
       text:
-        'Chcesz grać z [[atu:Nlm]] w kolorze [[suit:h]] i masz [[mit]] 2. Mnożnik to 2 + 1 = 3, więc {licytujesz|reizujesz} najwyżej do 10 × 3 = **30**.',
+        'Chcesz grać z [[atu:Nlm]] w kolorze [[suit:h]] i masz [[mit]] 2. Mnożnik to 2 + 1 = 3, więc {licytujesz|rajcujesz} najwyżej do 10 × 3 = **30**.',
     },
     {
       title: 'Uwaga przy grze „[[ohne]]”',

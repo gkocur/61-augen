@@ -237,7 +237,7 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | rozgrywający | szpiler ⚠ |
 | obrońcy | przeciwnicy ⚠ |
 | przodek / środek / zadek | forhand / mitelhand / hinterhand ⚠ |
-| licytacja, licytować | reizowanie, reizować ⚠ |
+| licytacja, licytować | rajcowanie, rajcować |
 | pas | pas / weg ⚠ |
 | gra z ręki | hand |
 | gra kolorowa | farbszpil ⚠ |
@@ -248,7 +248,7 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | z / bez (matadorów) | mit / ohne ⚠ |
 | wyrzucić do skata | zdrukować ⚠ |
 | dokładanie oczek partnerowi | szmirowanie |
-| przelicytowanie | przereizowanie ⚠ |
+| przelicytowanie | przerajcowanie |
 | obnażony (pusty) kolor | blanka ⚠ |
 | grand | grand |
 | null | null / nul ⚠ |

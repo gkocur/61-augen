@@ -56,7 +56,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm5-l24-q3',
-      prompt: '[[Grand]]. Do ilu możesz {licytować|reizować} z tymi kartami?',
+      prompt: '[[Grand]]. Do ilu możesz {licytować|rajcować} z tymi kartami?',
       cards: ['c-J', 's-J', 'c-A', 'c-10', 'c-K', 'c-Q', 'c-7', 's-A', 'h-Q', 'd-10'],
       options: [
         { id: 'a', text: '48' },

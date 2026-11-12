@@ -58,7 +58,7 @@ export const TERMS: Record<string, Term> = {
   skat: plain(same({ M: 'skat', g: 'm', D: 'skata', C: 'skatowi', B: 'skat', N: 'skatem', Ms: 'skacie' })),
   licytacja: plain({
     official: { M: 'licytacja', g: 'f', D: 'licytacji', B: 'licytację', N: 'licytacją', Ms: 'licytacji' },
-    colloquial: { M: 'reizowanie', g: 'n', D: 'reizowania', B: 'reizowanie', N: 'reizowaniem', Ms: 'reizowaniu' },
+    colloquial: { M: 'rajcowanie', g: 'n', D: 'rajcowania', B: 'rajcowanie', N: 'rajcowaniem', Ms: 'rajcowaniu' },
   }),
   graKolorowa: plain({
     official: { M: 'gra kolorowa', g: 'f', D: 'gry kolorowej', B: 'grę kolorową', N: 'grą kolorową', Ms: 'grze kolorowej' },
@@ -125,7 +125,7 @@ export const TERMS: Record<string, Term> = {
   ohne: plain({ official: { M: 'bez' }, colloquial: { M: 'ohne' } }),
   przelicytowanie: plain({
     official: { M: 'przelicytowanie', g: 'n', D: 'przelicytowania', N: 'przelicytowaniem', Ms: 'przelicytowaniu' },
-    colloquial: { M: 'przereizowanie', g: 'n', D: 'przereizowania', N: 'przereizowaniem', Ms: 'przereizowaniu' },
+    colloquial: { M: 'przerajcowanie', g: 'n', D: 'przerajcowania', N: 'przerajcowaniem', Ms: 'przerajcowaniu' },
   }),
   pas: plain(same({ M: 'pas', g: 'm' })),
   szmirowanie: plain({
