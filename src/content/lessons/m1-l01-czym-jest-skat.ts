@@ -16,6 +16,7 @@ export const lesson: Lesson = {
       title: 'Gra o [[oczko:Blm]]',
       text:
         'Wszystkie karty w talii są warte razem **120** [[oczko:Dlm]].\n\n' +
+        'Karty zdobywa się w kolejkach: każdy z trzech graczy kładzie na stół jedną kartę, a jeden z nich zabiera wszystkie trzy. Taka kolejka to **[[lewa]]**. {Kto ją bierze|Kto go bierze}, dowiesz się w module 2.\n\n' +
         '[[Rozgrywajacy]] wygrywa, jeśli w zdobytych [[lewa:Mslm]] ma co najmniej **61** [[oczko:Dlm]]. Jeśli ma 60 lub mniej, wygrywają [[obronca:Mlm]].',
     },
     {
