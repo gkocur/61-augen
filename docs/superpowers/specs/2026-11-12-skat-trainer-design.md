@@ -259,11 +259,11 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 
 ### 8.3 Do potwierdzenia przy weryfikacji zasad
 
-- Kontra/re: sposób zapowiedzi i zapisu według aktualnej ISkO (jak w rozgrywkach ligowych) ⚠.
+- Kontra/re: nie należą do ISkO; w kursie jako dodatek (kontra ×2, re ×4, zapowiedź przed pierwszą kartą); szczegóły ustala się przed grą.
 - Przegrana gra z ręki: liczona podwójnie, jak każda przegrana — potwierdzone w ISkO (wyd. 2018, pkt 2.5).
 - Zapis Seeger-Fabian: wygrana +wartość +50; przegrana −2 × wartość −50 i +40 dla każdego obrońcy (stół 3-os.; 30 przy stole 4-os.) — potwierdzone.
 
-## 9. Decyzje podjęte w trakcie realizacji (Plany 1–4)
+## 9. Decyzje podjęte w trakcie realizacji (Plany 1–5)
 
 - **Ćwiczenie `bid` zastąpione** quizami z polem `verify` (odpowiedź liczona silnikiem: `points`, `trickWinner`, `matadors`, `maxBid`, `nextBid`, `settle`) oraz ćwiczeniem `discard` (wybór 2 kart do skata). Wybór gry to zwykły quiz (lekcja 19; dalej w lekcjach 20, 24, 25).
 - **Przyciemnianie niedozwolonych kart** dotyczy mini-rozdań; w ćwiczeniach „zagraj kartę” jest wyłączone, bo rozpoznanie dozwolonej karty jest ich celem.
@@ -276,3 +276,5 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 - **Podział dalszych prac:** Plan 4 — moduł 5; Plan 5 — moduł 6, kontra/re, punkty kontrolne; Plan 6 — dodatek, grafiki z Wikimedia, E2E, wdrożenie.
 - **Rozdania w lekcjach taktycznych** wyszukiwane skryptem na silniku i botach (pouczające: dobra decyzja wygrywa, typowy błąd przegrywa); walidator treści ponownie symuluje wzorcowe rozegranie.
 - **Przegląd tekstów:** `npm run texts [-- prefiks]` drukuje teksty lekcji w 4 kontekstach (talia × rejestr).
+- **Mini-rozdania:** pytania w trakcie gry (`checkpoints` — liczba oczek strony gracza, liczba wyszłych atu), gra otwarta (`ouvert`), typowe błędy (`mistakes`) sprawdzane w teście treści.
+- **Zasada wyjść obrońcy** zweryfikowana w źródłach: krótka droga (rozgrywający gra zaraz po wychodzącym) — długi kolor; długa droga — krótki kolor.

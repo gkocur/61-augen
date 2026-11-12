@@ -82,7 +82,7 @@ export const lesson: Lesson = {
         { id: 'c', text: 'Nigdy' },
       ],
       correct: 'a',
-      explain: 'Oczka dokłada się tylko do [[lewa:D]], którą partner na pewno weźmie — inaczej mogą trafić do [[rozgrywajacy:D]].',
+      explain: 'Oczka dokłada się tylko do [[lewa:D]], {którą|który} partner na pewno weźmie — inaczej mogą trafić do [[rozgrywajacy:D]].',
     },
   ],
 };

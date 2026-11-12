@@ -26,6 +26,9 @@ import { lesson as l24 } from './lessons/m5-l24-grand';
 import { lesson as l25 } from './lessons/m5-l25-null-reka';
 import { lesson as l26 } from './lessons/m6-l26-wyjscie';
 import { lesson as l27 } from './lessons/m6-l27-dokladanie';
+import { lesson as l28 } from './lessons/m6-l28-liczenie';
+import { lesson as l29 } from './lessons/m6-l29-null-obrona';
+import { lesson as l30 } from './lessons/m6-l30-kontra';
 import type { Course } from './types';
 
 export const COURSE: Course = {
@@ -35,6 +38,6 @@ export const COURSE: Course = {
     { id: 'm3', title: 'Wartość gry', lessons: [l12, l13, l14, l15, l16] },
     { id: 'm4', title: 'Licytacja', lessons: [l17, l18, l19] },
     { id: 'm5', title: 'Taktyka rozgrywającego', lessons: [l20, l21, l22, l23, l24, l25] },
-    { id: 'm6', title: 'Taktyka obrońców', lessons: [l26, l27] },
+    { id: 'm6', title: 'Taktyka obrońców', lessons: [l26, l27, l28, l29, l30] },
   ],
 };
