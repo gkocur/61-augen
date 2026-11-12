@@ -103,6 +103,31 @@ export const TERMS: Record<string, Term> = {
     },
     french: same({ M: 'as', g: 'm', D: 'asa', B: 'asa', N: 'asem', C: 'asowi', Ms: 'asie', Mlm: 'asy', Dlm: 'asów', Blm: 'asy', Nlm: 'asami' }),
   }),
+  // Wycena i licytacja (Plan 3). ⚠ Wersje potoczne do weryfikacji przez autora.
+  krawiec: plain({
+    official: { M: 'krawiec', g: 'm', D: 'krawca', B: 'krawca', N: 'krawcem', Ms: 'krawcu' },
+    colloquial: { M: 'szneider', g: 'm', D: 'szneidra', B: 'szneidra', N: 'szneidrem', Ms: 'szneidrze' },
+  }),
+  czarny: plain({
+    official: { M: 'czarny', g: 'm', D: 'czarnego', B: 'czarnego', N: 'czarnym', Ms: 'czarnym' },
+    colloquial: { M: 'szwarc', g: 'm', D: 'szwarca', B: 'szwarca', N: 'szwarcem', Ms: 'szwarcu' },
+  }),
+  reka: plain({
+    official: { M: 'gra z ręki', g: 'f', D: 'gry z ręki', B: 'grę z ręki', N: 'grą z ręki', Ms: 'grze z ręki' },
+    colloquial: { M: 'hand', g: 'm', D: 'handa', B: 'handa', N: 'handem', Ms: 'handzie' },
+  }),
+  otwarta: plain({
+    official: { M: 'gra otwarta', g: 'f', D: 'gry otwartej', B: 'grę otwartą', N: 'grą otwartą', Ms: 'grze otwartej' },
+    colloquial: { M: 'uwert', g: 'm', D: 'uwerta', B: 'uwerta', N: 'uwertem', Ms: 'uwercie' },
+  }),
+  matador: plain(same({ M: 'matador', g: 'm', D: 'matadora', Mlm: 'matadory', Dlm: 'matadorów', Nlm: 'matadorami' })),
+  mit: plain({ official: { M: 'z' }, colloquial: { M: 'mit' } }),
+  ohne: plain({ official: { M: 'bez' }, colloquial: { M: 'ohne' } }),
+  przelicytowanie: plain({
+    official: { M: 'przelicytowanie', g: 'n', D: 'przelicytowania', N: 'przelicytowaniem', Ms: 'przelicytowaniu' },
+    colloquial: { M: 'przereizowanie', g: 'n', D: 'przereizowania', N: 'przereizowaniem', Ms: 'przereizowaniu' },
+  }),
+  pas: plain(same({ M: 'pas', g: 'm' })),
 };
 
 export function formsFor(term: Term, ctx: TextContext): Forms {
