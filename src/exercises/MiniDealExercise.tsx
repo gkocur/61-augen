@@ -42,6 +42,7 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
   const [checks, setChecks] = useState<CheckResult[]>([]);
   const bots = useMemo(() => miniDealBots(exercise), [exercise]);
   const reported = useRef(false);
+  const firstOption = useRef<HTMLButtonElement>(null);
 
   const over = isDealOver(deal);
   const tricksDone = deal.tricks.length;
@@ -73,6 +74,11 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
       }), delayMs);
     return () => clearTimeout(id);
   }, [deal, over, showLast, pending, current, you, bots, delayMs]);
+
+  const pendingTrick = pending?.afterTrick;
+  useEffect(() => {
+    if (pendingTrick !== undefined) firstOption.current?.focus();
+  }, [pendingTrick]);
 
   const checksOk = checks.every((r) => r.chosen === r.correctValue);
   const reached = over && isGoalReached(exercise, deal) && checksOk;
@@ -148,7 +154,7 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
             seat={seat}
             cardCount={deal.hands[seat].length}
             isDeclarer={seat === declarer}
-            active={!over && current === seat}
+            active={!over && !pending && current === seat}
           />
         ))}
       </div>
@@ -166,17 +172,19 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
         <div className="checkpoint" role="group" aria-label="Pytanie w trakcie gry">
           <p className="checkpoint__prompt">{t(CHECKPOINT_PROMPT[pending.ask])}</p>
           <div className="checkpoint__options">
-            {checkpointOptions(checkpointAnswer(exercise, deal, pending.ask), pending.ask, exercise.game, pending.afterTrick).map((value) => (
-              <button key={value} type="button" className="option" onClick={() => answerCheckpoint(pending, value)}>
+            {checkpointOptions(checkpointAnswer(exercise, deal, pending.ask), pending.ask, exercise.game, pending.afterTrick).map((value, i) => (
+              <button key={value} ref={i === 0 ? firstOption : undefined} type="button" className="option" onClick={() => answerCheckpoint(pending, value)}>
                 {value}
               </button>
             ))}
           </div>
         </div>
       )}
-      {!pending && lastCheck && (
+      {exercise.checkpoints && exercise.checkpoints.length > 0 && (
         <p className="checkpoint__result" role="status">
-          {lastCheck.chosen === lastCheck.correctValue ? 'Dobra odpowiedź.' : 'Zła odpowiedź.'} Poprawnie: {lastCheck.correctValue}.
+          {!pending && lastCheck
+            ? `${lastCheck.chosen === lastCheck.correctValue ? 'Dobra odpowiedź.' : 'Zła odpowiedź.'} Poprawnie: ${lastCheck.correctValue}.`
+            : ''}
         </p>
       )}
       <p className="mini-deal__score">

@@ -1,5 +1,5 @@
 // src/exercises/MiniDealExercise.test.tsx
-import { act, fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { checkpointOptions } from '../content/miniDeal';
@@ -148,6 +148,64 @@ describe('MiniDealExercise', () => {
       expect(onAnswered).not.toHaveBeenCalled();
       advance(60);
       expect(screen.getByText('Dobrze!')).toBeInTheDocument();
+      expect(onAnswered).toHaveBeenCalledTimes(1);
+      expect(onAnswered).toHaveBeenCalledWith(true);
+    });
+  });
+  describe('pauza na pytanie', () => {
+    afterEach(() => vi.useRealTimers());
+
+    // Miejsce 1 (bot) bierze pierwszą lewę i musi wyjść do drugiej.
+    const botLeads: MiniDealExerciseData = {
+      ...declarerDeal,
+      hands: [['c-7', 's-A'], ['c-A', 's-7'], ['c-8', 's-8']],
+      solution: ['c-7', 's-A'],
+      goal: { kind: 'minPoints', points: 0 },
+      checkpoints: [{ afterTrick: 1, ask: 'yourPoints' }],
+    };
+    const tick = (ms: number) =>
+      act(() => {
+        vi.advanceTimersByTime(ms);
+      });
+    const handButtons = () => within(screen.getByRole('list', { name: 'Twoje karty' })).getAllByRole('button');
+    const clickCard = (prefix: string) => {
+      const b = handButtons().find((x) => x.getAttribute('aria-label')!.startsWith(prefix))!;
+      fireEvent.click(b);
+      fireEvent.click(b);
+    };
+    const questionGroup = () => screen.queryByRole('group', { name: 'Pytanie w trakcie gry' });
+
+    it('pytanie po pokazaniu lewy, bot czeka na odpowiedź, wynik raportowany raz', () => {
+      vi.useFakeTimers();
+      const onAnswered = vi.fn();
+      renderWithProviders(<MiniDealExercise exercise={botLeads} onAnswered={onAnswered} delayMs={100} />);
+      clickCard('siódemka');
+      tick(100);
+      tick(100);
+      expect(questionGroup()).toBeNull();
+      tick(149);
+      expect(questionGroup()).toBeNull();
+      tick(1);
+      const group = screen.getByRole('group', { name: 'Pytanie w trakcie gry' });
+      expect(screen.getByText('Pauza — odpowiedz na pytanie.')).toBeInTheDocument();
+      tick(10_000);
+      expect(screen.getByText('Stół jest pusty.')).toBeInTheDocument();
+      handButtons().forEach((b) => expect(b).toBeDisabled());
+      const opts = within(group).getAllByRole('button');
+      expect(opts[0]).toHaveFocus();
+      fireEvent.click(opts[0]);
+      fireEvent.click(opts[1]);
+      expect(screen.getByText('Dobra odpowiedź. Poprawnie: 0.')).toBeInTheDocument();
+      expect(questionGroup()).toBeNull();
+      tick(100);
+      expect(screen.queryByText('Stół jest pusty.')).toBeNull();
+      tick(100);
+      expect(screen.getByText('Twój ruch.')).toBeInTheDocument();
+      clickCard('as');
+      tick(100);
+      tick(150);
+      expect(screen.getByText('Pytania w trakcie gry: 1 z 1 poprawnie.')).toBeInTheDocument();
+      tick(10_000);
       expect(onAnswered).toHaveBeenCalledTimes(1);
       expect(onAnswered).toHaveBeenCalledWith(true);
     });

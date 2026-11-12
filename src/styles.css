@@ -188,6 +188,7 @@ button.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2p
 .checkpoint__options { display: flex; gap: 8px; justify-content: center; }
 .checkpoint__options .option { min-width: 64px; text-align: center; }
 .checkpoint__result { text-align: center; margin: 8px 0 0; font-weight: 600; }
+.checkpoint__result:empty { margin: 0; }
 .mini-deal__open { margin: 4px 0 8px; }
 .mini-deal__open-label { text-align: center; color: var(--muted); font-size: 0.85rem; margin: 0; }
 
