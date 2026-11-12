@@ -42,7 +42,7 @@ export const lesson: Lesson = {
       trick: ['h-K'],
       hand: ['h-7', 'h-A', 's-10', 'c-K', 'd-8'],
       mode: 'legal',
-      explain: 'W kolorze [[suit:h]] masz [[card:h-7]] i [[card:h-A]] — musisz dołożyć jedną z nich.',
+      explain: 'W kolorze [[suit:h]] masz [[card:h-7:B]] i [[card:h-A:B]] — musisz dołożyć jedną z nich.',
     },
     {
       type: 'playCard',
