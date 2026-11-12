@@ -7,19 +7,19 @@ const HEARTS: GameType = { kind: 'suit', trump: 'h' };
 export const lesson: Lesson = {
   id: 'm5-l22-atu',
   title: 'Ciągnięcie [[atu:Dlm]]',
-  summary: 'Zabierz [[obronca:Dlm]] możliwość przebijania.',
+  summary: 'Zabierz [[obronca:Clm]] możliwość przebijania.',
   steps: [
     {
       title: 'Dlaczego wyciągać [[atu:Blm]]',
       text:
         'Dopóki [[obronca:Mlm]] mają [[atu:Blm]], mogą przebić twoje [[as:Blm]] i dziesiątki z boku. ' +
-        'Dlatego mając mocne [[atu:Blm]], zaczyna się zwykle od ich wyciągania: zagrywasz [[atu:Blm]], a [[obronca:Mlm]] muszą je dokładać.',
+        'Dlatego mając mocne [[atu:Blm]], zwykle zaczynasz od ich wyciągania: zagrywasz [[atu:Blm]], a [[obronca:Mlm]] muszą je dokładać.',
     },
     {
       title: 'Licz [[atu:Blm]]',
       text:
         'W [[graKolorowa:Ms]] jest 11 [[atu:Dlm]]. Odejmij swoje (i te ze [[skat:D]]) — resztę mają [[obronca:Mlm]]. ' +
-        'Licząc, ile już wyszło, zawsze wiadomo, kiedy [[obronca:Mlm]] są bez [[atu:Dlm]].',
+        'Licząc, ile już wyszło, zawsze wiesz, kiedy [[obronca:Mlm]] są bez [[atu:Dlm]].',
     },
     {
       title: 'Kiedy nie wyciągać',
@@ -42,11 +42,11 @@ export const lesson: Lesson = {
         'c-A': 'Zanim zagrasz [[as:B]] z boku, wyciągnij [[atu:Blm]] — inaczej [[obronca]] może go przebić.',
         's-A': 'Zanim zagrasz [[as:B]] z boku, wyciągnij [[atu:Blm]] — inaczej [[obronca]] może go przebić.',
         'h-A': 'Zacznij od najwyższych [[atu:Dlm]] — [[card:h-A:B]] mogą przebić [[walet:Mlm]] [[obronca:Dlm]].',
-        'h-10': 'Zacznij od najwyższych [[atu:Dlm]] — dziesiątkę mogą przebić [[walet:Mlm]] albo [[as]] [[obronca:Dlm]].',
+        'h-10': 'Zacznij od najwyższych [[atu:Dlm]] — dziesiątkę mogą przebić [[walet:Mlm]] [[obronca:Dlm]].',
         'h-K': 'Zacznij od najwyższych [[atu:Dlm]] — [[krol:B]] łatwo przebić.',
-        'd-9': 'Oddajesz {lewę|sztych} bez potrzeby.',
+        'd-9': 'Oddajesz [[lewa:B]] bez potrzeby.',
       },
-      explain: '[[Walet:Mlm]] to twoje najwyższe [[atu:Mlm]]: wezmą {lewy|sztychy} i zabiorą [[atu:Blm]] [[obronca:Dlm]].',
+      explain: '[[Walet:Mlm]] to twoje najwyższe [[atu:Mlm]]: wezmą [[lewa:Blm]] i zabiorą [[atu:Blm]] [[obronca:Dlm]].',
     },
     {
       type: 'quiz',
@@ -76,7 +76,7 @@ export const lesson: Lesson = {
       solution: ['c-J', 's-J', 'h-A', 'c-9', 'h-Q', 'h-10', 's-A', 'h-K', 'd-A', 'd-9'],
       goal: { kind: 'win' },
       explain:
-        'Wyciągając najpierw [[atu:Blm]] ([[card:c-J]], [[card:s-J]], [[card:h-A]]…), zabierasz [[obronca:Dlm]] możliwość przebijania. ' +
+        'Wyciągając najpierw [[atu:Blm]] ([[card:c-J]], [[card:s-J]], [[card:h-A]]…), zabierasz [[obronca:Clm]] możliwość przebijania. ' +
         'Gdy zaczyna się od [[as:Dlm]], [[zadek]] przebija je [[atu:Nlm]] — i gra przepada.',
     },
   ],

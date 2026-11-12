@@ -19,7 +19,7 @@ export const lesson: Lesson = {
     {
       title: 'Karty z boku',
       text:
-        '**[[As:Mlm]] z boku** biorą {lewy|sztychy} i oczka, a **[[as]] z dziesiątką** w jednym kolorze to bardzo mocny kolor.\n\n' +
+        '**[[As:Mlm]] z boku** biorą [[lewa:Blm]] i oczka, a **[[as]] z dziesiątką** w jednym kolorze to bardzo mocne połączenie.\n\n' +
         'Niskie karty w różnych kolorach to raczej straty — im mniej takich kart, tym lepiej.',
     },
     {

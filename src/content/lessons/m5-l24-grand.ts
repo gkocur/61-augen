@@ -51,7 +51,7 @@ export const lesson: Lesson = {
       options: GAME_OPTIONS('h'),
       correct: 'b',
       explain:
-        'Z jednym [[walet:N]] [[grand]] jest bardzo ryzykowny. Z [[walet:N]] i pięcioma kartami w kolorze [[suit:h]] masz 6 [[atu:Dlm]] — to {solidna gra kolorowa|solidny farbszpil}.',
+        'Z jednym [[walet:N]] [[grand]] jest bardzo ryzykowny. Z [[walet:N]] i pięcioma kartami w kolorze [[suit:h]] masz 6 [[atu:Dlm]] — to {dobra gra kolorowa|dobry farbszpil}.',
     },
     {
       type: 'quiz',

@@ -14,7 +14,7 @@ export const lesson: Lesson = {
     {
       title: 'Groźne karty',
       text:
-        '**Wysoka karta bez niskich** w tym samym kolorze — np. samotny [[as]] albo [[krol]] — to prawie pewna przegrana: gdy [[obronca]] wyjdzie w ten kolor, trzeba ją dołożyć i wziąć {lewę|sztych}.\n\n' +
+        '**Wysoka karta bez niskich** w tym samym kolorze — np. samotny [[as]] albo [[krol]] — to prawie pewna przegrana: gdy [[obronca]] wyjdzie w ten kolor, trzeba ją dołożyć i wziąć [[lewa:B]].\n\n' +
         'Groźny jest też kolor z luką, np. 7 i [[as]]: za drugim razem trzeba dołożyć [[as:B]].',
     },
     {
@@ -34,7 +34,7 @@ export const lesson: Lesson = {
         { id: 'b', text: 'Nie, za dużo wysokich kart' },
       ],
       correct: 'a',
-      explain: 'W każdym kolorze masz siódemkę i niskie karty — trudno zmusić cię do wzięcia {lewy|sztychu}.',
+      explain: 'W każdym kolorze masz siódemkę i niskie karty — trudno zmusić cię do wzięcia [[lewa:D]].',
     },
     {
       type: 'quiz',
@@ -48,7 +48,7 @@ export const lesson: Lesson = {
       ],
       correct: 'a',
       explain:
-        '[[Card:d-A]] to jedyna karta w kolorze [[suit:d]] — gdy [[obronca]] w nim wyjdzie, trzeba ją dołożyć i wziąć {lewę|sztych}.',
+        '[[Card:d-A]] to jedyna karta w kolorze [[suit:d]] — gdy [[obronca]] w nim wyjdzie, trzeba ją dołożyć i wziąć [[lewa:B]].',
     },
     {
       type: 'quiz',
@@ -70,12 +70,12 @@ export const lesson: Lesson = {
       prompt:
         'W kolorze [[suit:h]] masz tylko [[card:h-7:B]] i [[card:h-A:B]]. Co się stanie, gdy [[obronca:Mlm]] dwa razy zagrają ten kolor?',
       options: [
-        { id: 'a', text: 'Za drugim razem trzeba dołożyć [[card:h-A:B]] i wziąć {lewę|sztych}' },
+        { id: 'a', text: 'Za drugim razem trzeba dołożyć [[card:h-A:B]] i wziąć [[lewa:B]]' },
         { id: 'b', text: 'Nic — zawsze można zejść niżej' },
         { id: 'c', text: 'Można zagrać inny kolor' },
       ],
       correct: 'a',
-      explain: 'Po siódemce zostaje tylko [[as]] — a z koloru wyjścia trzeba dołożyć.',
+      explain: 'Po siódemce zostaje tylko [[as]] — a do koloru wyjścia trzeba dołożyć.',
     },
   ],
 };

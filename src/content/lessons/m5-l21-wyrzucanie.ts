@@ -47,9 +47,9 @@ export const lesson: Lesson = {
       id: 'm5-l21-k2',
       prompt: `[[Grand]]. ${ASK}`,
       game: GRAND,
-      cards: ['c-J', 's-J', 'h-J', 'c-A', 'c-10', 'c-K', 'c-9', 's-A', 's-10', 'h-10', 'h-8', 'd-9'],
+      cards: ['c-J', 's-J', 'h-J', 'c-A', 'c-10', 'c-K', 'd-8', 's-A', 's-10', 'h-10', 'h-8', 'd-9'],
       best: [['h-10', 'h-8']],
-      acceptable: [['h-10', 'd-9']],
+      acceptable: [['h-10', 'd-9'], ['h-10', 'd-8']],
       wrongExplain: '[[Card:h-10]] bez [[as:D]] to łatwy łup dla [[obronca:Dlm]].',
       explain:
         'W kolorze [[suit:h]] masz tylko [[card:h-10:B]] i [[card:h-8:B]], bez [[as:D]]. Wyrzucając obie karty, chowasz 10 [[oczko:Dlm]] i robisz pusty kolor.',
@@ -59,9 +59,9 @@ export const lesson: Lesson = {
       id: 'm5-l21-k3',
       prompt: `[[GraKolorowa]], [[atu]]: [[suit:h]]. ${ASK}`,
       game: HEARTS,
-      cards: ['c-J', 's-J', 'h-A', 'h-10', 'h-K', 'h-9', 'h-7', 'c-A', 'c-10', 'd-K', 'd-9', 's-8'],
+      cards: ['c-J', 's-J', 'h-A', 'h-10', 'h-K', 'h-9', 'h-7', 'c-A', 'c-10', 'd-K', 'd-9', 'c-8'],
       best: [['d-K', 'd-9']],
-      acceptable: [['d-K', 's-8']],
+      acceptable: [['d-K', 'c-8']],
       wrongExplain: 'Nie rozbijaj pary [[card:c-A]] + [[card:c-10]] — razem wezmą {dwie lewy|dwa sztychy}.',
       explain:
         'Kolor [[suit:c]] z [[as:N]] i dziesiątką jest mocny — zostaw go. Wyrzucając obie karty w kolorze [[suit:d]], chowasz [[krol:B]] i robisz pusty kolor.',
@@ -76,7 +76,7 @@ export const lesson: Lesson = {
         { id: 'c', text: 'Bo tak każą przepisy' },
       ],
       correct: 'a',
-      explain: 'Pusty kolor to dodatkowe {lewy|sztychy}: gdy [[obronca:Mlm]] w nim wyjdą, przebijasz [[atu:N]].',
+      explain: 'Pusty kolor to dodatkowe [[lewa:Mlm]]: gdy [[obronca:Mlm]] w nim wyjdą, przebijasz [[atu:N]].',
     },
   ],
 };

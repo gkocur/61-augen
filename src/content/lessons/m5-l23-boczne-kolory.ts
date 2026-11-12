@@ -12,7 +12,7 @@ export const lesson: Lesson = {
     {
       title: '[[As]] i dziesiątka',
       text:
-        'Gdy masz w kolorze [[as:B]] i 10, zagraj najpierw [[as:B]] — weźmie {lewę|sztych} na pewno. Dziesiątka staje się wtedy najwyższą kartą koloru.',
+        'Gdy masz w kolorze [[as:B]] i 10, a [[obronca:Mlm]] nie mogą przebić, obie karty są pewne. Zwykle gra się najpierw [[as:B]], potem dziesiątkę.',
     },
     {
       title: 'Dziesiątka bez [[as:D]]',
@@ -23,14 +23,14 @@ export const lesson: Lesson = {
     {
       title: 'Co oddać, gdy nie masz koloru',
       text:
-        'Gdy nie możesz dołożyć do koloru ani przebić, a {lewę|sztych} i tak bierze [[obronca]], oddaj kartę **bez wartości** — siódemkę, ósemkę albo dziewiątkę. Każde oddane oczko liczy się dla [[obronca:Dlm]].',
+        'Gdy nie możesz dołożyć do koloru ani przebić, a [[lewa:B]] i tak bierze [[obronca]], oddaj kartę **bez wartości** — siódemkę, ósemkę albo dziewiątkę. Każde oddane oczko liczy się dla [[obronca:Dlm]].',
     },
   ],
   exercises: [
     {
       type: 'playCard',
       id: 'm5-l23-p1',
-      prompt: '[[Obronca:Mlm]] nie mają już [[atu:Dlm]]. Wychodzisz. Zagraj kartę, która na pewno weźmie {lewę|sztych}.',
+      prompt: '[[Obronca:Mlm]] nie mają już [[atu:Dlm]]. [[Card:c-A]] jest jeszcze u [[obronca:Dlm]]. Wychodzisz. Zagraj kartę, która na pewno weźmie [[lewa:B]].',
       game: HEARTS,
       leader: 0,
       trick: [],
@@ -39,10 +39,10 @@ export const lesson: Lesson = {
       best: ['s-A'],
       wrongExplain: {
         'c-10': '[[Card:c-A]] jest jeszcze u [[obronca:Dlm]] — zabierze twoją dziesiątkę.',
-        'c-8': 'Niska karta nie weźmie {lewy|sztychu}.',
+        'c-8': 'Niska karta nie weźmie [[lewa:D]].',
         's-K': '[[Card:s-K]] przegra z [[card:s-10:N]], jeśli ma ją [[obronca]].',
-        'd-9': 'Niska karta nie weźmie {lewy|sztychu}.',
-        'd-8': 'Niska karta nie weźmie {lewy|sztychu}.',
+        'd-9': 'Niska karta nie weźmie [[lewa:D]].',
+        'd-8': 'Niska karta nie weźmie [[lewa:D]].',
       },
       explain: '[[Card:s-A]] to najwyższa karta koloru — przy braku [[atu:Dlm]] u [[obronca:Dlm]] bierze na pewno.',
     },
@@ -50,18 +50,17 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm5-l23-p2',
       prompt:
-        '[[Atu:Mlm]] już wyszły. Na stole leży [[card:c-K]], a po tobie zagra jeszcze [[obronca]]. Weź {tę lewę|ten sztych} bez ryzyka.',
+        '[[Atu:Mlm]] już wyszły. Na stole leży [[card:c-K]], a po tobie zagra jeszcze [[obronca]]. Weź {tę lewę|tego sztycha} bez ryzyka.',
       game: HEARTS,
       leader: 2,
       trick: ['c-K'],
       hand: ['c-A', 'c-10', 'c-7', 's-9', 'd-A'],
       mode: 'best',
-      best: ['c-A'],
+      best: ['c-A', 'c-10'],
       wrongExplain: {
-        'c-10': 'Dziesiątka bije [[krol:B]], ale ostatni gracz może mieć [[card:c-A:B]] — wtedy dziesiątka przepada.',
-        'c-7': 'Oddajesz {lewę|sztych} z [[krol:N]].',
+        'c-7': 'Oddajesz [[lewa:B]] z [[krol:N]].',
       },
-      explain: '[[Card:c-A]] bierze na pewno i zgarnia [[krol:B]]: 15 [[oczko:Dlm]].',
+      explain: 'Masz [[card:c-A:B]] i dziesiątkę — skoro [[atu:Mlm]] wyszły, obie karty wezmą [[lewa:B]] na pewno. Zwykle gra się najpierw [[as:B]].',
     },
     {
       type: 'playCard',
@@ -73,12 +72,13 @@ export const lesson: Lesson = {
       trick: ['d-A', 'd-10'],
       hand: ['c-10', 'c-7', 's-K', 's-8'],
       mode: 'best',
-      best: ['c-7', 's-8'],
+      best: ['s-8'],
       wrongExplain: {
+        'c-7': '[[Card:c-7]] chroni twoją dziesiątkę w kolorze [[suit:c]] — lepiej oddać [[card:s-8:B]] i zostawić samotnego [[krol:B]] (4 [[oczko:Mlm]]) zamiast samotnej dziesiątki.',
         'c-10': 'Oddajesz 10 [[oczko:Dlm]] — lepiej kartę bez wartości.',
         's-K': 'Oddajesz 4 [[oczko:Mlm]] — lepiej kartę bez wartości.',
       },
-      explain: '{Lewę|Sztycha} i tak bierze [[obronca]] — oddaj kartę, która nie ma żadnych [[oczko:Dlm]].',
+      explain: '[[Lewa:B]] i tak bierze [[obronca]] — oddaj kartę bez [[oczko:Dlm]]. Spośród dwóch takich kart wybierz tę, która nie zostawia samotnej dziesiątki.',
     },
     {
       type: 'quiz',
