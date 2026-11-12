@@ -273,3 +273,6 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 - **Kontra/re** — w Planie 4 (lekcja 30), razem z ewentualną zmianą zapisu wyniku.
 - **Zależności modułów:** `engine` ← `bots` ← `content` (walidacja treści używa silnika i botów) ← `exercises`/`ui`; `glossary` zależy tylko od `engine`.
 - **Null zgłoszony po stawce wyższej niż jego wartość** jest odrzucany przez silnik (ISkO 3.6 liczy to jako przegraną grę kolorową/granda — nie modelujemy tego).
+- **Podział dalszych prac:** Plan 4 — moduł 5; Plan 5 — moduł 6, kontra/re, punkty kontrolne; Plan 6 — dodatek, grafiki z Wikimedia, E2E, wdrożenie.
+- **Rozdania w lekcjach taktycznych** wyszukiwane skryptem na silniku i botach (pouczające: dobra decyzja wygrywa, typowy błąd przegrywa); walidator treści ponownie symuluje wzorcowe rozegranie.
+- **Przegląd tekstów:** `npm run texts [-- prefiks]` drukuje teksty lekcji w 4 kontekstach (talia × rejestr).
