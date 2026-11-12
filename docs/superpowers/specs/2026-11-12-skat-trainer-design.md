@@ -223,7 +223,7 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | ♠ (Grün / Pik) | wino / zielone ⚠ | grin | pik | grin |
 | ♥ (Rot / Herz) | czerwień | herc | kier | herc |
 | ♦ (Schellen / Karo) | dzwonek | szel | karo | szel |
-| Unter / Bube | niżnik | uner | walet | jopek / uner ⚠ |
+| Unter / Bube | niżnik | unter | walet | jopek / unter ⚠ |
 | Ober / Dame | wyżnik | ober | dama | dama |
 | Daus / As | tuz / as ⚠ | daus ⚠ | as | as |
 | König | król | król | król | król |
@@ -244,14 +244,14 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | oczka | augi ⚠ |
 | krawiec | szneider |
 | czarny | szwarc |
-| gra otwarta | uwert ⚠ |
+| gra otwarta | overt |
 | z / bez (matadorów) | mit / ohne ⚠ |
 | wyrzucić do skata | zdrukować ⚠ |
 | dokładanie oczek partnerowi | szmirowanie |
 | przelicytowanie | przerajcowanie |
 | obnażony (pusty) kolor | blanka ⚠ |
 | grand | grand |
-| null | null / nul ⚠ |
+| null | null |
 | skat | skat |
 | kontra / re | kontra / re |
 | ramsz | ramsz |

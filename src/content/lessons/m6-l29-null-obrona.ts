@@ -17,9 +17,9 @@ export const lesson: Lesson = {
         'Groźny dla [[rozgrywajacy:D]] jest kolor z luką — np. 7, [[dama]], [[as]]. Gdy ten kolor zostanie zagrany dwa razy, za pierwszym razem zejdzie siódemką, ale za drugim musi dołożyć wysoką kartę.',
     },
     {
-      title: '{Null otwarty|Nul uwert}',
+      title: '{Null otwarty|Null overt}',
       text:
-        'W {nullu otwartym|nulu uwert} karty [[rozgrywajacy:D]] leżą odkryte — widać, gdzie jest luka. Zagraj w ten kolor kartami, które są wyższe od jego niskiej karty, ale niższe od wysokich.',
+        'W {nullu otwartym|nullu overt} karty [[rozgrywajacy:D]] leżą odkryte — widać, gdzie jest luka. Zagraj w ten kolor kartami, które są wyższe od jego niskiej karty, ale niższe od wysokich.',
     },
   ],
   exercises: [
@@ -51,7 +51,7 @@ export const lesson: Lesson = {
       type: 'miniDeal',
       id: 'm6-l29-d1',
       prompt:
-        '{Null otwarty|Nul uwert}: karty [[rozgrywajacy:D]] widzisz. Wychodzisz — zmuś go do wzięcia [[lewa:D]].',
+        '{Null otwarty|Null overt}: karty [[rozgrywajacy:D]] widzisz. Wychodzisz — zmuś go do wzięcia [[lewa:D]].',
       game: { kind: 'null' },
       declarer: 1,
       you: 0,

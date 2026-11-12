@@ -68,10 +68,7 @@ export const TERMS: Record<string, Term> = {
     official: { M: 'grand', g: 'm', D: 'granda', B: 'grand', N: 'grandem', Ms: 'grandzie' },
     colloquial: { M: 'grand', g: 'm', D: 'granda', B: 'granda', N: 'grandem', Ms: 'grandzie' },
   }),
-  null: plain({
-    official: { M: 'null', g: 'm', D: 'nulla', B: 'null', N: 'nullem', Ms: 'nullu', Mlm: 'nulle' },
-    colloquial: { M: 'nul', g: 'm', D: 'nula', B: 'nula', N: 'nulem', Ms: 'nulu', Mlm: 'nule' },
-  }),
+  null: plain(same({ M: 'null', g: 'm', D: 'nulla', B: 'null', N: 'nullem', Ms: 'nullu', Mlm: 'nulle' })),
 
   // Rangi kart (używane też do nazw kart — muszą mieć rodzaj `g`).
   siodemka: plain(same({ M: 'siódemka', g: 'f', D: 'siódemki', C: 'siódemce', B: 'siódemkę', N: 'siódemką', Ms: 'siódemce', Mlm: 'siódemki', Dlm: 'siódemek' })),
@@ -81,7 +78,7 @@ export const TERMS: Record<string, Term> = {
   walet: byDeck({
     altenburg: {
       official: { M: 'niżnik', g: 'm', D: 'niżnika', B: 'niżnika', N: 'niżnikiem', C: 'niżnikowi', Ms: 'niżniku', Mlm: 'niżniki', Dlm: 'niżników', Blm: 'niżniki', Nlm: 'niżnikami' },
-      colloquial: { M: 'uner', g: 'm', D: 'unera', B: 'unera', N: 'unerem', C: 'unerowi', Ms: 'unerze', Mlm: 'unery', Dlm: 'unerów', Blm: 'unery', Nlm: 'unerami' },
+      colloquial: { M: 'unter', g: 'm', D: 'untera', B: 'untera', N: 'unterem', C: 'unterowi', Ms: 'unterze', Mlm: 'untery', Dlm: 'unterów', Blm: 'untery', Nlm: 'unterami' },
     },
     french: {
       official: { M: 'walet', g: 'm', D: 'waleta', B: 'waleta', N: 'waletem', C: 'waletowi', Ms: 'walecie', Mlm: 'walety', Dlm: 'waletów', Blm: 'walety', Nlm: 'waletami' },
@@ -118,7 +115,7 @@ export const TERMS: Record<string, Term> = {
   }),
   otwarta: plain({
     official: { M: 'gra otwarta', g: 'f', D: 'gry otwartej', B: 'grę otwartą', N: 'grą otwartą', Ms: 'grze otwartej' },
-    colloquial: { M: 'uwert', g: 'm', D: 'uwerta', B: 'uwerta', N: 'uwertem', Ms: 'uwercie' },
+    colloquial: { M: 'overt', g: 'm', D: 'overta', B: 'overta', N: 'overtem', Ms: 'overcie' },
   }),
   matador: plain(same({ M: 'matador', g: 'm', D: 'matadora', Mlm: 'matadory', Dlm: 'matadorów', Nlm: 'matadorami' })),
   mit: plain({ official: { M: 'z' }, colloquial: { M: 'mit' } }),

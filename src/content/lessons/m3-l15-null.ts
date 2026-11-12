@@ -14,10 +14,10 @@ export const lesson: Lesson = {
       title: 'Stałe wartości',
       text:
         '[[Null]] nie ma [[matador:Dlm]] ani mnożnika — ma stałą wartość:\n\n' +
-        '**[[Null]]** 23 · **{null z ręki|nul hand}** 35 · **{null otwarty|nul uwert}** 46 · **{null otwarty z ręki|nul uwert hand}** 59',
+        '**[[Null]]** 23 · **{null z ręki|null hand}** 35 · **{null otwarty|null overt}** 46 · **{null otwarty z ręki|null overt hand}** 59',
     },
     {
-      title: '{Null otwarty|Nul uwert}',
+      title: '{Null otwarty|Null overt}',
       text:
         '[[Rozgrywajacy]] kładzie wszystkie swoje karty odkryte na stół, zanim padnie pierwsza karta. ' +
         '[[Obronca:Mlm]] widzą jego rękę — dlatego ta gra jest warta więcej.',
@@ -45,7 +45,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm3-l15-q2',
-      prompt: 'Ile jest wart {null z ręki|nul hand}?',
+      prompt: 'Ile jest wart {null z ręki|null hand}?',
       options: [
         { id: 'a', text: '35' },
         { id: 'b', text: '46' },
@@ -53,12 +53,12 @@ export const lesson: Lesson = {
       ],
       correct: 'a',
       verify: { kind: 'settle', declaration: nullDecl(true), outcome: WON, result: 'value' },
-      explain: '{Null z ręki|Nul hand} jest wart 35.',
+      explain: '{Null z ręki|Null hand} jest wart 35.',
     },
     {
       type: 'quiz',
       id: 'm3-l15-q3',
-      prompt: 'Ile jest wart {null otwarty|nul uwert}?',
+      prompt: 'Ile jest wart {null otwarty|null overt}?',
       options: [
         { id: 'a', text: '35' },
         { id: 'b', text: '46' },
@@ -66,12 +66,12 @@ export const lesson: Lesson = {
       ],
       correct: 'b',
       verify: { kind: 'settle', declaration: nullDecl(false, 'ouvert'), outcome: WON, result: 'value' },
-      explain: '{Null otwarty|Nul uwert} jest wart 46.',
+      explain: '{Null otwarty|Null overt} jest wart 46.',
     },
     {
       type: 'quiz',
       id: 'm3-l15-q4',
-      prompt: 'Ile jest wart {null otwarty z ręki|nul uwert hand}?',
+      prompt: 'Ile jest wart {null otwarty z ręki|null overt hand}?',
       options: [
         { id: 'a', text: '46' },
         { id: 'b', text: '59' },

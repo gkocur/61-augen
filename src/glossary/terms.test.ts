@@ -18,7 +18,7 @@ describe('słownik terminów', () => {
 
   it('nazwy figur zależą od talii i rejestru', () => {
     expect(formsFor(TERMS.walet, { deck: 'altenburg', register: 'official' }).M).toBe('niżnik');
-    expect(formsFor(TERMS.walet, { deck: 'altenburg', register: 'colloquial' }).M).toBe('uner');
+    expect(formsFor(TERMS.walet, { deck: 'altenburg', register: 'colloquial' }).M).toBe('unter');
     expect(formsFor(TERMS.walet, { deck: 'french', register: 'official' }).M).toBe('walet');
     expect(formsFor(TERMS.walet, { deck: 'french', register: 'colloquial' }).M).toBe('jopek');
   });

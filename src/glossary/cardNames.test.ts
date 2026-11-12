@@ -53,7 +53,7 @@ describe('nazwy kart', () => {
   it('nazwy kart w przypadkach — kolor jako nieodmienny rzeczownik', () => {
     expect(cardName('c-A', { deck: 'french', register: 'official' }, 'N')).toBe('asem trefl');
     expect(cardName('s-Q', { deck: 'french', register: 'official' }, 'B')).toBe('damę pik');
-    expect(cardName('d-J', { deck: 'altenburg', register: 'colloquial' }, 'D')).toBe('unera szel');
+    expect(cardName('d-J', { deck: 'altenburg', register: 'colloquial' }, 'D')).toBe('untera szel');
   });
 
   it('każda ranga ma wszystkie przypadki nazw kart w każdym wariancie', () => {
