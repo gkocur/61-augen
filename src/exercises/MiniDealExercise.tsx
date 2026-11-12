@@ -137,6 +137,12 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
 
   const points = teamPoints(exercise, deal);
   const pointsText = (n: number) => `${n} ${t(`[[oczko:${countCase(n)}]]`)}`;
+  // W nullu oczka nie mają znaczenia — liczy się tylko, czy rozgrywający wziął lewę.
+  const isNull = exercise.game.kind === 'null';
+  const declarerTricks = deal.tricks.filter((tr) => tr.winner === declarer).length;
+  const scoreText = isNull
+    ? `${t('[[Lewa:Mlm]] [[rozgrywajacy:D]]')}: ${declarerTricks}`
+    : `Twoja strona: ${pointsText(points.yours)} · druga strona: ${pointsText(points.theirs)}`;
 
   const lastCheck = checks[checks.length - 1];
   const goodChecks = checks.filter((r) => r.chosen === r.correctValue).length;
@@ -188,9 +194,7 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
         </p>
       )}
       {!(exercise.checkpoints?.length && !over) && (
-        <p className="mini-deal__score">
-          Twoja strona: {pointsText(points.yours)} · druga strona: {pointsText(points.theirs)}
-        </p>
+        <p className="mini-deal__score">{scoreText}</p>
       )}
       <p className="hint hint--warn" role="status">
         {hint}
@@ -210,7 +214,9 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
         {over && !showLast && (
           <Feedback correct={reached}>
             <p>
-              Wynik: twoja strona {pointsText(points.yours)}, druga strona {pointsText(points.theirs)}.
+              {isNull
+                ? `${t('Wynik: [[lewa:Mlm]] [[rozgrywajacy:D]]')} — ${declarerTricks}.`
+                : `Wynik: twoja strona ${pointsText(points.yours)}, druga strona ${pointsText(points.theirs)}.`}
             </p>
             {checks.length > 0 && (
               <p>

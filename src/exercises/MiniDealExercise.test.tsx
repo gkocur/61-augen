@@ -112,6 +112,20 @@ describe('MiniDealExercise', () => {
     expect(screen.queryByText(/Twoja strona/)).not.toBeInTheDocument();
   });
 
+  it('w nullu zamiast oczek pokazuje lewy rozgrywającego', async () => {
+    const nullDeal: MiniDealExerciseData = {
+      ...declarerDeal,
+      game: { kind: 'null' },
+      declarer: 1,
+      hands: [['c-A', 's-8'], ['c-7', 's-7'], ['c-8', 's-9']],
+      solution: ['c-A', 's-8'],
+      goal: { kind: 'win' },
+    };
+    renderWithProviders(<MiniDealExercise exercise={nullDeal} onAnswered={vi.fn()} delayMs={0} />);
+    expect(await screen.findByText('Lewy rozgrywającego: 0')).toBeInTheDocument();
+    expect(screen.queryByText(/Twoja strona/)).not.toBeInTheDocument();
+  });
+
   it('bez punktów kontrolnych wynik oczek jest widoczny', async () => {
     renderWithProviders(<MiniDealExercise exercise={declarerDeal} onAnswered={vi.fn()} delayMs={0} />);
     expect(await screen.findByText(/Twoja strona/)).toBeInTheDocument();
