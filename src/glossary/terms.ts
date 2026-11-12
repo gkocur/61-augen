@@ -19,8 +19,8 @@ export const TERMS: Record<string, Term> = {
     },
   }),
   atu: plain({
-    official: { M: 'atu', g: 'n', D: 'atu', B: 'atu', Mlm: 'atuty', Dlm: 'atutów', Blm: 'atuty', Nlm: 'atutami' },
-    colloquial: { M: 'trumf', g: 'm', D: 'trumfa', B: 'trumfa', Mlm: 'trumfy', Dlm: 'trumfów', Blm: 'trumfy', Nlm: 'trumfami' },
+    official: { M: 'atu', g: 'n', D: 'atu', B: 'atu', N: 'atu', Ms: 'atu', Mlm: 'atuty', Dlm: 'atutów', Blm: 'atuty', Nlm: 'atutami' },
+    colloquial: { M: 'trumf', g: 'm', D: 'trumfa', B: 'trumfa', N: 'trumfem', Ms: 'trumfie', Mlm: 'trumfy', Dlm: 'trumfów', Blm: 'trumfy', Nlm: 'trumfami' },
   }),
   rozgrywajacy: plain({
     official: {
@@ -74,34 +74,34 @@ export const TERMS: Record<string, Term> = {
   }),
 
   // Rangi kart (używane też do nazw kart — muszą mieć rodzaj `g`).
-  siodemka: plain(same({ M: 'siódemka', g: 'f', Mlm: 'siódemki', Dlm: 'siódemek' })),
-  osemka: plain(same({ M: 'ósemka', g: 'f', Mlm: 'ósemki', Dlm: 'ósemek' })),
-  dziewiatka: plain(same({ M: 'dziewiątka', g: 'f', Mlm: 'dziewiątki', Dlm: 'dziewiątek' })),
-  dziesiatka: plain(same({ M: 'dziesiątka', g: 'f', D: 'dziesiątki', B: 'dziesiątkę', N: 'dziesiątką', Mlm: 'dziesiątki', Dlm: 'dziesiątek' })),
+  siodemka: plain(same({ M: 'siódemka', g: 'f', D: 'siódemki', C: 'siódemce', B: 'siódemkę', N: 'siódemką', Ms: 'siódemce', Mlm: 'siódemki', Dlm: 'siódemek' })),
+  osemka: plain(same({ M: 'ósemka', g: 'f', D: 'ósemki', C: 'ósemce', B: 'ósemkę', N: 'ósemką', Ms: 'ósemce', Mlm: 'ósemki', Dlm: 'ósemek' })),
+  dziewiatka: plain(same({ M: 'dziewiątka', g: 'f', D: 'dziewiątki', C: 'dziewiątce', B: 'dziewiątkę', N: 'dziewiątką', Ms: 'dziewiątce', Mlm: 'dziewiątki', Dlm: 'dziewiątek' })),
+  dziesiatka: plain(same({ M: 'dziesiątka', g: 'f', D: 'dziesiątki', C: 'dziesiątce', B: 'dziesiątkę', N: 'dziesiątką', Ms: 'dziesiątce', Mlm: 'dziesiątki', Dlm: 'dziesiątek' })),
   walet: byDeck({
     altenburg: {
-      official: { M: 'niżnik', g: 'm', D: 'niżnika', B: 'niżnika', N: 'niżnikiem', Mlm: 'niżniki', Dlm: 'niżników', Blm: 'niżniki', Nlm: 'niżnikami' },
-      colloquial: { M: 'uner', g: 'm', D: 'unera', B: 'unera', N: 'unerem', Mlm: 'unery', Dlm: 'unerów', Blm: 'unery', Nlm: 'unerami' },
+      official: { M: 'niżnik', g: 'm', D: 'niżnika', B: 'niżnika', N: 'niżnikiem', C: 'niżnikowi', Ms: 'niżniku', Mlm: 'niżniki', Dlm: 'niżników', Blm: 'niżniki', Nlm: 'niżnikami' },
+      colloquial: { M: 'uner', g: 'm', D: 'unera', B: 'unera', N: 'unerem', C: 'unerowi', Ms: 'unerze', Mlm: 'unery', Dlm: 'unerów', Blm: 'unery', Nlm: 'unerami' },
     },
     french: {
-      official: { M: 'walet', g: 'm', D: 'waleta', B: 'waleta', N: 'waletem', Mlm: 'walety', Dlm: 'waletów', Blm: 'walety', Nlm: 'waletami' },
-      colloquial: { M: 'jopek', g: 'm', D: 'jopka', B: 'jopka', N: 'jopkiem', Mlm: 'jopki', Dlm: 'jopków', Blm: 'jopki', Nlm: 'jopkami' },
+      official: { M: 'walet', g: 'm', D: 'waleta', B: 'waleta', N: 'waletem', C: 'waletowi', Ms: 'walecie', Mlm: 'walety', Dlm: 'waletów', Blm: 'walety', Nlm: 'waletami' },
+      colloquial: { M: 'jopek', g: 'm', D: 'jopka', B: 'jopka', N: 'jopkiem', C: 'jopkowi', Ms: 'jopku', Mlm: 'jopki', Dlm: 'jopków', Blm: 'jopki', Nlm: 'jopkami' },
     },
   }),
   dama: byDeck({
     altenburg: {
-      official: { M: 'wyżnik', g: 'm', D: 'wyżnika', B: 'wyżnika', N: 'wyżnikiem', Mlm: 'wyżniki', Dlm: 'wyżników' },
-      colloquial: { M: 'ober', g: 'm', D: 'obera', B: 'obera', N: 'oberem', Mlm: 'obery', Dlm: 'oberów' },
+      official: { M: 'wyżnik', g: 'm', D: 'wyżnika', B: 'wyżnika', N: 'wyżnikiem', C: 'wyżnikowi', Ms: 'wyżniku', Mlm: 'wyżniki', Dlm: 'wyżników' },
+      colloquial: { M: 'ober', g: 'm', D: 'obera', B: 'obera', N: 'oberem', C: 'oberowi', Ms: 'oberze', Mlm: 'obery', Dlm: 'oberów' },
     },
-    french: same({ M: 'dama', g: 'f', D: 'damy', B: 'damę', N: 'damą', Mlm: 'damy', Dlm: 'dam' }),
+    french: same({ M: 'dama', g: 'f', D: 'damy', B: 'damę', N: 'damą', C: 'damie', Ms: 'damie', Mlm: 'damy', Dlm: 'dam' }),
   }),
-  krol: plain(same({ M: 'król', g: 'm', D: 'króla', B: 'króla', N: 'królem', Mlm: 'króle', Dlm: 'królów' })),
+  krol: plain(same({ M: 'król', g: 'm', D: 'króla', B: 'króla', N: 'królem', C: 'królowi', Ms: 'królu', Mlm: 'króle', Dlm: 'królów' })),
   as: byDeck({
     altenburg: {
-      official: { M: 'as', g: 'm', D: 'asa', B: 'asa', N: 'asem', Mlm: 'asy', Dlm: 'asów' },
-      colloquial: { M: 'daus', g: 'm', D: 'dausa', B: 'dausa', N: 'dausem', Mlm: 'dausy', Dlm: 'dausów' },
+      official: { M: 'as', g: 'm', D: 'asa', B: 'asa', N: 'asem', C: 'asowi', Ms: 'asie', Mlm: 'asy', Dlm: 'asów', Blm: 'asy', Nlm: 'asami' },
+      colloquial: { M: 'daus', g: 'm', D: 'dausa', B: 'dausa', N: 'dausem', C: 'dausowi', Ms: 'dausie', Mlm: 'dausy', Dlm: 'dausów', Blm: 'dausy', Nlm: 'dausami' },
     },
-    french: same({ M: 'as', g: 'm', D: 'asa', B: 'asa', N: 'asem', Mlm: 'asy', Dlm: 'asów' }),
+    french: same({ M: 'as', g: 'm', D: 'asa', B: 'asa', N: 'asem', C: 'asowi', Ms: 'asie', Mlm: 'asy', Dlm: 'asów', Blm: 'asy', Nlm: 'asami' }),
   }),
 };
 

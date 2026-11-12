@@ -7,17 +7,18 @@ import type { DeckKind, Register, TextContext } from './types';
 export interface SuitName {
   /** Nazwa koloru jako rzeczownik, np. „czerwień”, „kier”. */
   noun: string;
-  /** Przymiotnik do nazwy karty; gdy brak — nazwa karty to „figura + rzeczownik”. */
-  adj?: { m: string; f: string };
+  /** Temat przymiotnika (np. „czerwienn”) — końcówka zależy od rodzaju i przypadku.
+   *  Gdy brak — nazwa karty to „figura + rzeczownik” (np. „as kier”). */
+  adjStem?: string;
 }
 
 export const SUIT_NAMES: Record<DeckKind, Record<Register, Record<Suit, SuitName>>> = {
   altenburg: {
     official: {
-      c: { noun: 'żołądź', adj: { m: 'żołędny', f: 'żołędna' } },
-      s: { noun: 'zielone', adj: { m: 'zielony', f: 'zielona' } },
-      h: { noun: 'czerwień', adj: { m: 'czerwienny', f: 'czerwienna' } },
-      d: { noun: 'dzwonek', adj: { m: 'dzwonkowy', f: 'dzwonkowa' } },
+      c: { noun: 'żołądź', adjStem: 'żołędn' },
+      s: { noun: 'zielone', adjStem: 'zielon' },
+      h: { noun: 'czerwień', adjStem: 'czerwienn' },
+      d: { noun: 'dzwonek', adjStem: 'dzwonkow' },
     },
     colloquial: {
       c: { noun: 'ajchel' },
@@ -61,11 +62,22 @@ export function suitName(suit: Suit, ctx: TextContext): string {
   return SUIT_NAMES[ctx.deck][ctx.register][suit].noun;
 }
 
-export function cardName(card: CardId, ctx: TextContext): string {
-  const rank = formsFor(TERMS[RANK_TERM[rankOf(card)]], ctx);
+/** Przypadki, w jakich można odmienić nazwę karty: `[[card:h-10:B]]`. */
+export const CARD_CASES = ['M', 'D', 'C', 'B', 'N', 'Ms'] as const;
+export type CardCase = (typeof CARD_CASES)[number];
+
+// Figury (as, król, niżnik…) są w kartach rzeczownikami żywotnymi: biernik = dopełniacz („asa żołędnego”).
+const ADJ_ENDINGS: Record<'m' | 'f', Record<CardCase, string>> = {
+  m: { M: 'y', D: 'ego', C: 'emu', B: 'ego', N: 'ym', Ms: 'ym' },
+  f: { M: 'a', D: 'ej', C: 'ej', B: 'ą', N: 'ą', Ms: 'ej' },
+};
+
+export function cardName(card: CardId, ctx: TextContext, caseKey: CardCase = 'M'): string {
+  const rankForms = formsFor(TERMS[RANK_TERM[rankOf(card)]], ctx);
+  const rank = rankForms[caseKey] ?? rankForms.M;
   const suit = SUIT_NAMES[ctx.deck][ctx.register][suitOf(card)];
-  if (suit.adj) return `${rank.M} ${rank.g === 'f' ? suit.adj.f : suit.adj.m}`;
-  return `${rank.M} ${suit.noun}`;
+  if (suit.adjStem) return `${rank} ${suit.adjStem}${ADJ_ENDINGS[rankForms.g === 'f' ? 'f' : 'm'][caseKey]}`;
+  return `${rank} ${suit.noun}`;
 }
 
 export function rankLabel(card: CardId, ctx: TextContext): string {

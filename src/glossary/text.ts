@@ -1,6 +1,6 @@
 // src/glossary/text.ts
 import { isCardId, isSuit } from '../engine';
-import { cardName, suitName } from './cardNames';
+import { CARD_CASES, cardName, suitName, type CardCase } from './cardNames';
 import { TERMS, formVariants, formsFor } from './terms';
 import { CASES, type CaseKey, type TextContext } from './types';
 
@@ -10,22 +10,38 @@ const TOKEN = /\[\[([^[\]]+)\]\]/g;
 const lowerFirst = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
 const upperFirst = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 const isCaseKey = (s: string): s is CaseKey => (CASES as readonly string[]).includes(s);
+const isCardCase = (s: string): s is CardCase => (CARD_CASES as readonly string[]).includes(s);
 const hasTerm = (key: string) => Object.hasOwn(TERMS, key);
 
 interface ParsedToken {
   key: string;
   arg: string | undefined;
+  /** Przypadek nazwy karty (tylko dla `card`). */
+  cardCase: string | undefined;
   capital: boolean;
   extra: boolean;
 }
 
 function parseToken(raw: string): ParsedToken {
   const [head = '', arg, ...rest] = raw.split(':');
-  return { key: lowerFirst(head), arg, capital: head !== lowerFirst(head), extra: rest.length > 0 };
+  const key = lowerFirst(head);
+  const allowsCase = key === 'card';
+  return {
+    key,
+    arg,
+    cardCase: allowsCase ? rest[0] : undefined,
+    capital: head !== key,
+    extra: rest.length > (allowsCase ? 1 : 0),
+  };
 }
 
-function lookup(key: string, arg: string | undefined, ctx: TextContext): string | null {
-  if (key === 'card') return arg !== undefined && isCardId(arg) ? cardName(arg, ctx) : null;
+function lookup(token: ParsedToken, ctx: TextContext): string | null {
+  const { key, arg, cardCase } = token;
+  if (key === 'card') {
+    if (arg === undefined || !isCardId(arg)) return null;
+    const c = cardCase ?? 'M';
+    return isCardCase(c) ? cardName(arg, ctx, c) : null;
+  }
   if (key === 'suit') return arg !== undefined && isSuit(arg) ? suitName(arg, ctx) : null;
   if (!hasTerm(key)) return null;
   const term = TERMS[key];
@@ -35,10 +51,10 @@ function lookup(key: string, arg: string | undefined, ctx: TextContext): string 
 }
 
 function resolveToken(raw: string, ctx: TextContext): string {
-  const { key, arg, capital, extra } = parseToken(raw);
-  const word = extra ? null : lookup(key, arg, ctx);
+  const token = parseToken(raw);
+  const word = token.extra ? null : lookup(token, ctx);
   if (word === null) return `[[${raw}]]`;
-  return capital ? upperFirst(word) : word;
+  return token.capital ? upperFirst(word) : word;
 }
 
 export function resolveText(text: string, ctx: TextContext): string {
@@ -49,9 +65,12 @@ export function resolveText(text: string, ctx: TextContext): string {
 }
 
 function checkToken(raw: string): string | null {
-  const { key, arg, extra } = parseToken(raw);
+  const { key, arg, cardCase, extra } = parseToken(raw);
   if (extra) return `Zły token: ${raw}`;
-  if (key === 'card') return arg !== undefined && isCardId(arg) ? null : `Nieznana karta: ${arg ?? ''}`;
+  if (key === 'card') {
+    if (arg === undefined || !isCardId(arg)) return `Nieznana karta: ${arg ?? ''}`;
+    return cardCase === undefined || isCardCase(cardCase) ? null : `Nieznana forma karty: ${cardCase}`;
+  }
   if (key === 'suit') return arg !== undefined && isSuit(arg) ? null : `Nieznany kolor: ${arg ?? ''}`;
   if (!hasTerm(key)) return `Nieznany termin: ${key}`;
   const caseKey = arg ?? 'M';

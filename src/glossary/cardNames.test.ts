@@ -1,7 +1,7 @@
 // src/glossary/cardNames.test.ts
 import { describe, expect, it } from 'vitest';
 import { RANKS } from '../engine';
-import { RANK_TERM, cardName, rankLabel, suitName } from './cardNames';
+import { CARD_CASES, RANK_TERM, cardName, rankLabel, suitName } from './cardNames';
 import { TERMS, formVariants } from './terms';
 
 describe('nazwy kart', () => {
@@ -38,6 +38,29 @@ describe('nazwy kart', () => {
       const term = TERMS[RANK_TERM[rank]];
       expect(term, rank).toBeDefined();
       for (const forms of formVariants(term)) expect(forms.g, rank).toBeDefined();
+    }
+  });
+
+  it('nazwy kart w przypadkach — Altenburg, oficjalnie', () => {
+    const ctx = { deck: 'altenburg', register: 'official' } as const;
+    expect(cardName('h-10', ctx, 'B')).toBe('dziesiątkę czerwienną');
+    expect(cardName('c-A', ctx, 'B')).toBe('asa żołędnego');
+    expect(cardName('s-J', ctx, 'N')).toBe('niżnikiem zielonym');
+    expect(cardName('d-7', ctx, 'D')).toBe('siódemki dzwonkowej');
+    expect(cardName('h-K', ctx, 'Ms')).toBe('królu czerwiennym');
+  });
+
+  it('nazwy kart w przypadkach — kolor jako nieodmienny rzeczownik', () => {
+    expect(cardName('c-A', { deck: 'french', register: 'official' }, 'N')).toBe('asem trefl');
+    expect(cardName('s-Q', { deck: 'french', register: 'official' }, 'B')).toBe('damę pik');
+    expect(cardName('d-J', { deck: 'altenburg', register: 'colloquial' }, 'D')).toBe('unera szele');
+  });
+
+  it('każda ranga ma wszystkie przypadki nazw kart w każdym wariancie', () => {
+    for (const rank of RANKS) {
+      for (const forms of formVariants(TERMS[RANK_TERM[rank]])) {
+        for (const c of CARD_CASES) expect(forms[c], `${rank} ${c}`).toBeDefined();
+      }
     }
   });
 });

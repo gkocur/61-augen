@@ -32,6 +32,11 @@ describe('resolveText', () => {
     expect(resolveText('[[suit:c]]', official)).toBe('żołądź');
   });
 
+  it('podstawia nazwy kart w przypadkach', () => {
+    expect(resolveText('Dołóż [[card:h-10:B]].', official)).toBe('Dołóż dziesiątkę czerwienną.');
+    expect(resolveText('[[Card:c-A:N]]', french)).toBe('Asem trefl');
+  });
+
   it('awaryjnie: nieznany termin zostaje jak jest, brak formy → oficjalny mianownik', () => {
     expect(resolveText('[[nieznany]]', official)).toBe('[[nieznany]]');
     expect(resolveText('[[skat:Dlm]]', colloquial)).toBe('skat');
@@ -57,5 +62,12 @@ describe('findTextIssues', () => {
     expect(findTextIssues('{a|}')).toEqual(['Pusta alternatywa: {a|}']);
     expect(findTextIssues('{bez kreski}')).toEqual(['Niedomknięta alternatywa']);
     expect(findTextIssues('[[lewa')).toEqual(['Niedomknięty token']);
+  });
+
+  it('sprawdza przypadki nazw kart', () => {
+    expect(findTextIssues('[[card:h-10:B]]')).toEqual([]);
+    expect(findTextIssues('[[card:h-10:X]]')).toEqual(['Nieznana forma karty: X']);
+    expect(findTextIssues('[[card:h-10:B:C]]')).toEqual(['Zły token: card:h-10:B:C']);
+    expect(findTextIssues('[[suit:c:B]]')).toEqual(['Zły token: suit:c:B']);
   });
 });
