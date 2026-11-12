@@ -194,3 +194,15 @@ Implementacja w trzech planach:
 1. **Silnik gry i boty:** `game/` i nowe funkcje botów, bez UI.
 2. **Ekrany gry:** trasa `/gra`, stół z fazami i tabela serii.
 3. **Pomoce treningowe i E2E:** podpowiedź, licznik, cofnij i przegląd.
+
+## 11. Decyzje z implementacji (Plan 7)
+
+- **Rozdanie** = ziarno + lista ruchów (`history`). Zapis serii przechowuje tylko ruchy bieżącego rozdania, a przy wczytaniu rozdanie jest odtwarzane.
+- **Kolejność miejsc:** w 1. rozdaniu rozdaje bot po prawej, więc gracz zaczyna na ręku. Potem rozdający przechodzi zgodnie z ruchem wskazówek zegara.
+- **Heurystyki botów** (`src/bots/evaluate.ts`):
+  - kolor: co najmniej 6 atu albo 5 atu z waletem i razem co najmniej 3 waletami lub asami z boku;
+  - grand: 3 walety i 2 asy albo 2 walety z treflowym i 3 asy;
+  - null: siódemka albo ósemka w każdym kolorze, najwyżej 2 asy i króle;
+  - kontra: co najmniej 4 atu, w tym 2 wysokie, i 2 asy z boku (w grandzie 2 walety i 3 asy);
+  - re: co najmniej 8 atu albo 7 atu i 3 walety.
+- **Ramsz w silniku rozgrywki:** `createDeal` z `declarer: 0`, bo w ramszu nie ma rozgrywającego. Wynik liczy `ramschTally`.
