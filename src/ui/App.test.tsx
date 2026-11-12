@@ -43,7 +43,12 @@ describe('aplikacja', () => {
     expect(screen.getByRole('link', { name: 'Kontynuuj' })).toBeInTheDocument();
   });
 
-  it.todo('moduł opcjonalny ma nagłówek „Dodatek”');
+  it('moduł opcjonalny ma nagłówek „Dodatek”', () => {
+    const optional = COURSE.modules.find((m) => m.optional);
+    renderWithProviders(<AppRoutes />);
+    expect(optional).toBeDefined();
+    expect(screen.getByRole('heading', { name: `Dodatek: ${optional!.title}` })).toBeInTheDocument();
+  });
 
   it('po zaliczeniu wszystkich lekcji: gratulacje', () => {
     const lessons = Object.fromEntries(

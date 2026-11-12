@@ -256,14 +256,17 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | kontra / re | kontra / re |
 | ramsz | ramsz |
 | bock | bok ⚠ |
+| gracz bez lewy w ramszu | dziewica ⚠ / jungfrau |
+| wzięcie wszystkich lew w ramszu | przemarsz ⚠ / durchmarsz ⚠ |
 
 ### 8.3 Do potwierdzenia przy weryfikacji zasad
 
 - Kontra/re: nie należą do ISkO; w kursie jako dodatek (kontra ×2, re ×4, zapowiedź przed pierwszą kartą); szczegóły ustala się przed grą.
 - Przegrana gra z ręki: liczona podwójnie, jak każda przegrana — potwierdzone w ISkO (wyd. 2018, pkt 2.5).
 - Zapis Seeger-Fabian: wygrana +wartość +50; przegrana −2 × wartość −50 i +40 dla każdego obrońcy (stół 3-os.; 30 przy stole 4-os.) — potwierdzone.
+- Ramsz i bocki: warianty towarzyskie spoza ISkO; kurs uczy jednej popularnej wersji (sekcja 9) i podkreśla, że szczegóły ustala się przed grą.
 
-## 9. Decyzje podjęte w trakcie realizacji (Plany 1–5)
+## 9. Decyzje podjęte w trakcie realizacji (Plany 1–6)
 
 - **Ćwiczenie `bid` zastąpione** quizami z polem `verify` (odpowiedź liczona silnikiem: `points`, `trickWinner`, `matadors`, `maxBid`, `nextBid`, `settle`) oraz ćwiczeniem `discard` (wybór 2 kart do skata). Wybór gry to zwykły quiz (lekcja 19; dalej w lekcjach 20, 24, 25).
 - **Przyciemnianie niedozwolonych kart** dotyczy mini-rozdań; w ćwiczeniach „zagraj kartę” jest wyłączone, bo rozpoznanie dozwolonej karty jest ich celem.
@@ -273,7 +276,12 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 - **Kontra/re** — w Planie 5 (lekcja 30), razem z ewentualną zmianą zapisu wyniku.
 - **Zależności modułów:** `engine` ← `bots` ← `content` (walidacja treści używa silnika i botów) ← `exercises`/`ui`; `glossary` zależy tylko od `engine`.
 - **Null zgłoszony po stawce wyższej niż jego wartość** jest odrzucany przez silnik (ISkO 3.6 liczy to jako przegraną grę kolorową/granda — nie modelujemy tego).
-- **Podział dalszych prac:** Plan 4 — moduł 5; Plan 5 — moduł 6, kontra/re, punkty kontrolne; Plan 6 — dodatek, grafiki z Wikimedia, E2E, wdrożenie.
+- **Podział dalszych prac:** Plan 4 — moduł 5; Plan 5 — moduł 6, kontra/re, punkty kontrolne; Plan 6 — dodatek, grafiki z Wikimedia, E2E, wdrożenie. Plan 6 zrealizowany — wersja 1 kompletna.
+- **Ramsz (Plan 6):** skat dla biorącego ostatnią lewę; przegrywa gracz z największą liczbą oczek (minus tyle oczek), remis — przegrywają obaj, 40/40/40 — bez zapisu; jungfrau ×2; durchmarsch +120 bez mnożników (jungfrau ani przekazania skata go nie podwajają — zgodnie z silnikiem: `scoreRamsch` zwraca 120 niezależnie od przekazań); każde przekazanie skata ×2 (dotyczy wyniku przegrywającego). Lekcja 31 bez mini-rozdania (boty nie grają ramsza) — quizy i „zagraj kartę”.
+- **Bock (Plan 6):** ×2 do wartości gry (po sprawdzeniu przelicytowania), łączy się z kontrą/re; runda = tyle gier, ilu graczy.
+- **Moduł opcjonalny (dodatek)** nie jest wymagany do ukończenia kursu — `nextLessonId` pomija moduły `optional`.
+- **Grafiki kart (Plan 6):** Altenburg — XSkat (Gunter Gerhardt), SVG: Mfrasca, CC BY-SA 3.0; francuska — Adrian Kennard, CC0; rewers rysowany w kodzie; atrybucja na stronie „O kartach”.
+- **Wdrożenie (Plan 6):** GitHub Actions (testy, E2E, build) → GitHub Pages; repozytorium i włączenie Pages po stronie właściciela.
 - **Rozdania w lekcjach taktycznych** wyszukiwane skryptem na silniku i botach (pouczające: dobra decyzja wygrywa, typowy błąd przegrywa); walidator treści ponownie symuluje wzorcowe rozegranie.
 - **Przegląd tekstów:** `npm run texts [-- prefiks]` drukuje teksty lekcji w 4 kontekstach (talia × rejestr).
 - **Mini-rozdania:** pytania w trakcie gry (`checkpoints` — liczba oczek strony gracza, liczba wyszłych atu), gra otwarta (`ouvert`), typowe błędy (`mistakes`) sprawdzane w teście treści.
