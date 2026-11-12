@@ -48,12 +48,12 @@ describe('karty', () => {
 
   it('przeciwnik: miejsce, rola i liczba kart', () => {
     renderWithProviders(<OpponentView seat={1} cardCount={7} isDeclarer active={false} />);
-    expect(screen.getByRole('group', { name: 'Środek · rozgrywający: 7 kart' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Środek · rozgrywający: 7 kart' })).toBeInTheDocument();
   });
 
   it('przeciwnik: odmiana liczby kart', () => {
     renderWithProviders(<OpponentView seat={2} cardCount={3} isDeclarer={false} active />);
-    expect(screen.getByRole('group', { name: 'Zadek: 3 karty' })).toHaveClass('opponent--active');
+    expect(screen.getByRole('img', { name: 'Zadek: 3 karty' })).toHaveClass('opponent--active');
   });
 
   it('stół: własny tekst pustego stołu', () => {

@@ -1,7 +1,7 @@
 // src/exercises/MiniDealExercise.test.tsx
-import { screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { MiniDealExerciseData } from '../content/types';
 import { renderWithProviders } from '../test/render';
 import { MiniDealExercise } from './MiniDealExercise';
@@ -33,7 +33,7 @@ describe('MiniDealExercise', () => {
     const onAnswered = vi.fn();
     renderWithProviders(<MiniDealExercise exercise={declarerDeal} onAnswered={onAnswered} delayMs={0} />);
     expect(screen.getByText('Gra kolorowa · atu: czerwień')).toBeInTheDocument();
-    expect(screen.getByRole('group', { name: 'Środek: 2 karty' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Środek: 2 karty' })).toBeInTheDocument();
 
     await playTwice(user, 'niżnik żołędny');
     await playTwice(user, 'as żołędny');
@@ -71,5 +71,37 @@ describe('MiniDealExercise', () => {
     await waitFor(() => expect(trump).toBeEnabled());
     await user.click(trump);
     expect(screen.getByText(/nie możesz teraz zagrać/)).toBeInTheDocument();
+  });
+
+  describe('koniec rozdania', () => {
+    afterEach(() => vi.useRealTimers());
+
+    it('pokazuje wynik dopiero po wyświetleniu ostatniej lewy', () => {
+      vi.useFakeTimers();
+      const onAnswered = vi.fn();
+      renderWithProviders(<MiniDealExercise exercise={declarerDeal} onAnswered={onAnswered} delayMs={100} />);
+      const play = (name: string) => {
+        const card = screen.getByRole('button', { name });
+        fireEvent.click(card);
+        fireEvent.click(card);
+      };
+      const advance = (ms: number) => act(() => void vi.advanceTimersByTime(ms));
+
+      play('niżnik żołędny');
+      advance(100); // bot 1
+      advance(100); // bot 2
+      advance(150); // koniec wyświetlania pierwszej lewy
+      play('as żołędny');
+      advance(100);
+      advance(100);
+      // Ostatnia lewa jest wyświetlana, ale nie minęło jeszcze 150 ms.
+      advance(100);
+      expect(screen.queryByText('Dobrze!')).not.toBeInTheDocument();
+      expect(onAnswered).not.toHaveBeenCalled();
+      advance(60);
+      expect(screen.getByText('Dobrze!')).toBeInTheDocument();
+      expect(onAnswered).toHaveBeenCalledTimes(1);
+      expect(onAnswered).toHaveBeenCalledWith(true);
+    });
   });
 });

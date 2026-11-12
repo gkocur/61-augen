@@ -120,7 +120,9 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
       <p className="mini-deal__score">
         Twoja strona: {pointsText(points.yours)} · druga strona: {pointsText(points.theirs)}
       </p>
-      {hint && <p className="hint hint--warn">{hint}</p>}
+      <p className="hint hint--warn" role="status">
+        {hint}
+      </p>
       <Hand
         cards={sortHand(deal.hands[you], deal.game)}
         selected={selected}
