@@ -3,13 +3,13 @@ import type { Lesson } from '../types';
 
 export const lesson: Lesson = {
   id: 'm1-l01-czym-jest-skat',
-  title: 'Czym jest skat?',
+  title: 'Czym jest [[skat]]?',
   summary: 'Trzech graczy, jeden przeciw dwóm i magiczne 61.',
   steps: [
     {
       title: 'Jeden przeciw dwóm',
       text:
-        'Skat to gra karciana dla trzech osób. W rozdaniu zwykle jeden gracz zostaje **[[rozgrywajacy:N]]** i gra sam przeciwko pozostałym dwóm.\n\n' +
+        '[[Skat]] to gra karciana dla trzech osób. W rozdaniu zwykle jeden gracz zostaje **[[rozgrywajacy:N]]** i gra sam przeciwko pozostałym dwóm.\n\n' +
         'Ci dwaj to **[[obronca:Mlm]]** — grają razem, jak drużyna, i wspólnie liczą zdobyte karty.',
     },
     {
@@ -29,14 +29,14 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm1-l01-q1',
-      prompt: 'Ile osób gra w jednym rozdaniu skata?',
+      prompt: 'Ile osób gra w jednym rozdaniu [[skat:D]]?',
       options: [
         { id: 'a', text: '2' },
         { id: 'b', text: '3' },
         { id: 'c', text: '4' },
       ],
       correct: 'b',
-      explain: 'W skata grają trzy osoby: [[rozgrywajacy]] przeciwko dwóm [[obronca:Clm]].',
+      explain: 'W [[skat:D]] grają trzy osoby: [[rozgrywajacy]] przeciwko dwóm [[obronca:Clm]].',
     },
     {
       type: 'quiz',

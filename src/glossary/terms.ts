@@ -56,7 +56,10 @@ export const TERMS: Record<string, Term> = {
     official: { M: 'oczko', g: 'n', D: 'oczka', B: 'oczko', Mlm: 'oczka', Dlm: 'oczek', Blm: 'oczka', Nlm: 'oczkami', Mslm: 'oczkach' },
     colloquial: { M: 'auga', g: 'f', D: 'augi', B: 'augę', Mlm: 'augi', Dlm: 'aug', Blm: 'augi', Nlm: 'augami', Mslm: 'augach' },
   }),
-  skat: plain(same({ M: 'skat', g: 'm', D: 'skata', C: 'skatowi', B: 'skat', N: 'skatem', Ms: 'skacie' })),
+  skat: plain({
+    official: { M: 'skat', g: 'm', D: 'skata', C: 'skatowi', B: 'skat', N: 'skatem', Ms: 'skacie' },
+    colloquial: { M: 'szkat', g: 'm', D: 'szkata', C: 'szkatowi', B: 'szkat', N: 'szkatem', Ms: 'szkacie' },
+  }),
   licytacja: plain({
     official: { M: 'licytacja', g: 'f', D: 'licytacji', B: 'licytację', N: 'licytacją', Ms: 'licytacji' },
     colloquial: { M: 'rajcowanie', g: 'n', D: 'rajcowania', B: 'rajcowanie', N: 'rajcowaniem', Ms: 'rajcowaniu' },

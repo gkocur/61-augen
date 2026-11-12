@@ -252,7 +252,7 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | obnażony (pusty) kolor | blanka ⚠ |
 | grand | grand |
 | null | null |
-| skat | skat |
+| skat | szkat |
 | kontra / re | kontra / re |
 | ramsz | ramsz |
 | bock | bok ⚠ |

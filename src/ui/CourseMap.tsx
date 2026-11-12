@@ -20,7 +20,7 @@ export function CourseMap() {
 
   return (
     <div className="course-map">
-      <h1>Kurs skata</h1>
+      <h1>{t('Kurs [[skat:D]]')}</h1>
       {nextId ? (
         <Link className="button button--primary" to={`/lekcja/${nextId}`}>
           {started ? 'Kontynuuj' : 'Zacznij naukę'}

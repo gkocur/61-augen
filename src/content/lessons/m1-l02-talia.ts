@@ -9,7 +9,7 @@ export const lesson: Lesson = {
     {
       title: 'Cztery kolory',
       text:
-        'Do skata używa się **32 kart**: 4 kolory po 8 kart.\n\n' +
+        'Do [[skat:D]] używa się **32 kart**: 4 kolory po 8 kart.\n\n' +
         'W ustawieniach możesz wybrać talię — niemiecką (Altenburg) albo francuską. Zasady są w obu identyczne.',
       cards: ['c-A', 's-A', 'h-A', 'd-A'],
       cardsCaption: 'Kolory: [[suit:c]], [[suit:s]], [[suit:h]] i [[suit:d]].',
@@ -57,7 +57,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm1-l02-q3',
-      prompt: 'Ile kart liczy talia do skata?',
+      prompt: 'Ile kart liczy talia do [[skat:D]]?',
       options: [
         { id: 'a', text: '24' },
         { id: 'b', text: '32' },
