@@ -44,8 +44,8 @@ const NUMBERS = { '7': '7', '8': '8', '9': '9', '10': '10' } as const;
 /** Oznaczenie w rogu karty. */
 export const RANK_LABELS: Record<DeckKind, Record<Register, Record<Rank, string>>> = {
   altenburg: {
-    official: { ...NUMBERS, J: 'N', Q: 'W', K: 'K', A: 'A' },
-    colloquial: { ...NUMBERS, J: 'U', Q: 'O', K: 'K', A: 'D' },
+    official: { ...NUMBERS, J: 'N', Q: 'W', K: 'K', A: 'T' },
+    colloquial: { ...NUMBERS, J: 'U', Q: 'O', K: 'K', A: 'A' },
   },
   french: {
     official: { ...NUMBERS, J: 'W', Q: 'D', K: 'K', A: 'A' },

@@ -46,8 +46,8 @@ describe('PlayCardExercise', () => {
     const user = userEvent.setup();
     renderWithProviders(<PlayCardExercise exercise={exercise} onAnswered={vi.fn()} />);
     await user.click(screen.getByRole('button', { name: 'siódemka czerwienna' }));
-    await user.click(screen.getByRole('button', { name: 'as czerwienny' }));
-    expect(screen.getByRole('button', { name: 'as czerwienny' })).toHaveAttribute('aria-pressed', 'true');
+    await user.click(screen.getByRole('button', { name: 'tuz czerwienny' }));
+    expect(screen.getByRole('button', { name: 'tuz czerwienny' })).toHaveAttribute('aria-pressed', 'true');
     expect(screen.getByRole('button', { name: 'siódemka czerwienna' })).toHaveAttribute('aria-pressed', 'false');
   });
 
@@ -83,6 +83,6 @@ describe('PlayCardExercise', () => {
   it('showLegal przyciemnia niedozwolone karty', () => {
     renderWithProviders(<PlayCardExercise exercise={{ ...exercise, showLegal: true }} onAnswered={vi.fn()} />);
     expect(screen.getByRole('button', { name: 'dziesiątka zielona' })).toHaveClass('card--dimmed');
-    expect(screen.getByRole('button', { name: 'as czerwienny' })).not.toHaveClass('card--dimmed');
+    expect(screen.getByRole('button', { name: 'tuz czerwienny' })).not.toHaveClass('card--dimmed');
   });
 });

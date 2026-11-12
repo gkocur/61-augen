@@ -58,7 +58,7 @@ describe('DiscardExercise', () => {
     const user = userEvent.setup();
     const onAnswered = vi.fn();
     renderWithProviders(<DiscardExercise exercise={exercise} onAnswered={onAnswered} />);
-    await user.click(screen.getByRole('button', { name: 'as żołędny' }));
+    await user.click(screen.getByRole('button', { name: 'tuz żołędny' }));
     await user.click(screen.getByRole('button', { name: 'król żołędny' }));
     await user.click(screen.getByRole('button', { name: 'Wyrzuć do skata' }));
     expect(onAnswered).toHaveBeenCalledWith(false);

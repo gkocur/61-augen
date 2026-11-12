@@ -9,11 +9,11 @@ describe('nazwy kart', () => {
     const ctx = { deck: 'altenburg', register: 'official' } as const;
     expect(cardName('c-J', ctx)).toBe('niżnik żołędny');
     expect(cardName('h-10', ctx)).toBe('dziesiątka czerwienna');
-    expect(cardName('s-A', ctx)).toBe('as zielony');
+    expect(cardName('s-A', ctx)).toBe('tuz zielony');
   });
 
   it('Altenburg, potocznie', () => {
-    expect(cardName('d-A', { deck: 'altenburg', register: 'colloquial' })).toBe('daus szel');
+    expect(cardName('d-A', { deck: 'altenburg', register: 'colloquial' })).toBe('as szel');
   });
 
   it('talia francuska: nazwa koloru po figurze', () => {
@@ -44,7 +44,7 @@ describe('nazwy kart', () => {
   it('nazwy kart w przypadkach — Altenburg, oficjalnie', () => {
     const ctx = { deck: 'altenburg', register: 'official' } as const;
     expect(cardName('h-10', ctx, 'B')).toBe('dziesiątkę czerwienną');
-    expect(cardName('c-A', ctx, 'B')).toBe('asa żołędnego');
+    expect(cardName('c-A', ctx, 'B')).toBe('tuza żołędnego');
     expect(cardName('s-J', ctx, 'N')).toBe('niżnikiem zielonym');
     expect(cardName('d-7', ctx, 'D')).toBe('siódemki dzwonkowej');
     expect(cardName('h-K', ctx, 'Ms')).toBe('królu czerwiennym');

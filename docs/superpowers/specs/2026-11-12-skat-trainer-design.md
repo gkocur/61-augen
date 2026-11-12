@@ -225,7 +225,7 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | ♦ (Schellen / Karo) | dzwonek | szel | karo | szel |
 | Unter / Bube | niżnik | unter | walet | jopek / unter ⚠ |
 | Ober / Dame | wyżnik | ober | dama | dama |
-| Daus / As | tuz / as ⚠ | daus ⚠ | as | as |
+| Daus / As | tuz | as | as | as |
 | König | król | król | król | król |
 
 ### 8.2 Pojęcia gry (niezależne od talii)

@@ -99,8 +99,8 @@ export const TERMS: Record<string, Term> = {
   krol: plain(same({ M: 'król', g: 'm', D: 'króla', B: 'króla', N: 'królem', C: 'królowi', Ms: 'królu', Mlm: 'króle', Dlm: 'królów' })),
   as: byDeck({
     altenburg: {
-      official: { M: 'as', g: 'm', D: 'asa', B: 'asa', N: 'asem', C: 'asowi', Ms: 'asie', Mlm: 'asy', Dlm: 'asów', Blm: 'asy', Nlm: 'asami' },
-      colloquial: { M: 'daus', g: 'm', D: 'dausa', B: 'dausa', N: 'dausem', C: 'dausowi', Ms: 'dausie', Mlm: 'dausy', Dlm: 'dausów', Blm: 'dausy', Nlm: 'dausami' },
+      official: { M: 'tuz', g: 'm', D: 'tuza', B: 'tuza', N: 'tuzem', C: 'tuzowi', Ms: 'tuzie', Mlm: 'tuzy', Dlm: 'tuzów', Blm: 'tuzy', Nlm: 'tuzami' },
+      colloquial: { M: 'as', g: 'm', D: 'asa', B: 'asa', N: 'asem', C: 'asowi', Ms: 'asie', Mlm: 'asy', Dlm: 'asów', Blm: 'asy', Nlm: 'asami' },
     },
     french: same({ M: 'as', g: 'm', D: 'asa', B: 'asa', N: 'asem', C: 'asowi', Ms: 'asie', Mlm: 'asy', Dlm: 'asów', Blm: 'asy', Nlm: 'asami' }),
   }),

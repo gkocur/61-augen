@@ -40,7 +40,7 @@ describe('MiniDealExercise', () => {
     expect(question).toHaveTextContent('Ile oczek ma teraz twoja strona?');
     await user.click(screen.getByRole('button', { name: '2' }));
     expect(screen.getByText('Dobra odpowiedź. Poprawnie: 2.')).toBeInTheDocument();
-    await playTwice(user, 'as żołędny');
+    await playTwice(user, 'tuz żołędny');
     expect(await screen.findByText('Dobrze!')).toBeInTheDocument();
     expect(screen.getByText('Pytania w trakcie gry: 1 z 1 poprawnie.')).toBeInTheDocument();
     expect(onAnswered).toHaveBeenCalledWith(true);
@@ -57,7 +57,7 @@ describe('MiniDealExercise', () => {
     const wrong = checkpointOptions(2, 'yourPoints', declarerDeal.game, 1).find((v) => v !== 2)!;
     await user.click(screen.getByRole('button', { name: String(wrong) }));
     expect(screen.getByText('Zła odpowiedź. Poprawnie: 2.')).toBeInTheDocument();
-    await playTwice(user, 'as żołędny');
+    await playTwice(user, 'tuz żołędny');
     expect(await screen.findByText('Niestety nie.')).toBeInTheDocument();
     expect(onAnswered).toHaveBeenCalledWith(false);
   });
@@ -73,7 +73,7 @@ describe('MiniDealExercise', () => {
     };
     renderWithProviders(<MiniDealExercise exercise={open} onAnswered={vi.fn()} delayMs={10_000} />);
     expect(screen.getByText('Karty rozgrywającego — gra otwarta')).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: 'as zielony' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'tuz zielony' })).toBeInTheDocument();
   });
 
   it('rozgrywa rozdanie z botami i ocenia cel', async () => {
@@ -84,7 +84,7 @@ describe('MiniDealExercise', () => {
     expect(screen.getByRole('img', { name: 'Środkowa ręka: 2 karty' })).toBeInTheDocument();
 
     await playTwice(user, 'niżnik żołędny');
-    await playTwice(user, 'as żołędny');
+    await playTwice(user, 'tuz żołędny');
 
     expect(await screen.findByText('Dobrze!')).toBeInTheDocument();
     expect(onAnswered).toHaveBeenCalledTimes(1);
@@ -99,7 +99,7 @@ describe('MiniDealExercise', () => {
       <MiniDealExercise exercise={{ ...declarerDeal, goal: { kind: 'minPoints', points: 14 } }} onAnswered={onAnswered} delayMs={0} />,
     );
     await playTwice(user, 'niżnik żołędny');
-    await playTwice(user, 'as żołędny');
+    await playTwice(user, 'tuz żołędny');
     expect(await screen.findByText('Niestety nie.')).toBeInTheDocument();
     expect(onAnswered).toHaveBeenCalledWith(false);
   });
@@ -141,7 +141,7 @@ describe('MiniDealExercise', () => {
       goal: { kind: 'minPoints', points: 0 },
     };
     renderWithProviders(<MiniDealExercise exercise={defending} onAnswered={vi.fn()} delayMs={0} />);
-    expect(await screen.findByRole('img', { name: 'as żołędny' })).toBeInTheDocument();
+    expect(await screen.findByRole('img', { name: 'tuz żołędny' })).toBeInTheDocument();
     const trump = screen.getByRole('button', { name: 'siódemka czerwienna' });
     await waitFor(() => expect(trump).toBeEnabled());
     await user.click(trump);
@@ -166,7 +166,7 @@ describe('MiniDealExercise', () => {
       advance(100); // bot 1
       advance(100); // bot 2
       advance(150); // koniec wyświetlania pierwszej lewy
-      play('as żołędny');
+      play('tuz żołędny');
       advance(100);
       advance(100);
       // Ostatnia lewa jest wyświetlana, ale nie minęło jeszcze 150 ms.
@@ -228,7 +228,7 @@ describe('MiniDealExercise', () => {
       expect(screen.queryByText('Stół jest pusty.')).toBeNull();
       tick(100);
       expect(screen.getByText('Twój ruch.')).toBeInTheDocument();
-      clickCard('as');
+      clickCard('tuz');
       tick(100);
       tick(150);
       expect(screen.getByText('Pytania w trakcie gry: 1 z 1 poprawnie.')).toBeInTheDocument();

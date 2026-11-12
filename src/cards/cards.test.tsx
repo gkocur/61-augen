@@ -23,14 +23,14 @@ describe('karty', () => {
   it('karta z onClick jest przyciskiem', async () => {
     const onClick = vi.fn();
     renderWithProviders(<PlayingCard card="s-A" onClick={onClick} />);
-    await userEvent.setup().click(screen.getByRole('button', { name: 'as zielony' }));
+    await userEvent.setup().click(screen.getByRole('button', { name: 'tuz zielony' }));
     expect(onClick).toHaveBeenCalledOnce();
   });
 
   it('ręka zgłasza kliknięcie karty i zaznacza wybraną', async () => {
     const onCardClick = vi.fn();
     renderWithProviders(<Hand cards={['h-7', 'c-A']} selected="c-A" onCardClick={onCardClick} />);
-    expect(screen.getByRole('button', { name: 'as żołędny' })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: 'tuz żołędny' })).toHaveAttribute('aria-pressed', 'true');
     await userEvent.setup().click(screen.getByRole('button', { name: 'siódemka czerwienna' }));
     expect(onCardClick).toHaveBeenCalledWith('h-7');
   });
