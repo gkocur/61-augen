@@ -37,6 +37,6 @@ describe('słownik terminów', () => {
     expect(formsFor(TERMS.reka, off).Ms).toBe('grze z ręki');
     expect(formsFor(TERMS.mit, col).M).toBe('mit');
     expect(formsFor(TERMS.ohne, off).M).toBe('bez');
-    expect(formsFor(TERMS.matador, off).Dlm).toBe('matadorów');
+    expect(formsFor(TERMS.matador, off).Dlm).toBe('szczytów');
   });
 });

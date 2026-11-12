@@ -15,7 +15,7 @@ export const lesson: Lesson = {
     {
       title: 'Czym są [[matador:Mlm]]?',
       text:
-        '**[[Matador:Mlm]]** to najwyższe [[atu:Mlm]] liczone od samej góry, bez przerwy: [[card:c-J]], [[card:s-J]], [[card:h-J]], [[card:d-J]], potem [[as]], 10, [[krol]]… koloru [[atu:Dlm]].\n\n' +
+        '**[[Matador:Mlm]]** (spotkasz też nazwę „matadory”) to najwyższe [[atu:Mlm]] liczone od samej góry, bez przerwy: [[card:c-J]], [[card:s-J]], [[card:h-J]], [[card:d-J]], potem [[as]], 10, [[krol]]… koloru [[atu:Dlm]].\n\n' +
         '[[Matador:Mlm]] liczy się z kart [[rozgrywajacy:D]] **razem ze [[skat:N]]**.',
     },
     {

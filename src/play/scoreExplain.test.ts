@@ -25,7 +25,7 @@ describe('rozpisanie wyniku rozgrywającego', () => {
     const g = game(plain({ kind: 'grand' }), MIT_3, { declarerPoints: 52, declarerTricks: 4 }, 18);
     expect(steps(g, MIT_3)).toEqual([
       'Wartość bazowa: grand = 24.',
-      'Matadory liczysz z kart rozgrywającego razem ze skatem. Mnożnik: 3 (z 3) + 1 (gra) = 4.',
+      'Szczyty liczysz z kart rozgrywającego razem ze skatem. Mnożnik: 3 (z 3) + 1 (gra) = 4.',
       'Wartość gry: 24 × 4 = 96.',
       'Gra przegrana: rozgrywający ma 52 oczka, a potrzeba co najmniej 61. Przegrana liczy się podwójnie: −2 × 96 = −192.',
       'Zapis Seegera-Fabiana: za przegraną −50, czyli −192 − 50 = −242 dla rozgrywającego, a każdy z obrońców dostaje +40.',
@@ -37,7 +37,7 @@ describe('rozpisanie wyniku rozgrywającego', () => {
     const g = game(plain({ kind: 'suit', trump: 'h' }), cards, { declarerPoints: 95, declarerTricks: 8 }, 18, 'kontra');
     expect(steps(g, cards)).toEqual([
       'Wartość bazowa: czerwień = 10.',
-      'Matadory liczysz z kart rozgrywającego razem ze skatem. Mnożnik: 3 (bez 3) + 1 (gra) + 1 (krawiec) = 5.',
+      'Szczyty liczysz z kart rozgrywającego razem ze skatem. Mnożnik: 3 (bez 3) + 1 (gra) + 1 (krawiec) = 5.',
       'Wartość gry: 10 × 5 = 50.',
       'Kontra: wartość × 2 = 100.',
       'Gra wygrana: rozgrywający ma 95 oczek (potrzeba co najmniej 61). Wynik: +100.',
@@ -60,7 +60,7 @@ describe('rozpisanie wyniku rozgrywającego', () => {
     const g = game(plain({ kind: 'grand' }, true, 'schneider'), MIT_3, { declarerPoints: 92, declarerTricks: 8 }, 18);
     const s = steps(g, MIT_3);
     expect(s[1]).toBe(
-      'Matadory liczysz z kart rozgrywającego razem ze skatem. Mnożnik: 3 (z 3) + 1 (gra) + 1 (gra z ręki) + 1 (krawiec) + 1 (zapowiedź krawca) = 7.',
+      'Szczyty liczysz z kart rozgrywającego razem ze skatem. Mnożnik: 3 (z 3) + 1 (gra) + 1 (gra z ręki) + 1 (krawiec) + 1 (zapowiedź krawca) = 7.',
     );
     expect(s[3]).toBe('Gra wygrana: rozgrywający ma 92 oczka — zapowiedział krawca, a potrzeba co najmniej 90. Wynik: +168.');
   });

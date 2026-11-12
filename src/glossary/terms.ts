@@ -118,7 +118,8 @@ export const TERMS: Record<string, Term> = {
     official: { M: 'gra otwarta', g: 'f', D: 'gry otwartej', B: 'grę otwartą', N: 'grą otwartą', Ms: 'grze otwartej' },
     colloquial: { M: 'overt', g: 'm', D: 'overta', B: 'overta', N: 'overtem', Ms: 'overcie' },
   }),
-  matador: plain(same({ M: 'matador', g: 'm', D: 'matadora', Mlm: 'matadory', Dlm: 'matadorów', Nlm: 'matadorami' })),
+  // Klucz `matador` zostaje (wewnętrzny); w obu rejestrach mówimy „szczyty”.
+  matador: plain(same({ M: 'szczyt', g: 'm', D: 'szczytu', Mlm: 'szczyty', Dlm: 'szczytów', Nlm: 'szczytami' })),
   mit: plain({ official: { M: 'z' }, colloquial: { M: 'mit' } }),
   ohne: plain({ official: { M: 'bez' }, colloquial: { M: 'ohne' } }),
   przelicytowanie: plain({
