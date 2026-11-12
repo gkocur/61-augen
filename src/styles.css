@@ -105,7 +105,7 @@ a { color: var(--accent); }
 /* Ćwiczenia */
 .exercise__prompt p { font-size: 1.05rem; margin: 0 0 12px; }
 .options { display: grid; gap: 8px; margin-top: 12px; }
-.options--cards { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.options--cards { --card-w: clamp(64px, calc((100vw - 32px - 60px) / 4), 96px); display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
 .option {
   min-height: 48px; padding: 10px 14px; text-align: left; font: inherit;
   border-radius: var(--radius); border: 1px solid var(--border);
@@ -150,14 +150,21 @@ button.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2p
 .card--selected { transform: translateY(-12px); }
 .card--dimmed { opacity: 0.45; }
 
-.card-row { --card-w: clamp(44px, calc((100vw - 32px - 56px) / 8), 56px); list-style: none; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 0; margin: 12px 0; }
-.hand { --card-w: clamp(40px, calc((100vw - 32px + 180px) / 10), 52px); list-style: none; display: flex; justify-content: center; padding: 16px 0 0; margin: 0; }
-.hand__slot + .hand__slot { margin-left: -20px; }
+/* Rząd kart: na telefonie 5 w rzędzie (ok. 60 px), na komputerze do 96 px. */
+.card-row { --card-w: clamp(56px, calc((100vw - 32px - 40px) / 5), 96px); list-style: none; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 0; margin: 12px 0; }
+.hand { --card-w: clamp(52px, calc((100vw - 32px) / 5.4), 88px); list-style: none; display: flex; justify-content: center; padding: 16px 0 0; margin: 0; }
+.hand__slot + .hand__slot { margin-left: calc(var(--card-w) * -0.2); }
+/* Od 7 kart karty mocniej zachodzą na siebie: 10 kart (≈5,3 szerokości karty) mieści się w 375 px. */
+.hand:has(> .hand__slot:nth-child(7)) .hand__slot + .hand__slot { margin-left: calc(var(--card-w) * -0.52); }
 
-.trick { background: var(--felt); color: var(--felt-text); border-radius: 16px; padding: 16px; min-height: 140px; display: grid; place-items: center; }
+.trick {
+  --card-w: clamp(64px, calc((100vw - 32px - 32px - 24px) / 3.3), 112px);
+  background: var(--felt); color: var(--felt-text); border-radius: 16px; padding: 16px;
+  min-height: calc(var(--card-w) * 1.5 + 56px); display: grid; place-items: center;
+}
 .trick__empty { margin: 0; }
 .trick__cards { list-style: none; display: flex; gap: 12px; justify-content: center; padding: 0; margin: 0; }
-.trick__slot { display: flex; flex-direction: column; align-items: center; gap: 4px; --card-w: 60px; }
+.trick__slot { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .trick__label { font-size: 0.8rem; }
 
 /* Ustawienia i słowniczek */
@@ -204,7 +211,8 @@ button.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2p
 .mini-deal__open-label { text-align: center; color: var(--muted); font-size: 0.85rem; margin: 0; }
 
 @media (min-width: 600px) {
-  .hand { --card-w: 64px; }
-  .hand__slot + .hand__slot { margin-left: -16px; }
+  /* Na szerokim ekranie większe karty i mniejsze zachodzenie: 10 kart ≈ 6,4 szerokości karty (≈ 610 px). */
+  .hand { --card-w: 96px; }
+  .hand:has(> .hand__slot:nth-child(7)) .hand__slot + .hand__slot { margin-left: calc(var(--card-w) * -0.4); }
   .lesson__actions .button { width: auto; }
 }
