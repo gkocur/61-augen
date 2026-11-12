@@ -9,6 +9,7 @@ import {
   playCard,
   type CardId,
   type DealState,
+  type GameType,
   type Seat,
 } from '../engine';
 import type { CheckpointAsk, MiniDealExerciseData } from './types';
@@ -48,7 +49,7 @@ export function simulateMiniDeal(
     let card: CardId | undefined;
     if (seat === ex.you) {
       card = line[next++];
-      if (card === undefined) return { error: 'za mało kart w rozwiązaniu', goalReached: false };
+      if (card === undefined) return { error: 'za mało kart w linii gracza', goalReached: false };
     } else {
       card = bots[seat](state, seat);
     }
@@ -58,6 +59,7 @@ export function simulateMiniDeal(
       return { error: `niedozwolone zagranie ${card} (gracz ${seat})`, goalReached: false };
     }
   }
+  if (next < line.length) return { error: 'nadmiarowe karty w linii gracza', goalReached: false };
   return { error: null, goalReached: isGoalReached(ex, state) };
 }
 
@@ -67,9 +69,15 @@ export function checkpointAnswer(ex: MiniDealExerciseData, state: DealState, ask
   return state.tricks.flatMap((trick) => trick.cards).filter((card) => isTrump(card, state.game)).length;
 }
 
-/** Trzy warianty do wyboru (rosnąco): poprawny i dwa sąsiednie, bez liczb ujemnych. */
-export function checkpointOptions(correct: number, ask: CheckpointAsk): number[] {
+/**
+ * Trzy warianty do wyboru (rosnąco): kolejne wielokrotności kroku zawierające poprawny,
+ * w granicach [0, max]. Pozycja poprawnego to `seed % 3` (0 = najniższy), przesunięta, gdy okno nie mieści się w granicach.
+ */
+export function checkpointOptions(correct: number, ask: CheckpointAsk, game: GameType, seed: number): [number, number, number] {
   const step = ask === 'yourPoints' ? 10 : 1;
-  const candidates = correct - step >= 0 ? [correct - step, correct, correct + step] : [correct, correct + step, correct + 2 * step];
-  return candidates.sort((a, b) => a - b);
+  const max = ask === 'yourPoints' ? 120 : game.kind === 'suit' ? 11 : 4;
+  let lowest = correct - (((seed % 3) + 3) % 3) * step;
+  while (lowest < 0) lowest += step;
+  while (lowest + 2 * step > max) lowest -= step;
+  return [lowest, lowest + step, lowest + 2 * step];
 }

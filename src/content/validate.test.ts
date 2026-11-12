@@ -97,6 +97,18 @@ describe('validateCourse', () => {
     expect(validateCourse(courseWith(lessonWith([{ ...deal, checkpoints: [{ afterTrick: 2, ask: 'yourPoints' }] }])))).toEqual([
       'l1/d1: punkt kontrolny po lewie 2 musi być między 1 a 1',
     ]);
+    expect(validateCourse(courseWith(lessonWith([{ ...deal, mistakes: [['h-7', 'c-A']] }])))[0]).toMatch(
+      /^l1\/d1: błędne rozegranie 1: niedozwolone zagranie/,
+    );
+    expect(
+      validateCourse(courseWith(lessonWith([{ ...deal, checkpoints: [{ afterTrick: 1, ask: 'yourPoints' }, { afterTrick: 1, ask: 'yourPoints' }] }]))),
+    ).toEqual(['l1/d1: powtórzony punkt kontrolny po lewie 1']);
+    const nullDeal: MiniDealExerciseData = {
+      ...deal, game: { kind: 'null' }, goal: { kind: 'win' },
+      checkpoints: [{ afterTrick: 1, ask: 'trumpsPlayed' }, { afterTrick: 2, ask: 'trumpsPlayed' }],
+    };
+    const nullErrors = validateCourse(courseWith(lessonWith([nullDeal]))).filter((e) => e.includes('w nullu nie ma atu do liczenia'));
+    expect(nullErrors).toEqual(['l1/d1: w nullu nie ma atu do liczenia']);
     expect(validateCourse(courseWith(lessonWith([{ ...deal, ouvert: true }])))).toEqual([
       'l1/d1: gra otwarta ma sens tylko, gdy gracz nie jest rozgrywającym',
     ]);

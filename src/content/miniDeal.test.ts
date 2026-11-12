@@ -29,7 +29,7 @@ describe('mini-rozdanie', () => {
 
   it('błędne rozwiązanie jest zgłaszane', () => {
     expect(simulateMiniDeal({ ...exercise, solution: ['c-A', 'h-7'] }).error).toMatch(/niedozwolone|brak/i);
-    expect(simulateMiniDeal({ ...exercise, solution: ['c-J'] }).error).toMatch(/za mało/);
+    expect(simulateMiniDeal({ ...exercise, solution: ['c-J'] }).error).toMatch(/za mało kart w linii gracza/);
   });
 
   it('punkty liczone z perspektywy gracza', () => {
@@ -51,10 +51,23 @@ describe('mini-rozdanie', () => {
     expect(checkpointAnswer(exercise, state, 'trumpsPlayed')).toBe(1);
   });
 
-  it('warianty odpowiedzi: poprawna i dwie inne, bez liczb ujemnych', () => {
-    expect(checkpointOptions(2, 'yourPoints')).toEqual([2, 12, 22]);
-    expect(checkpointOptions(35, 'yourPoints')).toEqual([25, 35, 45]);
-    expect(checkpointOptions(0, 'trumpsPlayed')).toEqual([0, 1, 2]);
-    expect(checkpointOptions(4, 'trumpsPlayed')).toEqual([3, 4, 5]);
+  it('warianty odpowiedzi: pozycja poprawnej zależy od ziarna', () => {
+    const suit = { kind: 'suit', trump: 'h' } as const;
+    expect(checkpointOptions(35, 'yourPoints', suit, 0)).toEqual([35, 45, 55]);
+    expect(checkpointOptions(35, 'yourPoints', suit, 1)).toEqual([25, 35, 45]);
+    expect(checkpointOptions(35, 'yourPoints', suit, 2)).toEqual([15, 25, 35]);
+    expect(checkpointOptions(5, 'trumpsPlayed', suit, 1)).toEqual([4, 5, 6]);
+  });
+
+  it('warianty odpowiedzi mieszczą się w granicach', () => {
+    const suit = { kind: 'suit', trump: 'h' } as const;
+    expect(checkpointOptions(5, 'yourPoints', suit, 2)).toEqual([5, 15, 25]);
+    expect(checkpointOptions(115, 'yourPoints', suit, 0)).toEqual([95, 105, 115]);
+    expect(checkpointOptions(4, 'trumpsPlayed', { kind: 'grand' }, 0)).toEqual([2, 3, 4]);
+    expect(checkpointOptions(11, 'trumpsPlayed', suit, 0)).toEqual([9, 10, 11]);
+  });
+
+  it('nadmiarowe karty w linii gracza', () => {
+    expect(simulateMiniDeal(exercise, ['c-J', 'c-A', 'c-K']).error).toBe('nadmiarowe karty w linii gracza');
   });
 });

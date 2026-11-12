@@ -100,7 +100,7 @@ export interface MiniDealExerciseData {
   /** Gra otwarta: karty rozgrywającego są widoczne (tylko gdy gracz nie jest rozgrywającym). */
   ouvert?: boolean;
   /** Typowe błędne rozegrania gracza — test treści sprawdza, że NIE osiągają celu. */
-  mistakes?: CardId[][];
+  mistakes?: readonly (readonly CardId[])[];
   explain: string;
 }
 

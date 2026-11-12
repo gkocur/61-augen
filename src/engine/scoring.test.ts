@@ -176,4 +176,20 @@ describe('kontra i re', () => {
     const won = settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(75, 6), doubling: 'kontra' });
     expect(tournamentPoints(won)).toEqual({ declarer: 110, eachDefender: 0 });
   });
+  it('punkty turniejowe przegranej gry z kontrą', () => {
+    const lost = settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(55, 4), doubling: 'kontra' });
+    expect(tournamentPoints(lost)).toEqual({ declarer: -170, eachDefender: 40 });
+  });
+  it('przelicytowanie z re: wartość z przelicytowania razy 4', () => {
+    // wartość 30 < stawka 40 -> 10 * ceil(40/10) = 40, z re 160
+    expect(settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(75, 6), bid: 40, doubling: 're' })).toMatchObject({
+      overbid: true,
+      won: false,
+      value: 160,
+      score: -320,
+    });
+  });
+  it('przegrany null z re', () => {
+    expect(settle({ declaration: decl({ kind: 'null' }), declarerCards: [], outcome: outcome(10, 1), doubling: 're' })).toMatchObject({ won: false, value: 92, score: -184 });
+  });
 });

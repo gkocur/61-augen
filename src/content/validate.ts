@@ -147,7 +147,10 @@ function validateMiniDeal(ex: MiniDealExerciseData, report: Report) {
     }
     if (seen.has(checkpoint.afterTrick)) report(`powtórzony punkt kontrolny po lewie ${checkpoint.afterTrick}`);
     seen.add(checkpoint.afterTrick);
-    if (checkpoint.ask === 'trumpsPlayed' && ex.game.kind === 'null') report('w nullu nie ma atu do liczenia');
+  }
+
+  if (ex.game.kind === 'null' && ex.checkpoints?.some((c) => c.ask === 'trumpsPlayed')) {
+    report('w nullu nie ma atu do liczenia');
   }
 
   if (ex.ouvert && ex.you === ex.declarer) report('gra otwarta ma sens tylko, gdy gracz nie jest rozgrywającym');
