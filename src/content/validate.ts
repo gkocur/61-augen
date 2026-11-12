@@ -133,6 +133,24 @@ function validateMiniDeal(ex: MiniDealExerciseData, report: Report) {
   const outcome = simulateMiniDeal(ex);
   if (outcome.error) report(outcome.error);
   else if (!outcome.goalReached) report('wzorcowe rozegranie nie osiąga celu');
+
+  (ex.mistakes ?? []).forEach((line, i) => {
+    const result = simulateMiniDeal(ex, line);
+    if (result.error) report(`błędne rozegranie ${i + 1}: ${result.error}`);
+    else if (result.goalReached) report(`błędne rozegranie ${i + 1} osiąga cel`);
+  });
+
+  const seen = new Set<number>();
+  for (const checkpoint of ex.checkpoints ?? []) {
+    if (!Number.isInteger(checkpoint.afterTrick) || checkpoint.afterTrick < 1 || checkpoint.afterTrick > size - 1) {
+      report(`punkt kontrolny po lewie ${checkpoint.afterTrick} musi być między 1 a ${size - 1}`);
+    }
+    if (seen.has(checkpoint.afterTrick)) report(`powtórzony punkt kontrolny po lewie ${checkpoint.afterTrick}`);
+    seen.add(checkpoint.afterTrick);
+    if (checkpoint.ask === 'trumpsPlayed' && ex.game.kind === 'null') report('w nullu nie ma atu do liczenia');
+  }
+
+  if (ex.ouvert && ex.you === ex.declarer) report('gra otwarta ma sens tylko, gdy gracz nie jest rozgrywającym');
 }
 
 function validateDiscard(ex: DiscardExerciseData, report: Report, checkText: CheckText) {

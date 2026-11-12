@@ -81,6 +81,7 @@ export const lesson: Lesson = {
       ],
       skat: ['h-9', 's-7'],
       solution: ['c-J', 'c-A', 's-A', 'c-10', 'd-10', 'h-Q', 's-J', 'c-K', 'c-Q', 'c-7'],
+      mistakes: [['c-A', 'h-Q', 's-J', 's-A', 'c-10', 'd-10', 'c-J', 'c-K', 'c-7', 'c-Q']],
       goal: { kind: 'win' },
       explain:
         'Jeden [[card:c-J]] na początku wyciąga oba [[walet:Mlm]] [[obronca:Dlm]] — każdy z nich ma po jednym i musi go dołożyć. Potem kolor [[suit:c]] jest bezpieczny. ' +

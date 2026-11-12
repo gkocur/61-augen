@@ -91,6 +91,15 @@ describe('validateCourse', () => {
     expect(validateCourse(courseWith(lessonWith([{ ...deal, hands: [['c-J', 'c-A'], ['c-7', 'c-J'], ['c-8', 's-8']] }])))).toContain(
       'l1/d1: karta c-J występuje więcej niż raz',
     );
+    expect(validateCourse(courseWith(lessonWith([{ ...deal, mistakes: [['c-J', 'c-A']] }])))).toEqual([
+      'l1/d1: błędne rozegranie 1 osiąga cel',
+    ]);
+    expect(validateCourse(courseWith(lessonWith([{ ...deal, checkpoints: [{ afterTrick: 2, ask: 'yourPoints' }] }])))).toEqual([
+      'l1/d1: punkt kontrolny po lewie 2 musi być między 1 a 1',
+    ]);
+    expect(validateCourse(courseWith(lessonWith([{ ...deal, ouvert: true }])))).toEqual([
+      'l1/d1: gra otwarta ma sens tylko, gdy gracz nie jest rozgrywającym',
+    ]);
   });
 
   it('ćwiczenie „do skata”: 12 kart i poprawne pary', () => {

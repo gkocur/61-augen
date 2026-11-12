@@ -70,6 +70,14 @@ export interface PlayCardExerciseData {
 /** `win` — twoja strona wygrywa rozdanie (pełne rozdanie); `minPoints` — twoja strona ma co najmniej tyle oczek. */
 export type MiniDealGoal = { kind: 'win' } | { kind: 'minPoints'; points: number };
 
+/** Pytanie w trakcie mini-rozdania, zadawane po zakończeniu lewy `afterTrick`; odpowiedź liczona na żywo. */
+export type CheckpointAsk = 'yourPoints' | 'trumpsPlayed';
+
+export interface MiniDealCheckpoint {
+  afterTrick: number;
+  ask: CheckpointAsk;
+}
+
 export interface MiniDealExerciseData {
   type: 'miniDeal';
   id: string;
@@ -87,6 +95,12 @@ export interface MiniDealExerciseData {
   /** Wzorcowe zagrania gracza — test treści sprawdza, że prowadzą do celu. */
   solution: CardId[];
   goal: MiniDealGoal;
+  /** Pytania w trakcie gry; ćwiczenie zaliczone tylko przy celu osiągniętym i wszystkich dobrych odpowiedziach. */
+  checkpoints?: MiniDealCheckpoint[];
+  /** Gra otwarta: karty rozgrywającego są widoczne (tylko gdy gracz nie jest rozgrywającym). */
+  ouvert?: boolean;
+  /** Typowe błędne rozegrania gracza — test treści sprawdza, że NIE osiągają celu. */
+  mistakes?: CardId[][];
   explain: string;
 }
 

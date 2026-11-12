@@ -5,12 +5,13 @@ import {
   currentPlayer,
   dealResult,
   isDealOver,
+  isTrump,
   playCard,
   type CardId,
   type DealState,
   type Seat,
 } from '../engine';
-import type { MiniDealExerciseData } from './types';
+import type { CheckpointAsk, MiniDealExerciseData } from './types';
 
 export function startMiniDeal(ex: MiniDealExerciseData): DealState {
   return createDeal({ game: ex.game, declarer: ex.declarer, hands: ex.hands, skat: ex.skat, leader: ex.leader ?? 0 });
@@ -34,8 +35,11 @@ export function isGoalReached(ex: MiniDealExerciseData, state: DealState): boole
   return ex.you === ex.declarer ? declarerWon : !declarerWon;
 }
 
-/** Rozgrywa rozdanie: gracz gra `solution`, reszta — boty ćwiczenia. */
-export function simulateMiniDeal(ex: MiniDealExerciseData): { error: string | null; goalReached: boolean } {
+/** Rozgrywa rozdanie: gracz gra `line` (domyślnie `solution`), reszta — boty ćwiczenia. */
+export function simulateMiniDeal(
+  ex: MiniDealExerciseData,
+  line: readonly CardId[] = ex.solution,
+): { error: string | null; goalReached: boolean } {
   const bots = miniDealBots(ex);
   let state = startMiniDeal(ex);
   let next = 0;
@@ -43,7 +47,7 @@ export function simulateMiniDeal(ex: MiniDealExerciseData): { error: string | nu
     const seat = currentPlayer(state);
     let card: CardId | undefined;
     if (seat === ex.you) {
-      card = ex.solution[next++];
+      card = line[next++];
       if (card === undefined) return { error: 'za mało kart w rozwiązaniu', goalReached: false };
     } else {
       card = bots[seat](state, seat);
@@ -55,4 +59,17 @@ export function simulateMiniDeal(ex: MiniDealExerciseData): { error: string | nu
     }
   }
   return { error: null, goalReached: isGoalReached(ex, state) };
+}
+
+/** Poprawna odpowiedź na pytanie w trakcie gry, dla bieżącego stanu rozdania. */
+export function checkpointAnswer(ex: MiniDealExerciseData, state: DealState, ask: CheckpointAsk): number {
+  if (ask === 'yourPoints') return teamPoints(ex, state).yours;
+  return state.tricks.flatMap((trick) => trick.cards).filter((card) => isTrump(card, state.game)).length;
+}
+
+/** Trzy warianty do wyboru (rosnąco): poprawny i dwa sąsiednie, bez liczb ujemnych. */
+export function checkpointOptions(correct: number, ask: CheckpointAsk): number[] {
+  const step = ask === 'yourPoints' ? 10 : 1;
+  const candidates = correct - step >= 0 ? [correct - step, correct, correct + step] : [correct, correct + step, correct + 2 * step];
+  return candidates.sort((a, b) => a - b);
 }

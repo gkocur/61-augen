@@ -74,6 +74,7 @@ export const lesson: Lesson = {
       ],
       skat: ['s-9', 'd-8'],
       solution: ['c-J', 's-J', 'h-A', 'c-9', 'h-Q', 'h-10', 's-A', 'h-K', 'd-A', 'd-9'],
+      mistakes: [['s-A', 'd-A', 'c-9', 'h-Q', 'c-J', 's-J', 'h-A', 'h-K', 'h-10', 'd-9']],
       goal: { kind: 'win' },
       explain:
         'Wyciągając najpierw [[atu:Blm]] ([[card:c-J]], [[card:s-J]], [[card:h-A]]…), zabierasz [[obronca:Clm]] możliwość przebijania. ' +
