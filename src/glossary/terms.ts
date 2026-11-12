@@ -64,9 +64,12 @@ export const TERMS: Record<string, Term> = {
     official: { M: 'gra kolorowa', g: 'f', D: 'gry kolorowej', B: 'grę kolorową', N: 'grą kolorową', Ms: 'grze kolorowej' },
     colloquial: { M: 'farbszpil', g: 'm', D: 'farbszpila', B: 'farbszpila', N: 'farbszpilem', Ms: 'farbszpilu' },
   }),
-  grand: plain(same({ M: 'grand', g: 'm', D: 'granda', B: 'granda', N: 'grandem', Ms: 'grandzie' })),
+  grand: plain({
+    official: { M: 'grand', g: 'm', D: 'granda', B: 'grand', N: 'grandem', Ms: 'grandzie' },
+    colloquial: { M: 'grand', g: 'm', D: 'granda', B: 'granda', N: 'grandem', Ms: 'grandzie' },
+  }),
   null: plain({
-    official: { M: 'null', g: 'm', D: 'nulla', B: 'nulla', N: 'nullem', Ms: 'nullu', Mlm: 'nulle' },
+    official: { M: 'null', g: 'm', D: 'nulla', B: 'null', N: 'nullem', Ms: 'nullu', Mlm: 'nulle' },
     colloquial: { M: 'nul', g: 'm', D: 'nula', B: 'nula', N: 'nulem', Ms: 'nulu', Mlm: 'nule' },
   }),
 
