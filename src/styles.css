@@ -139,8 +139,8 @@ button.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2p
 .card--selected { transform: translateY(-12px); }
 .card--dimmed { opacity: 0.45; }
 
-.card-row { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 0; margin: 12px 0; }
-.hand { --card-w: 52px; list-style: none; display: flex; justify-content: center; padding: 16px 0 0; margin: 0; }
+.card-row { --card-w: clamp(36px, calc((100vw - 32px - 56px) / 8), 56px); list-style: none; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 0; margin: 12px 0; }
+.hand { --card-w: clamp(40px, calc((100vw - 32px + 180px) / 10), 52px); list-style: none; display: flex; justify-content: center; padding: 16px 0 0; margin: 0; }
 .hand__slot + .hand__slot { margin-left: -20px; }
 
 .trick { background: var(--felt); color: var(--felt-text); border-radius: 16px; padding: 16px; min-height: 140px; display: grid; place-items: center; }
@@ -159,6 +159,27 @@ button.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2p
 .glossary__table th { color: var(--muted); font-weight: 600; }
 
 .error-screen, .not-found { text-align: center; padding: 32px 0; }
+
+/* Baner gry i mini-rozdanie */
+.game-banner {
+  display: inline-block; margin: 0 0 12px; padding: 4px 12px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--border); font-size: 0.9rem; font-weight: 600;
+}
+.mini-deal__opponents { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.opponent {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  padding: 6px 10px; border-radius: var(--radius); border: 2px solid transparent;
+}
+.opponent--active { border-color: var(--accent); }
+.opponent__name { font-size: 0.85rem; color: var(--muted); }
+.opponent__stack { --card-w: 28px; display: flex; align-items: center; gap: 6px; }
+.opponent__count { font-weight: 700; }
+.card__back { fill: #2f5d8a; stroke: #bdb6a6; stroke-width: 1; }
+.card__back-inner { fill: none; stroke: rgb(255 255 255 / 0.55); stroke-width: 2; }
+.mini-deal__status { text-align: center; color: var(--muted); margin: 8px 0 0; min-height: 1.5em; }
+.mini-deal__score { text-align: center; font-weight: 600; margin: 4px 0 0; }
+.mini-deal__seat { text-align: center; color: var(--muted); font-size: 0.85rem; margin: 8px 0 0; }
+.hint--warn { color: var(--bad-text); }
 
 @media (min-width: 600px) {
   .hand { --card-w: 64px; }
