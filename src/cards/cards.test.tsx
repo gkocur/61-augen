@@ -1,12 +1,12 @@
 // src/cards/cards.test.tsx
-import { screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
 import { renderWithProviders } from '../test/render';
 import { storageWithState } from '../test/storage';
 import { Hand } from './Hand';
 import { OpponentView } from './OpponentView';
-import { PlayingCard } from './PlayingCard';
+import { cardImageUrl, PlayingCard } from './PlayingCard';
 import { TrickView } from './TrickView';
 
 describe('karty', () => {
@@ -59,5 +59,34 @@ describe('karty', () => {
   it('stół: własny tekst pustego stołu', () => {
     renderWithProviders(<TrickView cards={[]} leader={0} you={1} emptyText="Stół jest pusty." />);
     expect(screen.getByText('Stół jest pusty.')).toBeInTheDocument();
+  });
+
+  it('karta pokazuje grafikę wybranej talii', () => {
+    renderWithProviders(<PlayingCard card="h-10" />);
+    const img = screen.getByRole('img', { name: 'dziesiątka czerwienna' }).querySelector('img');
+    expect(img).toHaveAttribute('src', 'cards/altenburg/h-10.svg');
+    expect(img).toHaveAttribute('alt', '');
+  });
+
+  it('talia francuska: grafika z katalogu french', () => {
+    renderWithProviders(<PlayingCard card="c-J" />, { storage: storageWithState({ deck: 'french' }) });
+    expect(screen.getByRole('img', { name: 'walet trefl' }).querySelector('img')).toHaveAttribute('src', 'cards/french/c-J.svg');
+  });
+
+  it('gdy grafika się nie wczyta, karta rysuje się w kodzie', () => {
+    renderWithProviders(<PlayingCard card="h-10" />);
+    const card = screen.getByRole('img', { name: 'dziesiątka czerwienna' });
+    fireEvent.error(card.querySelector('img')!);
+    expect(card.querySelector('img')).toBeNull();
+    expect(card.querySelector('svg.card__svg')).not.toBeNull();
+  });
+
+  it('w repozytorium są grafiki wszystkich 64 kart', () => {
+    const files = Object.keys(import.meta.glob('../../public/cards/*/*.svg'));
+    const decks = ['altenburg', 'french'];
+    const cards = ['c', 's', 'h', 'd'].flatMap((s) => ['7', '8', '9', '10', 'J', 'Q', 'K', 'A'].map((r) => `${s}-${r}`));
+    const expected = decks.flatMap((d) => cards.map((c) => `../../public/cards/${d}/${c}.svg`));
+    expect(files.sort()).toEqual(expected.sort());
+    expect(cardImageUrl('h-10', 'french')).toBe('cards/french/h-10.svg');
   });
 });

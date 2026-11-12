@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { HashRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { AppStateProvider } from '../state/AppStateContext';
+import { AboutCardsPage } from './AboutCardsPage';
 import { CourseMap } from './CourseMap';
 import { ErrorBoundary } from './ErrorBoundary';
 import { GlossaryPage } from './GlossaryPage';
@@ -24,6 +25,7 @@ export function AppRoutes() {
           <Route path="/lekcja/:lessonId" element={<LessonRoute />} />
           <Route path="/ustawienia" element={<SettingsPage />} />
           <Route path="/slowniczek" element={<GlossaryPage />} />
+          <Route path="/o-kartach" element={<AboutCardsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </RouteErrorBoundary>

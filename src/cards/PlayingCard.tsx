@@ -1,8 +1,14 @@
 // src/cards/PlayingCard.tsx
+import { useState } from 'react';
 import { suitOf, type CardId } from '../engine';
-import { cardName, rankLabel } from '../glossary';
+import { cardName, rankLabel, type DeckKind } from '../glossary';
 import { useTextContext } from '../state/AppStateContext';
 import { SUIT_COLORS, SuitSymbol } from './SuitSymbol';
+
+/** Ścieżka względna — działa przy `base: './'` także w podkatalogu GitHub Pages. */
+export function cardImageUrl(card: CardId, deck: DeckKind): string {
+  return `cards/${deck}/${card}.svg`;
+}
 
 interface Props {
   card: CardId;
@@ -16,7 +22,7 @@ export function PlayingCard({ card, selected = false, dimmed = false, disabled =
   const ctx = useTextContext();
   const label = cardName(card, ctx);
   const className = ['card', selected && 'card--selected', dimmed && 'card--dimmed'].filter(Boolean).join(' ');
-  const face = <CardFace card={card} />;
+  const face = <CardImage key={`${ctx.deck}-${card}`} card={card} deck={ctx.deck} />;
   if (onClick) {
     return (
       <button type="button" className={className} aria-label={label} aria-pressed={selected} aria-description={dimmed ? 'niedozwolona' : undefined} disabled={disabled} onClick={onClick}>
@@ -29,6 +35,13 @@ export function PlayingCard({ card, selected = false, dimmed = false, disabled =
       {face}
     </span>
   );
+}
+
+/** Grafika z Wikimedia; gdy się nie wczyta — karta rysowana w kodzie (CardFace). */
+function CardImage({ card, deck }: { card: CardId; deck: DeckKind }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) return <CardFace card={card} />;
+  return <img className="card__img" src={cardImageUrl(card, deck)} alt="" draggable={false} onError={() => setFailed(true)} />;
 }
 
 function CardFace({ card }: { card: CardId }) {

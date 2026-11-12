@@ -30,6 +30,9 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       )}
       <main className="app-main">{children}</main>
+      <footer className="app-footer">
+        <Link to="/o-kartach">O kartach i licencjach</Link>
+      </footer>
     </div>
   );
 }

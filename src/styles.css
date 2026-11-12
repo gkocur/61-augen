@@ -134,6 +134,17 @@ button.card { cursor: pointer; }
 button.card:disabled { cursor: default; }
 button.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .card__svg { width: 100%; height: auto; display: block; filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35)); }
+.card__img {
+  display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: contain;
+  border-radius: 6px; background: #fff;
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
+  -webkit-user-drag: none; user-select: none;
+}
+.app-footer { text-align: center; padding: 24px 16px 32px; font-size: 0.85rem; color: var(--muted); }
+.app-footer a { color: inherit; }
+.about-cards dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 12px; margin: 8px 0; }
+.about-cards dt { font-weight: 600; }
+.about-cards dd { margin: 0; overflow-wrap: anywhere; }
 .card__bg { fill: #fff; stroke: #bdb6a6; stroke-width: 1; }
 .card__index { font: 700 13px system-ui, sans-serif; }
 .card--selected { transform: translateY(-12px); }
