@@ -219,10 +219,10 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 
 | Pojęcie | Altenburg — oficjalny | Altenburg — potoczny | Francuska — oficjalny | Francuska — potoczny |
 |---|---|---|---|---|
-| ♣ (Eichel / Kreuz) | żołądź | ajchel ⚠ | trefl | trefl / krzyż ⚠ |
-| ♠ (Grün / Pik) | wino / zielone ⚠ | grin ⚠ | pik | pik |
-| ♥ (Rot / Herz) | czerwień | herc / rot ⚠ | kier | kier |
-| ♦ (Schellen / Karo) | dzwonek | szele ⚠ | karo | karo |
+| ♣ (Eichel / Kreuz) | żołądź | krojc | trefl | krojc |
+| ♠ (Grün / Pik) | wino / zielone ⚠ | grin | pik | grin |
+| ♥ (Rot / Herz) | czerwień | herc | kier | herc |
+| ♦ (Schellen / Karo) | dzwonek | szel | karo | szel |
 | Unter / Bube | niżnik | uner | walet | jopek / uner ⚠ |
 | Ober / Dame | wyżnik | ober | dama | dama |
 | Daus / As | tuz / as ⚠ | daus ⚠ | as | as |

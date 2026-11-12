@@ -20,16 +20,11 @@ export const SUIT_NAMES: Record<DeckKind, Record<Register, Record<Suit, SuitName
       h: { noun: 'czerwień', adjStem: 'czerwienn' },
       d: { noun: 'dzwonek', adjStem: 'dzwonkow' },
     },
-    colloquial: {
-      c: { noun: 'ajchel' },
-      s: { noun: 'grin' },
-      h: { noun: 'herc' },
-      d: { noun: 'szele' },
-    },
+    colloquial: { c: { noun: 'krojc' }, s: { noun: 'grin' }, h: { noun: 'herc' }, d: { noun: 'szel' } },
   },
   french: {
     official: { c: { noun: 'trefl' }, s: { noun: 'pik' }, h: { noun: 'kier' }, d: { noun: 'karo' } },
-    colloquial: { c: { noun: 'trefl' }, s: { noun: 'pik' }, h: { noun: 'kier' }, d: { noun: 'karo' } },
+    colloquial: { c: { noun: 'krojc' }, s: { noun: 'grin' }, h: { noun: 'herc' }, d: { noun: 'szel' } },
   },
 };
 

@@ -75,7 +75,7 @@ describe('aplikacja', () => {
     await user.click(screen.getByRole('radio', { name: /Francuska/ }));
     expect(screen.getByRole('img', { name: 'walet trefl' })).toBeInTheDocument();
     await user.click(screen.getByRole('radio', { name: /Potoczny/ }));
-    expect(screen.getByRole('img', { name: 'jopek trefl' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'jopek krojc' })).toBeInTheDocument();
   });
 
   it('ustawienia: odblokuj wszystko i reset postępu', async () => {

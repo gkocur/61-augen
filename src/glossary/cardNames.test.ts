@@ -13,13 +13,13 @@ describe('nazwy kart', () => {
   });
 
   it('Altenburg, potocznie', () => {
-    expect(cardName('d-A', { deck: 'altenburg', register: 'colloquial' })).toBe('daus szele');
+    expect(cardName('d-A', { deck: 'altenburg', register: 'colloquial' })).toBe('daus szel');
   });
 
   it('talia francuska: nazwa koloru po figurze', () => {
     expect(cardName('h-10', { deck: 'french', register: 'official' })).toBe('dziesiątka kier');
     expect(cardName('s-Q', { deck: 'french', register: 'official' })).toBe('dama pik');
-    expect(cardName('c-J', { deck: 'french', register: 'colloquial' })).toBe('jopek trefl');
+    expect(cardName('c-J', { deck: 'french', register: 'colloquial' })).toBe('jopek krojc');
   });
 
   it('nazwy kolorów', () => {
@@ -53,7 +53,7 @@ describe('nazwy kart', () => {
   it('nazwy kart w przypadkach — kolor jako nieodmienny rzeczownik', () => {
     expect(cardName('c-A', { deck: 'french', register: 'official' }, 'N')).toBe('asem trefl');
     expect(cardName('s-Q', { deck: 'french', register: 'official' }, 'B')).toBe('damę pik');
-    expect(cardName('d-J', { deck: 'altenburg', register: 'colloquial' }, 'D')).toBe('unera szele');
+    expect(cardName('d-J', { deck: 'altenburg', register: 'colloquial' }, 'D')).toBe('unera szel');
   });
 
   it('każda ranga ma wszystkie przypadki nazw kart w każdym wariancie', () => {
