@@ -12,7 +12,7 @@ describe('zapis stanu', () => {
   it('pusta pamięć: stan domyślny bez komunikatu', () => {
     const { state, notice } = loadState(createMemoryStorage());
     expect(notice).toBeNull();
-    expect(state.settings).toEqual({ deck: 'altenburg', register: 'official', unlockAll: false });
+    expect(state.settings).toEqual({ deck: 'altenburg', register: 'colloquial', unlockAll: false });
   });
 
   it('zapisany stan wraca po odczycie', () => {

@@ -3,11 +3,11 @@ import { render } from '@testing-library/react';
 import type { ReactElement } from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { AppStateProvider } from '../state/AppStateContext';
-import { createMemoryStorage } from './storage';
+import { storageWithState } from './storage';
 
 export function renderWithProviders(
   ui: ReactElement,
-  { storage = createMemoryStorage(), route = '/' }: { storage?: Storage | null; route?: string } = {},
+  { storage = storageWithState(), route = '/' }: { storage?: Storage | null; route?: string } = {},
 ) {
   const result = render(
     <AppStateProvider storage={storage}>

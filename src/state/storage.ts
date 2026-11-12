@@ -14,7 +14,7 @@ export interface LoadResult {
 export function createDefaultState(): AppState {
   return {
     schemaVersion: 1,
-    settings: { deck: 'altenburg', register: 'official', unlockAll: false },
+    settings: { deck: 'altenburg', register: 'colloquial', unlockAll: false },
     lessons: {},
   };
 }

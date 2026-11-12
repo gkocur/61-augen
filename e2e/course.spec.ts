@@ -10,11 +10,11 @@ const noHorizontalScroll = async (page: Page) => {
 
 test('lekcja 1: od teorii do zaliczenia i odblokowania lekcji 2; postęp po przeładowaniu', async ({ page }) => {
   await page.goto('./');
-  await expect(page.getByRole('heading', { name: 'Kurs skata' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Kurs szkata' })).toBeVisible();
   await noHorizontalScroll(page);
   await page.getByRole('link', { name: 'Zacznij naukę' }).click();
 
-  await expect(page.getByRole('heading', { name: 'Lekcja 1: Czym jest skat?' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Lekcja 1: Czym jest szkat?' })).toBeVisible();
   for (let i = 0; i < 3; i++) await page.getByRole('button', { name: 'Dalej' }).click();
 
   for (const answer of ['3', '61', '120', 'Razem, jako drużyna']) {
@@ -31,7 +31,7 @@ test('lekcja 1: od teorii do zaliczenia i odblokowania lekcji 2; postęp po prze
   await page.reload();
   await page.goto('./#/');
   await expect(page.getByRole('link', { name: 'Kontynuuj' })).toBeVisible();
-  await expect(page.getByRole('link', { name: /Czym jest skat\?.*Zaliczona/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Czym jest szkat\?.*Zaliczona/ })).toBeVisible();
   await expect(page.getByRole('link', { name: /Talia.*Dostępna/ })).toBeVisible();
 });
 

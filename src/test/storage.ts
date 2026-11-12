@@ -20,10 +20,12 @@ export function createMemoryStorage(initial: Record<string, string> = {}): Stora
   };
 }
 
+/** Pamięć z zapisanym stanem. Testy piszemy w rejestrze oficjalnym, chyba że `settings` mówi inaczej
+ *  (domyślny rejestr aplikacji — potoczny — sprawdza test stanu domyślnego). */
 export function storageWithState(settings: Partial<Settings> = {}, lessons: AppState['lessons'] = {}): Storage {
   const state = createDefaultState();
   return createMemoryStorage({
-    [STORAGE_KEY]: JSON.stringify({ ...state, settings: { ...state.settings, ...settings }, lessons }),
+    [STORAGE_KEY]: JSON.stringify({ ...state, settings: { ...state.settings, register: 'official', ...settings }, lessons }),
   });
 }
 
