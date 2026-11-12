@@ -18,8 +18,11 @@ export function leadOf(card: CardId, game: GameType): Lead {
   return isTrump(card, game) ? 'trump' : suitOf(card);
 }
 
-/** Siła karty w obrębie jej grupy (atu albo kolor). Walety w atu: 101–104. */
-function strength(card: CardId, game: GameType): number {
+/**
+ * Siła karty w obrębie jej grupy (atu albo kolor). Walety w atu: 101–104.
+ * Porównywalna tylko między kartami tej samej grupy.
+ */
+export function cardStrength(card: CardId, game: GameType): number {
   if (game.kind === 'null') return NULL_ORDER.indexOf(rankOf(card));
   if (rankOf(card) === 'J') return 100 + JACK_STRENGTH[suitOf(card)];
   return NORMAL_ORDER.indexOf(rankOf(card));
@@ -30,7 +33,7 @@ function beats(challenger: CardId, current: CardId, game: GameType): boolean {
   const currentTrump = isTrump(current, game);
   if (challengerTrump !== currentTrump) return challengerTrump;
   if (!challengerTrump && suitOf(challenger) !== suitOf(current)) return false;
-  return strength(challenger, game) > strength(current, game);
+  return cardStrength(challenger, game) > cardStrength(current, game);
 }
 
 /** Indeks karty (0–2), która bierze lewę. */
@@ -46,5 +49,5 @@ export function trickWinner(trick: readonly CardId[], game: GameType): number {
 /** Kolejność wyświetlania: atu (malejąco), potem kolory ♣ ♠ ♥ ♦ (malejąco). */
 export function sortHand(hand: readonly CardId[], game: GameType): CardId[] {
   const group = (card: CardId) => (isTrump(card, game) ? -1 : SUITS.indexOf(suitOf(card)));
-  return [...hand].sort((a, b) => group(a) - group(b) || strength(b, game) - strength(a, game));
+  return [...hand].sort((a, b) => group(a) - group(b) || cardStrength(b, game) - cardStrength(a, game));
 }
