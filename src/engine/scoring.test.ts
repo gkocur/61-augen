@@ -20,7 +20,7 @@ const DIAMONDS_WITHOUT_1: CardId[] = ['s-J', 'h-J', 'd-A', 'd-10', 'd-K', 'd-Q',
 const GRAND_WITH_2: CardId[] = ['c-J', 's-J', 'd-J', 'c-A', 'c-10', 's-A', 's-10', 'h-A', 'h-K', 'd-A', 'd-10', 'd-9'];
 
 describe('matadory', () => {
-  it('z ilu / bez ilu w grze kolorowej', () => {
+  it('z / bez w grze kolorowej', () => {
     expect(matadors(HEARTS_WITH_2, hearts)).toEqual({ with: true, count: 2 });
     expect(matadors(DIAMONDS_WITHOUT_1, diamonds)).toEqual({ with: false, count: 1 });
     expect(matadors(['h-J', 'd-J', 'h-A'], hearts)).toEqual({ with: false, count: 2 });

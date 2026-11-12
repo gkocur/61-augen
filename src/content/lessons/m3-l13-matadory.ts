@@ -10,7 +10,7 @@ const ASK = 'Z iloma [[matador:Nlm]] grasz?';
 export const lesson: Lesson = {
   id: 'm3-l13-matadory',
   title: '[[Matador:Mlm]]',
-  summary: '„[[Mit]] ilu” i „[[ohne]] ilu” — podstawa mnożnika.',
+  summary: '„[[Mit]]” i „[[ohne]]” — podstawa mnożnika.',
   steps: [
     {
       title: 'Czym są [[matador:Mlm]]?',
@@ -19,7 +19,7 @@ export const lesson: Lesson = {
         '[[Matador:Mlm]] liczy się z kart [[rozgrywajacy:D]] **razem ze [[skat:N]]**.',
     },
     {
-      title: '„[[Mit]] ilu”',
+      title: '„[[Mit]]”',
       text:
         'Jeśli masz [[card:c-J:B]], liczysz, ile kolejnych najwyższych [[atu:Dlm]] masz bez przerwy. ' +
         'Masz [[card:c-J:B]] i [[card:s-J:B]], ale brakuje [[card:h-J:D]]? Grasz **[[mit]] 2**.',
@@ -27,7 +27,7 @@ export const lesson: Lesson = {
       cardsCaption: '[[Mit]] 2 — brakuje [[card:h-J:D]].',
     },
     {
-      title: '„[[Ohne]] ilu”',
+      title: '„[[Ohne]]”',
       text:
         'Jeśli **nie masz** [[card:c-J:D]], liczysz, ilu najwyższych [[atu:Dlm]] brakuje ci od góry. ' +
         'Pierwszy, jakiego masz, to [[card:h-J]]? Grasz **[[ohne]] 2**.\n\n' +
