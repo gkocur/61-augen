@@ -1,6 +1,6 @@
 // src/game/storage.ts
 import { replayGameDeal, type GameDeal, type GameOptions } from './deal';
-import { currentDealNo, dealSeed, type Series, type SeriesRow } from './series';
+import { currentDealNo, dealSeed, rowFor, type Series } from './series';
 
 export const GAME_STORAGE_KEY = 'skat-trener:v1:gra';
 
@@ -9,7 +9,7 @@ interface StoredSeries {
   schemaVersion: 1;
   options: GameOptions;
   seed: number;
-  rows: SeriesRow[];
+  finished: Series['finished'];
   current: { history: GameDeal['history']; undo: boolean } | null;
 }
 
@@ -24,7 +24,7 @@ export function saveSeries(storage: Storage | null, series: Series): boolean {
     schemaVersion: 1,
     options: series.options,
     seed: series.seed,
-    rows: series.rows,
+    finished: series.finished,
     current: series.current ? { history: series.current.history, undo: series.currentUndo } : null,
   };
   try {
@@ -36,21 +36,6 @@ export function saveSeries(storage: Storage | null, series: Series): boolean {
 }
 
 const isObject = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v);
-const isTriple = (v: unknown) => Array.isArray(v) && v.length === 3 && v.every((n) => typeof n === 'number' && Number.isFinite(n));
-
-function isRow(v: unknown, index: number): v is SeriesRow {
-  return (
-    isObject(v) &&
-    v.dealNo === index + 1 &&
-    [0, 1, 2].includes(v.dealer as number) &&
-    (v.declarer === null || [0, 1, 2].includes(v.declarer as number)) &&
-    typeof v.undo === 'boolean' &&
-    isTriple(v.points) &&
-    isObject(v.result) &&
-    ['game', 'ramsch', 'passedOut'].includes(v.result.kind as string)
-  );
-}
-
 /** Wczytuje serię. Brak zapisu → series = null bez komunikatu; uszkodzony zapis → null z komunikatem. */
 export function loadSeries(storage: Storage | null): LoadedSeries {
   let raw: string | null;
@@ -68,14 +53,23 @@ export function loadSeries(storage: Storage | null): LoadedSeries {
       !isObject(data.options) ||
       typeof data.options.kontra !== 'boolean' ||
       typeof data.options.ramsch !== 'boolean' ||
-      typeof data.seed !== 'number' ||
-      !Array.isArray(data.rows) ||
-      !data.rows.every(isRow)
+      !Number.isInteger(data.seed) ||
+      (data.seed as number) < 0 ||
+      (data.seed as number) > 0xffffffff ||
+      !Array.isArray(data.finished) ||
+      !data.finished.every((f) => isObject(f) && Array.isArray(f.history) && typeof f.undo === 'boolean')
     ) {
       throw new Error('zły format');
     }
     const options: GameOptions = { kontra: data.options.kontra, ramsch: data.options.ramsch };
-    const base: Series = { options, seed: data.seed, rows: data.rows as SeriesRow[], current: null, currentUndo: false };
+    const seed = data.seed as number;
+    const base: Series = { options, seed, rows: [], finished: [], current: null, currentUndo: false };
+    // Wiersze tabeli powstają z odtworzenia rozdań, więc nie da się ich sfałszować w zapisie.
+    (data.finished as Series['finished']).forEach(({ history, undo }, i) => {
+      const deal = replayGameDeal(dealSeed(seed, i + 1), options, history);
+      base.rows.push(rowFor(i + 1, deal, undo));
+      base.finished.push({ history: deal.history, undo });
+    });
     const stored = data.current;
     if (stored === null || stored === undefined) return { series: base, notice: null };
     if (!isObject(stored) || !Array.isArray(stored.history) || typeof stored.undo !== 'boolean') throw new Error('zły format');

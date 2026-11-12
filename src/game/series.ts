@@ -22,6 +22,8 @@ export interface Series {
   /** Ziarno serii; rozdanie n ma ziarno `dealSeed(seed, n)`. */
   seed: number;
   rows: SeriesRow[];
+  /** Ruchy zakończonych rozdań (równolegle do `rows`) — z nich odtwarza się wiersze przy wczytaniu zapisu. */
+  finished: { history: GameDeal['history']; undo: boolean }[];
   /** Bieżące rozdanie (numer = rows.length + 1) albo null między rozdaniami. */
   current: GameDeal | null;
   /** W bieżącym rozdaniu cofano ruchy. */
@@ -31,7 +33,7 @@ export interface Series {
 export const DEFAULT_OPTIONS: GameOptions = { kontra: true, ramsch: true };
 
 export function newSeries(seed: number, options: GameOptions = DEFAULT_OPTIONS): Series {
-  return { options, seed: seed >>> 0, rows: [], current: null, currentUndo: false };
+  return { options, seed: seed >>> 0, rows: [], finished: [], current: null, currentUndo: false };
 }
 
 export function dealSeed(seriesSeed: number, dealNo: number): number {
@@ -77,22 +79,33 @@ export function rowPoints(result: GameResult, dealer: PlayerId): Triple {
   return points;
 }
 
-/** Zapisuje zakończone bieżące rozdanie w tabeli. */
-export function finishCurrentDeal(series: Series): Series {
-  const current = series.current;
-  if (!current || current.phase !== 'done' || !current.result) throw new Error('Rozdanie nie jest zakończone');
-  const dealNo = currentDealNo(series);
+/** Wiersz tabeli dla zakończonego rozdania numer `dealNo`. */
+export function rowFor(dealNo: number, deal: GameDeal, undo: boolean): SeriesRow {
+  if (deal.phase !== 'done' || !deal.result) throw new Error('Rozdanie nie jest zakończone');
   const dealer = dealerOf(dealNo);
-  const result = current.result;
-  const row: SeriesRow = {
+  const result = deal.result;
+  return {
     dealNo,
     dealer,
     declarer: result.kind === 'game' ? playerAt(result.declarer, dealer) : null,
     result,
-    undo: series.currentUndo,
+    undo,
     points: rowPoints(result, dealer),
   };
-  return { ...series, rows: [...series.rows, row], current: null, currentUndo: false };
+}
+
+/** Zapisuje zakończone bieżące rozdanie w tabeli. */
+export function finishCurrentDeal(series: Series): Series {
+  const current = series.current;
+  if (!current) throw new Error('Rozdanie nie jest zakończone');
+  const row = rowFor(currentDealNo(series), current, series.currentUndo);
+  return {
+    ...series,
+    rows: [...series.rows, row],
+    finished: [...series.finished, { history: current.history, undo: series.currentUndo }],
+    current: null,
+    currentUndo: false,
+  };
 }
 
 export function totals(series: Series): Triple {

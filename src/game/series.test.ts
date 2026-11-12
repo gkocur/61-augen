@@ -10,6 +10,7 @@ import {
   finishCurrentDeal,
   newSeries,
   playerAt,
+  rowFor,
   rowPoints,
   seatOf,
   startNextDeal,
@@ -101,5 +102,19 @@ describe('seria', () => {
     const done = finishCurrentDeal({ ...playCurrent(s), currentUndo: true });
     expect(done.rows[0].undo).toBe(true);
     expect(done.currentUndo).toBe(false);
+    expect(done.finished).toEqual([{ history: playCurrent(s).current!.history, undo: true }]);
+  });
+
+  it('rowFor buduje wiersz z zakończonego rozdania i odrzuca niezakończone', () => {
+    const s = startNextDeal(newSeries(3));
+    expect(() => rowFor(1, s.current!, false)).toThrow('Rozdanie nie jest zakończone');
+    const deal = playCurrent(s).current!;
+    const row = rowFor(1, deal, true);
+    expect(row).toMatchObject({ dealNo: 1, dealer: 2, undo: true, result: deal.result });
+    expect(finishCurrentDeal({ ...playCurrent(s), currentUndo: true }).rows[0]).toEqual(row);
+  });
+
+  it('nowa seria nie ma zakończonych rozdań', () => {
+    expect(newSeries(1).finished).toEqual([]);
   });
 });
