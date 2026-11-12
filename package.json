@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "texts": "vite-node scripts/dump-texts.ts"
   },
   "keywords": [],
   "author": "",
