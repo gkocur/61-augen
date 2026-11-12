@@ -18,6 +18,9 @@ import { lesson as l16 } from './lessons/m3-l16-przegrana';
 import { lesson as l17 } from './lessons/m4-l17-przebieg';
 import { lesson as l18 } from './lessons/m4-l18-ile-licytowac';
 import { lesson as l19 } from './lessons/m4-l19-skat';
+import { lesson as l20 } from './lessons/m5-l20-ocena-reki';
+import { lesson as l21 } from './lessons/m5-l21-wyrzucanie';
+import { lesson as l22 } from './lessons/m5-l22-atu';
 import type { Course } from './types';
 
 export const COURSE: Course = {
@@ -26,5 +29,6 @@ export const COURSE: Course = {
     { id: 'm2', title: 'Rozgrywka lew', lessons: [l05, l06, l07, l08, l09, l10, l11] },
     { id: 'm3', title: 'Wartość gry', lessons: [l12, l13, l14, l15, l16] },
     { id: 'm4', title: 'Licytacja', lessons: [l17, l18, l19] },
+    { id: 'm5', title: 'Taktyka rozgrywającego', lessons: [l20, l21, l22] },
   ],
 };
