@@ -54,4 +54,10 @@ describe('postęp kursu', () => {
     expect(lessonAfter(course, 'b')?.id).toBe('c');
     expect(lessonAfter(course, 'c')).toBeNull();
   });
+
+  it('niepoprawny wynik jest sprowadzany do zakresu 0–1', () => {
+    const state = createDefaultState();
+    expect(recordResult(state, 'a', NaN).lessons.a).toEqual({ status: 'failed', bestScore: 0, attempts: 1 });
+    expect(recordResult(state, 'a', 4 / 5).lessons.a.status).toBe('passed');
+  });
 });

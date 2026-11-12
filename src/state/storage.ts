@@ -2,6 +2,7 @@
 import type { AppState, LessonProgress, Settings } from './types';
 
 export const STORAGE_KEY = 'skat-trener:v1';
+export const BACKUP_KEY = 'skat-trener:v1:backup';
 
 export type LoadNotice = 'unavailable' | 'corrupted' | null;
 
@@ -45,6 +46,11 @@ export function loadState(storage: Storage | null): LoadResult {
     if (migrated) return { state: migrated, notice: null };
   } catch {
     // uszkodzony JSON — obsłużony niżej
+  }
+  try {
+    storage.setItem(BACKUP_KEY, raw);
+  } catch {
+    // kopia jest dodatkiem — brak miejsca nie może przeszkodzić w starcie
   }
   return { state: createDefaultState(), notice: 'corrupted' };
 }

@@ -8,7 +8,7 @@ import { useAppState, useText } from './AppStateContext';
 import { STORAGE_KEY } from './storage';
 
 function Probe() {
-  const { state, notice, updateSettings, recordLessonResult, resetProgress } = useAppState();
+  const { state, notice, updateSettings, recordLessonResult, resetProgress, dismissNotice } = useAppState();
   const t = useText();
   return (
     <div>
@@ -19,6 +19,7 @@ function Probe() {
       <button onClick={() => updateSettings({ deck: 'french', register: 'colloquial' })}>zmień</button>
       <button onClick={() => recordLessonResult('x', 1)}>zalicz</button>
       <button onClick={resetProgress}>zeruj</button>
+      <button onClick={dismissNotice}>zamknij</button>
     </div>
   );
 }
@@ -53,5 +54,21 @@ describe('AppStateProvider', () => {
   it('uszkodzony zapis zgłasza komunikat', () => {
     renderWithProviders(<Probe />, { storage: createMemoryStorage({ [STORAGE_KEY]: '{' }) });
     expect(screen.getByText('komunikat: corrupted')).toBeInTheDocument();
+  });
+
+  it('nieudany zapis zgłasza komunikat tylko raz na sesję', async () => {
+    const user = userEvent.setup();
+    const storage = {
+      getItem: () => null,
+      setItem: () => {
+        throw new Error('pełne');
+      },
+      removeItem: () => {},
+    } as unknown as Storage;
+    renderWithProviders(<Probe />, { storage });
+    expect(screen.getByText('komunikat: unavailable')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'zamknij' }));
+    await user.click(screen.getByRole('button', { name: 'zmień' }));
+    expect(screen.getByText('komunikat: brak')).toBeInTheDocument();
   });
 });

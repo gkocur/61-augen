@@ -1,7 +1,7 @@
 // src/state/storage.test.ts
 import { describe, expect, it } from 'vitest';
 import { brokenStorage, createMemoryStorage } from '../test/storage';
-import { STORAGE_KEY, createDefaultState, loadState, migrate, saveState } from './storage';
+import { BACKUP_KEY, STORAGE_KEY, createDefaultState, loadState, migrate, saveState } from './storage';
 
 describe('zapis stanu', () => {
   it('bez dostępu do pamięci: stan domyślny i komunikat', () => {
@@ -27,6 +27,13 @@ describe('zapis stanu', () => {
   it('uszkodzony JSON lub nieznana wersja: reset z komunikatem', () => {
     expect(loadState(createMemoryStorage({ [STORAGE_KEY]: 'nie json' })).notice).toBe('corrupted');
     expect(loadState(createMemoryStorage({ [STORAGE_KEY]: '{"schemaVersion":99}' })).notice).toBe('corrupted');
+  });
+
+  it('uszkodzony zapis trafia do kopii zapasowej', () => {
+    const raw = '{"schemaVersion":99}';
+    const storage = createMemoryStorage({ [STORAGE_KEY]: raw });
+    loadState(storage);
+    expect(storage.getItem(BACKUP_KEY)).toBe(raw);
   });
 
   it('migracja v1 naprawia złe pola i odrzuca złe wpisy lekcji', () => {

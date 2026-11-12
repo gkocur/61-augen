@@ -1,5 +1,5 @@
 // src/state/AppStateContext.tsx
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { resolveText, type TextContext } from '../glossary';
 import { recordResult } from './progress';
 import { createDefaultState, getBrowserStorage, loadState, saveState, type LoadNotice } from './storage';
@@ -28,8 +28,13 @@ export function AppStateProvider({ children, storage }: ProviderProps) {
   const [state, setState] = useState<AppState>(initial.state);
   const [notice, setNotice] = useState<LoadNotice>(initial.notice);
 
+  const saveFailureReported = useRef(false);
+
   useEffect(() => {
-    if (store && !saveState(store, state)) setNotice('unavailable');
+    if (store && !saveState(store, state) && !saveFailureReported.current) {
+      saveFailureReported.current = true;
+      setNotice((n) => n ?? 'unavailable');
+    }
   }, [store, state]);
 
   const updateSettings = useCallback((patch: Partial<Settings>) => {

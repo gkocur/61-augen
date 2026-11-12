@@ -41,15 +41,16 @@ export function lessonAfter(course: Course, lessonId: string): Lesson | null {
 }
 
 export function recordResult(state: AppState, lessonId: string, score: number): AppState {
+  const safe = Number.isFinite(score) ? Math.min(1, Math.max(0, score)) : 0;
   const previous = state.lessons[lessonId];
-  const passed = isPassingScore(score) || previous?.status === 'passed';
+  const passed = isPassingScore(safe) || previous?.status === 'passed';
   return {
     ...state,
     lessons: {
       ...state.lessons,
       [lessonId]: {
         status: passed ? 'passed' : 'failed',
-        bestScore: Math.max(score, previous?.bestScore ?? 0),
+        bestScore: Math.max(safe, previous?.bestScore ?? 0),
         attempts: (previous?.attempts ?? 0) + 1,
       },
     },
