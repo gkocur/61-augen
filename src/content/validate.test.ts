@@ -75,6 +75,16 @@ describe('validateCourse', () => {
     expect(validateCourse(courseWith(lessonWith([winner])))).toEqual(['l1/q1: lewę bierze s-10, a nie s-K']);
   });
 
+  it('mini-rozdanie w ramszu jest odrzucane', () => {
+    const ramschDeal: MiniDealExerciseData = {
+      type: 'miniDeal', id: 'r1', prompt: 'P', explain: 'E', game: { kind: 'ramsch' }, declarer: 0, you: 0,
+      hands: [['c-A'], ['c-7'], ['c-8']], skat: [], solution: ['c-A'], goal: { kind: 'minPoints', points: 0 },
+    };
+    expect(validateCourse(courseWith(lessonWith([ramschDeal])))).toEqual([
+      'l1/r1: mini-rozdanie w ramszu nie jest obsługiwane — boty nie grają ramsza',
+    ]);
+  });
+
   it('mini-rozdanie: wzorcowe rozegranie musi osiągać cel', () => {
     const deal: MiniDealExerciseData = {
       type: 'miniDeal', id: 'd1', prompt: 'P', explain: 'E', game: { kind: 'suit', trump: 'h' },

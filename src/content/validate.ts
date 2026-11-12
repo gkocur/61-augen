@@ -117,6 +117,10 @@ function validatePlayCard(ex: PlayCardExerciseData, report: Report, checkText: C
 }
 
 function validateMiniDeal(ex: MiniDealExerciseData, report: Report) {
+  if (ex.game.kind === 'ramsch') {
+    report('mini-rozdanie w ramszu nie jest obsługiwane — boty nie grają ramsza');
+    return;
+  }
   const size = ex.hands[0].length;
   if (size < 1 || size > 10 || ex.hands.some((hand) => hand.length !== size)) {
     report('ręce muszą mieć tyle samo kart (1–10)');

@@ -43,6 +43,16 @@ describe('aplikacja', () => {
     expect(screen.getByRole('link', { name: 'Kontynuuj' })).toBeInTheDocument();
   });
 
+  it.todo('moduł opcjonalny ma nagłówek „Dodatek”');
+
+  it('po zaliczeniu wszystkich lekcji: gratulacje', () => {
+    const lessons = Object.fromEntries(
+      COURSE.modules.flatMap((m) => m.lessons).map((l) => [l.id, { status: 'passed' as const, bestScore: 1, attempts: 1 }]),
+    );
+    renderWithProviders(<AppRoutes />, { storage: storageWithState({}, lessons) });
+    expect(screen.getByText('Ukończono cały kurs. Gratulacje!')).toBeInTheDocument();
+  });
+
   it('zablokowana lekcja nie daje się otworzyć', () => {
     renderWithProviders(<AppRoutes />, { route: '/lekcja/m1-l03-oczka' });
     expect(screen.getByText('Ta lekcja jest jeszcze zablokowana.')).toBeInTheDocument();

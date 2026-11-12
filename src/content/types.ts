@@ -1,5 +1,5 @@
 // src/content/types.ts
-import type { CardId, Declaration, Doubling, GameType, Hands, PlayOutcome, Seat } from '../engine';
+import type { CardId, Declaration, Doubling, GameType, Hands, PlayOutcome, Seat, Triple } from '../engine';
 
 export interface TheoryStep {
   title?: string;
@@ -25,6 +25,7 @@ export interface QuizOption {
  * - `nextBid`: stawka następna po `after`;
  * - `trumpCount`: liczba atu wśród kart z `cards` w grze `game`;
  * - `settle`: rozliczenie gry; `cards` = karty rozgrywającego (12, ze skatem; w nullu niepotrzebne);
+ * - `ramsch`: rozliczenie ramsza (`scoreRamsch`) — porównywany jest wynik gracza `seat`;
  *   `result`: 'value' (wartość), 'score' (wynik ±), 'tournament' (punkty turniejowe rozgrywającego).
  */
 export type QuizVerify =
@@ -34,7 +35,8 @@ export type QuizVerify =
   | { kind: 'maxBid'; game: GameType; hand?: boolean }
   | { kind: 'nextBid'; after: number }
   | { kind: 'trumpCount'; game: GameType }
-  | { kind: 'settle'; declaration: Declaration; outcome: PlayOutcome; bid?: number; doubling?: Doubling; result: 'value' | 'score' | 'tournament' };
+  | { kind: 'settle'; declaration: Declaration; outcome: PlayOutcome; bid?: number; doubling?: Doubling; bock?: boolean; result: 'value' | 'score' | 'tournament' }
+  | { kind: 'ramsch'; points: Triple; tricks: Triple; pushes?: number; seat: Seat };
 
 export interface QuizExerciseData {
   type: 'quiz';
@@ -135,6 +137,8 @@ export interface Lesson {
 export interface CourseModule {
   id: string;
   title: string;
+  /** Moduł dodatkowy (np. warianty towarzyskie) — na mapie „Dodatek” zamiast numeru. */
+  optional?: boolean;
   lessons: Lesson[];
 }
 

@@ -1,5 +1,5 @@
 // src/content/verify.ts
-import { isTrump, matadors, maxBidFor, nextBid, settle, sumPoints, tournamentPoints, trickWinner, type CardId } from '../engine';
+import { isTrump, matadors, maxBidFor, nextBid, scoreRamsch, settle, sumPoints, tournamentPoints, trickWinner, type CardId } from '../engine';
 import type { QuizExerciseData } from './types';
 
 /** Problemy z odpowiedzią quizu sprawdzaną silnikiem (pusta lista = OK). */
@@ -40,10 +40,12 @@ export function verifyQuiz(quiz: QuizExerciseData): string[] {
       }
       case 'settle': {
         if (verify.declaration.game.kind !== 'null' && !quiz.cards) return needCards()!;
-        const s = settle({ declaration: verify.declaration, declarerCards: quiz.cards ?? [], outcome: verify.outcome, bid: verify.bid, doubling: verify.doubling });
+        const s = settle({ declaration: verify.declaration, declarerCards: quiz.cards ?? [], outcome: verify.outcome, bid: verify.bid, doubling: verify.doubling, bock: verify.bock });
         const result = verify.result === 'value' ? s.value : verify.result === 'score' ? s.score : tournamentPoints(s).declarer;
         return expect(String(result));
       }
+      case 'ramsch':
+        return expect(String(scoreRamsch(verify).scores[verify.seat]));
     }
   } catch (error) {
     return [`błąd sprawdzania: ${(error as Error).message}`];

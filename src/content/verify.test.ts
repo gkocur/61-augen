@@ -81,3 +81,27 @@ describe('verifyQuiz', () => {
     expect(verifyQuiz(q)).toEqual([]);
   });
 });
+
+describe('verify: ramsz i bock', () => {
+  const q = (verify: QuizExerciseData['verify'], answer: string, cards?: QuizExerciseData['cards']): QuizExerciseData => ({
+    type: 'quiz', id: 'q', prompt: 'P', cards,
+    options: [{ id: 'a', text: answer }, { id: 'b', text: 'x' }], correct: 'a', explain: 'E', verify,
+  });
+  it('ramsch: wynik gracza z miejsca seat', () => {
+    expect(verifyQuiz(q({ kind: 'ramsch', points: [52, 41, 27], tricks: [4, 4, 2], seat: 0 }, '-52'))).toEqual([]);
+    expect(verifyQuiz(q({ kind: 'ramsch', points: [52, 41, 27], tricks: [4, 4, 2], seat: 1 }, '-52'))).toEqual([
+      'poprawna odpowiedź powinna wynosić 0',
+    ]);
+    expect(verifyQuiz(q({ kind: 'ramsch', points: [61, 35, 24], tricks: [5, 3, 2], pushes: 1, seat: 0 }, '-122'))).toEqual([]);
+  });
+  it('ramsch: niemożliwy wynik to błąd sprawdzania', () => {
+    expect(verifyQuiz(q({ kind: 'ramsch', points: [50, 50, 50], tricks: [4, 4, 2], seat: 0 }, '-50'))).toEqual([
+      'błąd sprawdzania: Nieprawidłowy wynik ramsza',
+    ]);
+  });
+  it('settle z bockiem', () => {
+    const cards = ['c-J', 's-J', 'd-J', 'h-A', 'h-10', 'h-7', 'c-A', 'c-10', 's-A', 'd-9', 'd-8', 's-7'] as const;
+    const declaration = { game: { kind: 'suit', trump: 'h' }, hand: false, announce: 'none' } as const;
+    expect(verifyQuiz(q({ kind: 'settle', declaration, outcome: { declarerPoints: 75, declarerTricks: 6 }, bock: true, result: 'value' }, '60', [...cards]))).toEqual([]);
+  });
+});

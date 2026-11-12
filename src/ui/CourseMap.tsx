@@ -26,12 +26,12 @@ export function CourseMap() {
           {started ? 'Kontynuuj' : 'Zacznij naukę'}
         </Link>
       ) : (
-        <p>Ukończono wszystkie dostępne lekcje. Kolejne pojawią się wkrótce!</p>
+        <p>Ukończono cały kurs. Gratulacje!</p>
       )}
       {COURSE.modules.map((module, moduleIndex) => (
         <section key={module.id} className="module">
           <h2>
-            Moduł {moduleIndex + 1}: {t(module.title)}
+            {module.optional ? 'Dodatek' : `Moduł ${moduleIndex + 1}`}: {t(module.title)}
           </h2>
           <ol className="lesson-list">
             {module.lessons.map((lesson) => (
