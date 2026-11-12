@@ -1,5 +1,6 @@
 // src/exercises/ExerciseView.tsx
 import type { ExerciseData } from '../content/types';
+import { MiniDealExercise } from './MiniDealExercise';
 import { PlayCardExercise } from './PlayCardExercise';
 import { QuizExercise } from './QuizExercise';
 
@@ -15,6 +16,6 @@ export function ExerciseView({ exercise, onAnswered }: Props) {
     case 'playCard':
       return <PlayCardExercise exercise={exercise} onAnswered={onAnswered} />;
     case 'miniDeal':
-      return null;
+      return <MiniDealExercise exercise={exercise} onAnswered={onAnswered} />;
   }
 }
