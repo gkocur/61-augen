@@ -1,5 +1,5 @@
 // src/ui/LessonPlayer.tsx
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CardRow } from '../cards/Hand';
 import { RichText } from '../components/RichText';
@@ -32,6 +32,23 @@ export function LessonPlayer({ lesson, lessonNumber, onFinish, nextLessonPath }:
   const answeredCurrent = phase.kind === 'exercise' && results.length > phase.index;
   const correctCount = results.filter(Boolean).length;
 
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const nextRef = useRef<HTMLButtonElement>(null);
+  const firstRender = useRef(true);
+  const phaseKey = phase.kind === 'summary' ? 'summary' : `${phase.kind}-${phase.index}`;
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    titleRef.current?.focus();
+  }, [phaseKey, attempt]);
+
+  useEffect(() => {
+    if (answeredCurrent) nextRef.current?.focus();
+  }, [answeredCurrent]);
+
   const handleAnswered = (index: number) => (correct: boolean) => {
     setResults((r) => (r.length > index ? r : [...r, correct]));
   };
@@ -60,7 +77,7 @@ export function LessonPlayer({ lesson, lessonNumber, onFinish, nextLessonPath }:
 
   return (
     <article className="lesson">
-      <h1 className="lesson__title">
+      <h1 className="lesson__title" tabIndex={-1} ref={titleRef}>
         Lekcja {lessonNumber}: {t(lesson.title)}
       </h1>
       <progress className="lesson__progress" max={total} value={position} aria-label="Postęp lekcji" />
@@ -93,7 +110,7 @@ export function LessonPlayer({ lesson, lessonNumber, onFinish, nextLessonPath }:
 
       {(phase.kind === 'theory' || answeredCurrent) && (
         <div className="lesson__actions">
-          <button type="button" className="button button--primary" onClick={next}>
+          <button type="button" className="button button--primary" onClick={next} ref={nextRef}>
             {phase.kind === 'exercise' && phase.index + 1 === exercises.length ? 'Zakończ' : 'Dalej'}
           </button>
         </div>

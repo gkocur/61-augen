@@ -71,4 +71,13 @@ describe('LessonPlayer', () => {
     await user.click(screen.getByRole('button', { name: 'Wróć do teorii' }));
     expect(screen.getByText('To jest skat.')).toBeInTheDocument();
   });
+
+  it('przenosi fokus: na przycisk Dalej po odpowiedzi, na nagłówek po przejściu dalej', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<LessonPlayer lesson={lesson} lessonNumber={1} onFinish={vi.fn()} nextLessonPath={null} />);
+    await user.click(screen.getByRole('button', { name: 'Dalej' }));
+    expect(screen.getByRole('heading', { level: 1 })).toHaveFocus();
+    await user.click(screen.getByRole('button', { name: 'Tak' }));
+    expect(screen.getByRole('button', { name: 'Dalej' })).toHaveFocus();
+  });
 });

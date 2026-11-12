@@ -39,4 +39,9 @@ describe('karty', () => {
     expect(screen.getByText('Zadek')).toBeInTheDocument();
     expect(screen.getByText('Ty')).toBeInTheDocument();
   });
+
+  it('niedozwolone karty mają opis dla czytników ekranu', () => {
+    renderWithProviders(<Hand cards={['h-7']} isDimmed={() => true} onCardClick={vi.fn()} />);
+    expect(screen.getByRole('button')).toHaveAttribute('aria-description', 'niedozwolona');
+  });
 });

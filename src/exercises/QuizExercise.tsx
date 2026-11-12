@@ -61,11 +61,13 @@ export function QuizExercise({ exercise, onAnswered }: Props) {
           ),
         )}
       </div>
-      {answered && (
-        <Feedback correct={chosen === exercise.correct}>
-          <RichText text={exercise.explain} />
-        </Feedback>
-      )}
+      <div className="feedback-region" role="status">
+        {answered && (
+          <Feedback correct={chosen === exercise.correct}>
+            <RichText text={exercise.explain} />
+          </Feedback>
+        )}
+      </div>
     </section>
   );
 }

@@ -46,12 +46,14 @@ export function PlayCardExercise({ exercise, onAnswered }: Props) {
         onCardClick={handleClick}
         disabled={played !== null}
       />
-      {result && (
-        <Feedback correct={result.correct}>
-          {result.message && <RichText text={result.message} />}
-          <RichText text={exercise.explain} />
-        </Feedback>
-      )}
+      <div className="feedback-region" role="status">
+        {result && (
+          <Feedback correct={result.correct}>
+            {result.message && <RichText text={result.message} />}
+            <RichText text={exercise.explain} />
+          </Feedback>
+        )}
+      </div>
     </section>
   );
 }

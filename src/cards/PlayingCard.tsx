@@ -19,13 +19,13 @@ export function PlayingCard({ card, selected = false, dimmed = false, disabled =
   const face = <CardFace card={card} />;
   if (onClick) {
     return (
-      <button type="button" className={className} aria-label={label} aria-pressed={selected} disabled={disabled} onClick={onClick}>
+      <button type="button" className={className} aria-label={label} aria-pressed={selected} aria-description={dimmed ? 'niedozwolona' : undefined} disabled={disabled} onClick={onClick}>
         {face}
       </button>
     );
   }
   return (
-    <span className={className} role="img" aria-label={label}>
+    <span className={className} role="img" aria-label={label} aria-description={dimmed ? 'niedozwolona' : undefined}>
       {face}
     </span>
   );
@@ -36,10 +36,11 @@ function CardFace({ card }: { card: CardId }) {
   const suit = suitOf(card);
   const color = SUIT_COLORS[ctx.deck][suit];
   const label = rankLabel(card, ctx);
+  const textColor = ctx.deck === 'altenburg' && suit === 'd' ? '#8a6400' : color;
   return (
     <svg viewBox="0 0 60 90" className="card__svg" aria-hidden="true" focusable="false">
       <rect x="1" y="1" width="58" height="88" rx="6" className="card__bg" />
-      <text x="5" y="15" className="card__index" fill={color}>
+      <text x="5" y="15" className="card__index" fill={textColor}>
         {label}
       </text>
       <g transform="translate(5 19) scale(0.12)">
@@ -49,7 +50,7 @@ function CardFace({ card }: { card: CardId }) {
         <SuitSymbol suit={suit} deck={ctx.deck} />
       </g>
       <g transform="rotate(180 30 45)">
-        <text x="5" y="15" className="card__index" fill={color}>
+        <text x="5" y="15" className="card__index" fill={textColor}>
           {label}
         </text>
       </g>
