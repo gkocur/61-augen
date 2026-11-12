@@ -21,7 +21,31 @@ function declarerAt24(): GameDeal {
   return deal;
 }
 
+/** Ręka (miejsce 0) wygrywa licytację za 36 i gra z ręki. */
+function handAt36(): GameDeal {
+  const steps = [
+    [1, { type: 'bid', value: 36 }],
+    [0, { type: 'hold' }],
+    [1, { type: 'pass' }],
+    [2, { type: 'pass' }],
+    [0, { type: 'playHand' }],
+  ] as const;
+  return steps.reduce((d, [seat, action]) => applyGameAction(d, seat, action), startGameDeal(3, { kontra: true, ramsch: true }));
+}
+
 describe('zgłoszenie gry', () => {
+  it('zmiana z nulla otwartego na granda zdejmuje zapowiedź', async () => {
+    const user = userEvent.setup();
+    const onAction = vi.fn();
+    renderWithProviders(<DeclareControls deal={handAt36()} you={0} onAction={onAction} />);
+    await user.click(screen.getByRole('button', { name: 'Null' }));
+    expect(screen.getByRole('radio', { name: 'Gra otwarta' })).toBeChecked();
+    await user.click(screen.getByRole('button', { name: 'Grand' }));
+    expect(screen.getByRole('radio', { name: 'Bez zapowiedzi' })).toBeChecked();
+    await user.click(screen.getByRole('button', { name: 'Zgłoś grę' }));
+    expect(onAction).toHaveBeenCalledWith({ type: 'declare', game: { kind: 'grand' }, announce: 'none' });
+  });
+
   it('null poniżej stawki: tylko null otwarty (46)', async () => {
     const user = userEvent.setup();
     const onAction = vi.fn();

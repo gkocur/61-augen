@@ -141,6 +141,16 @@ describe('gra z botami', () => {
     expect(screen.getByRole('button', { name: 'Zacznij grę' })).toBeInTheDocument();
   });
 
+  it('nową serię można zacząć w trakcie rozdania', async () => {
+    const user = userEvent.setup();
+    vi.spyOn(window, 'confirm').mockReturnValue(true);
+    renderGame(BOTS_PASS);
+    await user.click(screen.getByRole('button', { name: 'Zacznij grę' }));
+    await screen.findByRole('button', { name: 'Gram za 18' });
+    await user.click(screen.getByRole('button', { name: 'Nowa seria' }));
+    expect(screen.getByRole('button', { name: 'Zacznij grę' })).toBeInTheDocument();
+  });
+
   it('uszkodzony zapis: komunikat i ekran startowy', () => {
     renderGame(BOTS_PASS, createMemoryStorage({ [GAME_STORAGE_KEY]: '{nie json' }));
     expect(screen.getByRole('alert')).toHaveTextContent('Zapisana seria była uszkodzona');

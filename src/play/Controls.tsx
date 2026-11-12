@@ -126,8 +126,7 @@ export function DeclareControls({ deal, onAction }: ControlsProps) {
   const choose = (g: GameType) => {
     setGame(g);
     if (g.kind === 'null') setAnnounce(nullAllowed('none') ? 'none' : 'ouvert');
-    else if (!deal.hand) setAnnounce('none');
-    else setAnnounce((a) => a);
+    else if (!deal.hand || game?.kind === 'null') setAnnounce('none');
   };
 
   return (

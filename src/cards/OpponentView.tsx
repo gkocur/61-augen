@@ -22,7 +22,7 @@ export function OpponentView({ seat, cardCount, isDeclarer, active, player, spee
   const name = (player ? `${player} · ` : '') + t(SEAT_LABEL[seat]) + (isDeclarer ? t(' · [[rozgrywajacy]]') : '');
   const count = `${cardCount} ${pluralPl(cardCount, ['karta', 'karty', 'kart'])}`;
   return (
-    <div className={`opponent${active ? ' opponent--active' : ''}`} role="img" aria-label={`${name}: ${count}`}>
+    <div className={`opponent${active ? ' opponent--active' : ''}`} role="img" aria-label={`${name}: ${count}${speech ? `, mówi: ${speech}` : ''}`}>
       <span className="opponent__name" aria-hidden="true">
         {name}
       </span>

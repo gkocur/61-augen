@@ -49,6 +49,13 @@ export function GamePage({ storage, delayMs, seedSource }: Props) {
           delayMs={delayMs}
         />
       )}
+      {series?.current && (
+        <div className="lesson__actions">
+          <button type="button" className="button" onClick={confirmNewSeries}>
+            Nowa seria
+          </button>
+        </div>
+      )}
       {series && !series.current && (
         <section className="game-page__score">
           <ScoreTable series={series} />

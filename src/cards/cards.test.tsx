@@ -53,7 +53,7 @@ describe('karty', () => {
 
   it('przeciwnik: nazwa gracza i dymek z wypowiedzią', () => {
     renderWithProviders(<OpponentView seat={1} cardCount={10} isDeclarer={false} active={false} player="Bot z lewej" speech="pas" />);
-    expect(screen.getByRole('img', { name: 'Bot z lewej · Środkowa ręka: 10 kart' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Bot z lewej · Środkowa ręka: 10 kart, mówi: pas' })).toBeInTheDocument();
     expect(screen.getByText('pas')).toBeInTheDocument();
   });
 

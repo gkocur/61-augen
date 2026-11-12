@@ -31,6 +31,8 @@ function speeches(deal: GameDeal): Partial<Record<Seat, string>> {
   const out: Partial<Record<Seat, string>> = {};
   let kontraSaid = false;
   for (const { seat, action } of deal.history) {
+    // Po zgłoszeniu gry dymki z licytacji znikają — zostają tylko kontra i re.
+    if (action.type === 'declare') for (const s of Object.keys(out)) delete out[Number(s) as Seat];
     const text = speechText(action, kontraSaid);
     if (text !== undefined) out[seat] = text;
     if (action.type === 'double') kontraSaid = true;
@@ -40,7 +42,8 @@ function speeches(deal: GameDeal): Partial<Record<Seat, string>> {
 
 export function GameTable({ deal, dealNo, dealer, you, onAction, onNextDeal, onShowTable, delayMs = 800 }: Props) {
   const t = useText();
-  const [seenTricks, setSeenTricks] = useState(0);
+  // Po wczytaniu zapisu zakończone lewy są już „obejrzane”.
+  const [seenTricks, setSeenTricks] = useState(() => deal.play?.tricks.length ?? 0);
   const [selected, setSelected] = useState<CardId | null>(null);
   const [hint, setHint] = useState<string | null>(null);
 
@@ -138,7 +141,7 @@ export function GameTable({ deal, dealNo, dealer, you, onAction, onNextDeal, onS
 
       {deal.phase === 'done' && <DealSummary deal={deal} dealer={dealer} you={you} onNextDeal={onNextDeal} onShowTable={onShowTable} />}
 
-      {deal.phase !== 'discard' && deal.phase !== 'done' && (
+      {!(deal.phase === 'discard' && yourTurn) && deal.phase !== 'done' && (
         <>
           <p className="hint hint--warn" role="status">
             {hint}
