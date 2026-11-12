@@ -4,3 +4,4 @@ export * from './order';
 export * from './rules';
 export * from './deal';
 export * from './scoring';
+export * from './bidding';
