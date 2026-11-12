@@ -1,5 +1,5 @@
 // src/content/verify.ts
-import { matadors, maxBidFor, nextBid, settle, sumPoints, tournamentPoints, trickWinner, type CardId } from '../engine';
+import { isTrump, matadors, maxBidFor, nextBid, settle, sumPoints, tournamentPoints, trickWinner, type CardId } from '../engine';
 import type { QuizExerciseData } from './types';
 
 /** Problemy z odpowiedzią quizu sprawdzaną silnikiem (pusta lista = OK). */
@@ -32,6 +32,8 @@ export function verifyQuiz(quiz: QuizExerciseData): string[] {
       }
       case 'maxBid':
         return needCards() ?? expect(String(maxBidFor(quiz.cards!, verify.game, verify.hand)));
+      case 'trumpCount':
+        return needCards() ?? expect(String(quiz.cards!.filter((card) => isTrump(card, verify.game)).length));
       case 'nextBid': {
         const next = nextBid(verify.after);
         return next === null ? [`brak stawki po ${verify.after}`] : expect(String(next));

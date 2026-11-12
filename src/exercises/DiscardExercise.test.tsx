@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import type { DiscardExerciseData } from '../content/types';
 import { renderWithProviders } from '../test/render';
 import { DiscardExercise } from './DiscardExercise';
-import { isBestDiscard } from './evaluateDiscard';
+import { gradeDiscard, isBestDiscard } from './evaluateDiscard';
 
 const exercise: DiscardExerciseData = {
   type: 'discard',
@@ -73,5 +73,26 @@ describe('DiscardExercise', () => {
     await user.click(screen.getByRole('button', { name: 'niżnik zielony' }));
     await user.click(screen.getByRole('button', { name: 'Wyrzuć do skata' }));
     expect(screen.getByText('Do skata trafiają 4 oczka.')).toBeInTheDocument();
+  });
+});
+
+describe('gradeDiscard', () => {
+  const tiered = { ...exercise, best: [['s-10', 's-9']], acceptable: [['s-10', 'd-8']] } as typeof exercise;
+  it('rozróżnia najlepszą, dopuszczalną i złą parę', () => {
+    expect(gradeDiscard(tiered, ['s-9', 's-10'])).toBe('best');
+    expect(gradeDiscard(tiered, ['d-8', 's-10'])).toBe('acceptable');
+    expect(gradeDiscard(tiered, ['c-A', 'c-K'])).toBe('wrong');
+  });
+
+  it('para dopuszczalna jest zaliczona z podpowiedzią lepszej', async () => {
+    const user = userEvent.setup();
+    const onAnswered = vi.fn();
+    renderWithProviders(<DiscardExercise exercise={tiered} onAnswered={onAnswered} />);
+    await user.click(screen.getByRole('button', { name: 'dziesiątka zielona' }));
+    await user.click(screen.getByRole('button', { name: 'ósemka dzwonkowa' }));
+    await user.click(screen.getByRole('button', { name: 'Wyrzuć do skata' }));
+    expect(onAnswered).toHaveBeenCalledWith(true);
+    expect(screen.getByText('Dobrze!')).toBeInTheDocument();
+    expect(screen.getByText('Dobry wybór, choć jeszcze lepiej: dziesiątka zielona i dziewiątka zielona.')).toBeInTheDocument();
   });
 });

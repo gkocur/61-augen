@@ -139,9 +139,14 @@ function validateDiscard(ex: DiscardExerciseData, report: Report, checkText: Che
   if (ex.cards.length !== 12) report('do wyrzucania potrzeba 12 kart (ręka + skat)');
   checkUnique(ex.cards, report);
   if (ex.best.length === 0) report('brak dobrych par do wyrzucenia');
-  for (const pair of ex.best) {
+  const key = (pair: CardId[]) => [...pair].sort().join(', ');
+  const bestKeys = new Set(ex.best.map(key));
+  for (const pair of [...ex.best, ...(ex.acceptable ?? [])]) {
     if (pair.length !== 2 || pair[0] === pair[1]) report(`zła para: ${pair.join(', ')}`);
     for (const card of pair) if (!ex.cards.includes(card)) report(`karta ${card} z pary nie jest w ręce`);
+  }
+  for (const pair of ex.acceptable ?? []) {
+    if (bestKeys.has(key(pair))) report(`para ${key(pair)} jest jednocześnie najlepsza i dopuszczalna`);
   }
   checkText(ex.wrongExplain);
 }

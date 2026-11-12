@@ -7,7 +7,7 @@ import type { DiscardExerciseData } from '../content/types';
 import { sortHand, sumPoints, type CardId } from '../engine';
 import { countCase, pluralPl } from '../glossary';
 import { useText } from '../state/AppStateContext';
-import { isBestDiscard } from './evaluateDiscard';
+import { gradeDiscard } from './evaluateDiscard';
 import { GameBanner } from './GameBanner';
 
 interface Props {
@@ -32,10 +32,11 @@ export function DiscardExercise({ exercise, onAnswered }: Props) {
   const confirm = () => {
     if (done || selected.length !== 2) return;
     setDone(true);
-    onAnswered(isBestDiscard(exercise, selected));
+    onAnswered(gradeDiscard(exercise, selected) !== 'wrong');
   };
 
-  const correct = done && isBestDiscard(exercise, selected);
+  const grade = done ? gradeDiscard(exercise, selected) : null;
+  const correct = grade === 'best' || grade === 'acceptable';
   const points = sumPoints(selected);
   const [bestA, bestB] = exercise.best[0];
 
@@ -62,8 +63,11 @@ export function DiscardExercise({ exercise, onAnswered }: Props) {
         {done && (
           <Feedback correct={correct}>
             <p>{t(`Do [[skat:D]] ${pluralPl(points, ['trafia', 'trafiają', 'trafia'])} ${points} [[oczko:${countCase(points)}]].`)}</p>
-            {!correct && <RichText text={`Lepszy wybór: [[card:${bestA}]] i [[card:${bestB}]].`} />}
-            {!correct && exercise.wrongExplain && <RichText text={exercise.wrongExplain} />}
+            {grade === 'acceptable' && (
+              <RichText text={`Dobry wybór, choć jeszcze lepiej: [[card:${bestA}]] i [[card:${bestB}]].`} />
+            )}
+            {grade === 'wrong' && <RichText text={`Lepszy wybór: [[card:${bestA}]] i [[card:${bestB}]].`} />}
+            {grade === 'wrong' && exercise.wrongExplain && <RichText text={exercise.wrongExplain} />}
             <RichText text={exercise.explain} />
           </Feedback>
         )}

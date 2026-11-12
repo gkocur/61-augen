@@ -20,6 +20,17 @@ describe('verifyQuiz', () => {
     ]);
   });
 
+  it('liczba atu w kartach', () => {
+    const q = quiz({
+      cards: ['c-J', 'h-J', 'c-A', 'c-K', 'c-8', 's-A', 's-10', 'd-A', 'h-9', 'd-7'],
+      verify: { kind: 'trumpCount', game: { kind: 'suit', trump: 'c' } },
+    });
+    expect(verifyQuiz({ ...q, options: [{ id: 'a', text: '5' }, { id: 'b', text: '3' }] })).toEqual([]);
+    expect(verifyQuiz({ ...q, options: [{ id: 'a', text: '3' }, { id: 'b', text: '5' }] })).toEqual([
+      'poprawna odpowiedź powinna wynosić 5',
+    ]);
+  });
+
   it('górna granica licytacji i kolejna stawka', () => {
     expect(
       verifyQuiz(quiz({ cards: [...HEARTS_WITH_2], options: [{ id: 'a', text: '30' }, { id: 'b', text: '20' }], verify: { kind: 'maxBid', game: { kind: 'suit', trump: 'h' } } })),

@@ -23,6 +23,7 @@ export interface QuizOption {
  * - `matadors`: matadory kart z `cards` w grze `game`, w postaci 'z2' / 'bez3';
  * - `maxBid`: górna granica licytacji dla kart z `cards`;
  * - `nextBid`: stawka następna po `after`;
+ * - `trumpCount`: liczba atu wśród kart z `cards` w grze `game`;
  * - `settle`: rozliczenie gry; `cards` = karty rozgrywającego (12, ze skatem; w nullu niepotrzebne);
  *   `result`: 'value' (wartość), 'score' (wynik ±), 'tournament' (punkty turniejowe rozgrywającego).
  */
@@ -32,6 +33,7 @@ export type QuizVerify =
   | { kind: 'matadors'; game: GameType }
   | { kind: 'maxBid'; game: GameType; hand?: boolean }
   | { kind: 'nextBid'; after: number }
+  | { kind: 'trumpCount'; game: GameType }
   | { kind: 'settle'; declaration: Declaration; outcome: PlayOutcome; bid?: number; result: 'value' | 'score' | 'tournament' };
 
 export interface QuizExerciseData {
@@ -98,6 +100,8 @@ export interface DiscardExerciseData {
   cards: CardId[];
   /** Dobre pary (kolejność w parze bez znaczenia); pierwsza jest pokazywana jako wzorcowa. */
   best: CardId[][];
+  /** Pary też poprawne, ale słabsze od `best` — zaliczone z podpowiedzią lepszej pary. */
+  acceptable?: CardId[][];
   explain: string;
   wrongExplain?: string;
 }

@@ -106,5 +106,11 @@ describe('validateCourse', () => {
     expect(validateCourse(courseWith(lessonWith([{ ...discard, cards: discard.cards.slice(1) }])))).toContain(
       'l1/k1: do wyrzucania potrzeba 12 kart (ręka + skat)',
     );
+    expect(validateCourse(courseWith(lessonWith([{ ...discard, acceptable: [['s-9', 's-10']] }])))).toEqual([
+      'l1/k1: para s-10, s-9 jest jednocześnie najlepsza i dopuszczalna',
+    ]);
+    expect(validateCourse(courseWith(lessonWith([{ ...discard, acceptable: [['s-10', 'h-6' as never]] }])))).toContain(
+      'l1/k1: karta h-6 z pary nie jest w ręce',
+    );
   });
 });
