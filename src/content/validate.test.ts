@@ -1,6 +1,6 @@
 // src/content/validate.test.ts
 import { describe, expect, it } from 'vitest';
-import type { Course, ExerciseData, Lesson, MiniDealExerciseData } from './types';
+import type { Course, DiscardExerciseData, ExerciseData, Lesson, MiniDealExerciseData } from './types';
 import { validateCourse } from './validate';
 
 const quiz = (overrides: Partial<Extract<ExerciseData, { type: 'quiz' }>> = {}): ExerciseData => ({
@@ -90,6 +90,21 @@ describe('validateCourse', () => {
     );
     expect(validateCourse(courseWith(lessonWith([{ ...deal, hands: [['c-J', 'c-A'], ['c-7', 'c-J'], ['c-8', 's-8']] }])))).toContain(
       'l1/d1: karta c-J występuje więcej niż raz',
+    );
+  });
+
+  it('ćwiczenie „do skata”: 12 kart i poprawne pary', () => {
+    const discard: DiscardExerciseData = {
+      type: 'discard', id: 'k1', prompt: 'P', explain: 'E', game: { kind: 'suit', trump: 'h' },
+      cards: ['c-J', 's-J', 'h-A', 'h-10', 'h-K', 'h-9', 'h-7', 'c-A', 'c-K', 's-10', 's-9', 'd-8'],
+      best: [['s-10', 's-9']],
+    };
+    expect(validateCourse(courseWith(lessonWith([discard])))).toEqual([]);
+    expect(validateCourse(courseWith(lessonWith([{ ...discard, best: [['s-10', 'd-A']] }])))).toEqual([
+      'l1/k1: karta d-A z pary nie jest w ręce',
+    ]);
+    expect(validateCourse(courseWith(lessonWith([{ ...discard, cards: discard.cards.slice(1) }])))).toContain(
+      'l1/k1: do wyrzucania potrzeba 12 kart (ręka + skat)',
     );
   });
 });

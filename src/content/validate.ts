@@ -1,8 +1,16 @@
 // src/content/validate.ts
-import { isLegalMove, sumPoints, trickWinner, type CardId } from '../engine';
+import { isLegalMove, type CardId } from '../engine';
 import { findTextIssues } from '../glossary';
 import { simulateMiniDeal } from './miniDeal';
-import type { Course, ExerciseData, MiniDealExerciseData, PlayCardExerciseData, QuizExerciseData } from './types';
+import type {
+  Course,
+  DiscardExerciseData,
+  ExerciseData,
+  MiniDealExerciseData,
+  PlayCardExerciseData,
+  QuizExerciseData,
+} from './types';
+import { verifyQuiz } from './verify';
 
 type Report = (message: string) => void;
 type CheckText = (text: string | undefined) => void;
@@ -66,6 +74,8 @@ function validateExercise(exercise: ExerciseData, report: Report, checkText: Che
       return validatePlayCard(exercise, report, checkText);
     case 'miniDeal':
       return validateMiniDeal(exercise, report);
+    case 'discard':
+      return validateDiscard(exercise, report, checkText);
     default: {
       const unknown: never = exercise;
       report(`nieznany typ ćwiczenia: ${(unknown as { type: string }).type}`);
@@ -86,26 +96,7 @@ function validateQuiz(quiz: QuizExerciseData, report: Report, checkText: CheckTe
   }
   if (!ids.has(quiz.correct)) report(`poprawna odpowiedź „${quiz.correct}” nie istnieje`);
   if (quiz.cards) checkUnique(quiz.cards, report);
-  verifyQuiz(quiz, report);
-}
-
-function verifyQuiz(quiz: QuizExerciseData, report: Report) {
-  const correct = quiz.options.find((option) => option.id === quiz.correct);
-  if (!quiz.verify || !correct) return;
-  if (quiz.verify.kind === 'points') {
-    if (!quiz.cards) return report('verify points wymaga kart w pytaniu');
-    const expected = String(sumPoints(quiz.cards));
-    if (correct.text !== expected) report(`poprawna odpowiedź powinna wynosić ${expected}`);
-    return;
-  }
-  const cards = quiz.options.map((option) => option.card);
-  if (cards.length !== 3 || cards.some((card) => card === undefined)) {
-    return report('verify trickWinner wymaga dokładnie 3 odpowiedzi-kart');
-  }
-  const trick = cards as CardId[];
-  checkUnique(trick, report);
-  const winner = trick[trickWinner(trick, quiz.verify.game)];
-  if (correct.card !== winner) report(`lewę bierze ${winner}, a nie ${correct.card}`);
+  verifyQuiz(quiz).forEach(report);
 }
 
 function validatePlayCard(ex: PlayCardExerciseData, report: Report, checkText: CheckText) {
@@ -142,6 +133,17 @@ function validateMiniDeal(ex: MiniDealExerciseData, report: Report) {
   const outcome = simulateMiniDeal(ex);
   if (outcome.error) report(outcome.error);
   else if (!outcome.goalReached) report('wzorcowe rozegranie nie osiąga celu');
+}
+
+function validateDiscard(ex: DiscardExerciseData, report: Report, checkText: CheckText) {
+  if (ex.cards.length !== 12) report('do wyrzucania potrzeba 12 kart (ręka + skat)');
+  checkUnique(ex.cards, report);
+  if (ex.best.length === 0) report('brak dobrych par do wyrzucenia');
+  for (const pair of ex.best) {
+    if (pair.length !== 2 || pair[0] === pair[1]) report(`zła para: ${pair.join(', ')}`);
+    for (const card of pair) if (!ex.cards.includes(card)) report(`karta ${card} z pary nie jest w ręce`);
+  }
+  checkText(ex.wrongExplain);
 }
 
 function checkUnique(cards: readonly CardId[], report: Report) {

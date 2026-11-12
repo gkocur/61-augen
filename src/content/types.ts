@@ -1,5 +1,5 @@
 // src/content/types.ts
-import type { CardId, GameType, Hands, Seat } from '../engine';
+import type { CardId, Declaration, GameType, Hands, PlayOutcome, Seat } from '../engine';
 
 export interface TheoryStep {
   title?: string;
@@ -8,19 +8,31 @@ export interface TheoryStep {
   cardsCaption?: string;
 }
 
-/** Odpowiedź w quizie: tekst ALBO karta. */
+/** Odpowiedź w quizie: tekst ALBO karta. `value` — wartość maszynowa do sprawdzenia silnikiem (np. '-60', 'z2'). */
 export interface QuizOption {
   id: string;
   text?: string;
   card?: CardId;
+  value?: string;
 }
 
 /**
- * Sprawdzenie poprawnej odpowiedzi silnikiem (w teście treści):
- * - `points`: tekst poprawnej odpowiedzi = suma oczek kart z `cards`;
- * - `trickWinner`: odpowiedzi to 3 karty w kolejności zagrania, poprawna bierze lewę w grze `game`.
+ * Sprawdzenie poprawnej odpowiedzi silnikiem (w teście treści). Porównywane jest `value ?? text` poprawnej odpowiedzi:
+ * - `points`: suma oczek kart z `cards`;
+ * - `trickWinner`: odpowiedzi to 3 karty w kolejności zagrania, poprawna bierze lewę w grze `game`;
+ * - `matadors`: matadory kart z `cards` w grze `game`, w postaci 'z2' / 'bez3';
+ * - `maxBid`: górna granica licytacji dla kart z `cards`;
+ * - `nextBid`: stawka następna po `after`;
+ * - `settle`: rozliczenie gry; `cards` = karty rozgrywającego (12, ze skatem; w nullu niepotrzebne);
+ *   `result`: 'value' (wartość), 'score' (wynik ±), 'tournament' (punkty turniejowe rozgrywającego).
  */
-export type QuizVerify = { kind: 'points' } | { kind: 'trickWinner'; game: GameType };
+export type QuizVerify =
+  | { kind: 'points' }
+  | { kind: 'trickWinner'; game: GameType }
+  | { kind: 'matadors'; game: GameType }
+  | { kind: 'maxBid'; game: GameType; hand?: boolean }
+  | { kind: 'nextBid'; after: number }
+  | { kind: 'settle'; declaration: Declaration; outcome: PlayOutcome; bid?: number; result: 'value' | 'score' | 'tournament' };
 
 export interface QuizExerciseData {
   type: 'quiz';
@@ -76,7 +88,21 @@ export interface MiniDealExerciseData {
   explain: string;
 }
 
-export type ExerciseData = QuizExerciseData | PlayCardExerciseData | MiniDealExerciseData;
+/** Wybór 2 kart do wyrzucenia do skata z 12 kart (ręka + podniesiony skat). */
+export interface DiscardExerciseData {
+  type: 'discard';
+  id: string;
+  prompt: string;
+  /** Gra, którą rozgrywający zamierza zgłosić. */
+  game: GameType;
+  cards: CardId[];
+  /** Dobre pary (kolejność w parze bez znaczenia); pierwsza jest pokazywana jako wzorcowa. */
+  best: CardId[][];
+  explain: string;
+  wrongExplain?: string;
+}
+
+export type ExerciseData = QuizExerciseData | PlayCardExerciseData | MiniDealExerciseData | DiscardExerciseData;
 
 export interface Lesson {
   id: string;
