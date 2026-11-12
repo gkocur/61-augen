@@ -1,18 +1,29 @@
 // src/exercises/MiniDealExercise.tsx
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Hand } from '../cards/Hand';
+import { CardRow, Hand } from '../cards/Hand';
 import { OpponentView } from '../cards/OpponentView';
 import { SEAT_LABEL, TrickView } from '../cards/TrickView';
 import { Feedback } from '../components/Feedback';
 import { RichText } from '../components/RichText';
-import { isGoalReached, miniDealBots, startMiniDeal, teamPoints } from '../content/miniDeal';
-import type { MiniDealExerciseData } from '../content/types';
+import { checkpointAnswer, checkpointOptions, isGoalReached, miniDealBots, startMiniDeal, teamPoints } from '../content/miniDeal';
+import type { CheckpointAsk, MiniDealCheckpoint, MiniDealExerciseData } from '../content/types';
 import { currentPlayer, isDealOver, legalMoves, nextSeat, playCard, sortHand, type CardId } from '../engine';
 import { countCase } from '../glossary';
 import { useText } from '../state/AppStateContext';
 import { GameBanner } from './GameBanner';
 
 const ILLEGAL_HINT = 'Tej karty nie możesz teraz zagrać — musisz dołożyć do wyjścia.';
+
+const CHECKPOINT_PROMPT: Record<CheckpointAsk, string> = {
+  yourPoints: 'Ile [[oczko:Dlm]] ma teraz twoja strona?',
+  trumpsPlayed: 'Ile [[atu:Dlm]] już wyszło?',
+};
+
+interface CheckResult {
+  afterTrick: number;
+  correctValue: number;
+  chosen: number;
+}
 
 interface Props {
   exercise: MiniDealExerciseData;
@@ -28,6 +39,7 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
   const [seenTricks, setSeenTricks] = useState(0);
   const [selected, setSelected] = useState<CardId | null>(null);
   const [hint, setHint] = useState<string | null>(null);
+  const [checks, setChecks] = useState<CheckResult[]>([]);
   const bots = useMemo(() => miniDealBots(exercise), [exercise]);
   const reported = useRef(false);
 
@@ -35,8 +47,12 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
   const tricksDone = deal.tricks.length;
   // Pochodne od liczby lew (bez opóźnienia o jeden render), żeby wynik nie mignął przed pokazaniem ostatniej lewy.
   const showLast = tricksDone > seenTricks;
+  const pending: MiniDealCheckpoint | undefined =
+    !over && !showLast
+      ? exercise.checkpoints?.find((c) => c.afterTrick === tricksDone && !checks.some((r) => r.afterTrick === c.afterTrick))
+      : undefined;
   const current = currentPlayer(deal);
-  const yourTurn = !over && !showLast && current === you;
+  const yourTurn = !over && !showLast && !pending && current === you;
   const legal = yourTurn ? legalMoves(deal.hands[you], deal.trick, deal.game) : [];
   const last = deal.tricks[tricksDone - 1];
 
@@ -47,18 +63,19 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
     return () => clearTimeout(id);
   }, [tricksDone, seenTricks, delayMs]);
 
-  // Ruch bota.
+  // Ruch bota (wstrzymany na czas pytania).
   useEffect(() => {
-    if (over || showLast || current === you) return;
+    if (over || showLast || pending || current === you) return;
     const id = setTimeout(() => setDeal((d) => {
         if (isDealOver(d)) return d;
         const seat = currentPlayer(d);
         return seat === you ? d : playCard(d, bots[seat](d, seat));
       }), delayMs);
     return () => clearTimeout(id);
-  }, [deal, over, showLast, current, you, bots, delayMs]);
+  }, [deal, over, showLast, pending, current, you, bots, delayMs]);
 
-  const reached = over && isGoalReached(exercise, deal);
+  const checksOk = checks.every((r) => r.chosen === r.correctValue);
+  const reached = over && isGoalReached(exercise, deal) && checksOk;
   useEffect(() => {
     if (!over || showLast || reported.current) return;
     reported.current = true;
@@ -85,6 +102,15 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
     );
   };
 
+  const answerCheckpoint = (checkpoint: MiniDealCheckpoint, value: number) => {
+    const correctValue = checkpointAnswer(exercise, deal, checkpoint.ask);
+    setChecks((list) =>
+      list.some((r) => r.afterTrick === checkpoint.afterTrick)
+        ? list
+        : [...list, { afterTrick: checkpoint.afterTrick, correctValue, chosen: value }],
+    );
+  };
+
   const shown =
     deal.trick.length === 0 && showLast && last
       ? { cards: last.cards, leader: last.leader }
@@ -92,9 +118,11 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
 
   let status: string;
   if (showLast && last) {
-    status = last.winner === you ? t('Bierzesz {lewę|sztycha}.') : t(`{Lewę|Sztycha} bierze: ${SEAT_LABEL[last.winner]}.`);
+    status = last.winner === you ? t('Bierzesz [[lewa:B]].') : t(`[[Lewa:B]] bierze: ${SEAT_LABEL[last.winner]}.`);
   } else if (over) {
     status = 'Rozdanie zakończone.';
+  } else if (pending) {
+    status = 'Pauza — odpowiedz na pytanie.';
   } else if (yourTurn) {
     status = deal.trick.length === 0 ? 'Twój ruch — wychodzisz.' : 'Twój ruch.';
   } else {
@@ -103,6 +131,9 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
 
   const points = teamPoints(exercise, deal);
   const pointsText = (n: number) => `${n} ${t(`[[oczko:${countCase(n)}]]`)}`;
+
+  const lastCheck = checks[checks.length - 1];
+  const goodChecks = checks.filter((r) => r.chosen === r.correctValue).length;
 
   return (
     <section className="exercise mini-deal">
@@ -121,10 +152,33 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
           />
         ))}
       </div>
+      {exercise.ouvert && you !== declarer && (
+        <div className="mini-deal__open">
+          <p className="mini-deal__open-label">{t('Karty [[rozgrywajacy:D]] — [[otwarta]]')}</p>
+          <CardRow cards={sortHand(deal.hands[declarer], deal.game)} />
+        </div>
+      )}
       <TrickView cards={shown.cards} leader={shown.leader} you={you} emptyText="Stół jest pusty." />
       <p className="mini-deal__status" aria-live="polite">
         {status}
       </p>
+      {pending && (
+        <div className="checkpoint" role="group" aria-label="Pytanie w trakcie gry">
+          <p className="checkpoint__prompt">{t(CHECKPOINT_PROMPT[pending.ask])}</p>
+          <div className="checkpoint__options">
+            {checkpointOptions(checkpointAnswer(exercise, deal, pending.ask), pending.ask, exercise.game, pending.afterTrick).map((value) => (
+              <button key={value} type="button" className="option" onClick={() => answerCheckpoint(pending, value)}>
+                {value}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      {!pending && lastCheck && (
+        <p className="checkpoint__result" role="status">
+          {lastCheck.chosen === lastCheck.correctValue ? 'Dobra odpowiedź.' : 'Zła odpowiedź.'} Poprawnie: {lastCheck.correctValue}.
+        </p>
+      )}
       <p className="mini-deal__score">
         Twoja strona: {pointsText(points.yours)} · druga strona: {pointsText(points.theirs)}
       </p>
@@ -148,6 +202,11 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
             <p>
               Wynik: twoja strona {pointsText(points.yours)}, druga strona {pointsText(points.theirs)}.
             </p>
+            {checks.length > 0 && (
+              <p>
+                Pytania w trakcie gry: {goodChecks} z {checks.length} poprawnie.
+              </p>
+            )}
             <RichText text={exercise.explain} />
           </Feedback>
         )}

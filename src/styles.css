@@ -183,6 +183,14 @@ button.card:focus-visible { outline: 3px solid var(--accent); outline-offset: 2p
 
 .exercise__actions { display: flex; justify-content: center; margin-top: 12px; }
 
+.checkpoint { margin: 12px 0 0; padding: 12px; border: 2px solid var(--accent); border-radius: var(--radius); background: var(--surface); }
+.checkpoint__prompt { margin: 0 0 8px; font-weight: 600; text-align: center; }
+.checkpoint__options { display: flex; gap: 8px; justify-content: center; }
+.checkpoint__options .option { min-width: 64px; text-align: center; }
+.checkpoint__result { text-align: center; margin: 8px 0 0; font-weight: 600; }
+.mini-deal__open { margin: 4px 0 8px; }
+.mini-deal__open-label { text-align: center; color: var(--muted); font-size: 0.85rem; margin: 0; }
+
 @media (min-width: 600px) {
   .hand { --card-w: 64px; }
   .hand__slot + .hand__slot { margin-left: -16px; }
