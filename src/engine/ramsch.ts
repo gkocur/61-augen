@@ -1,4 +1,6 @@
 // src/engine/ramsch.ts
+import { sumPoints } from './cards';
+import type { DealState } from './deal';
 import type { Seat } from './game';
 
 export type Triple = [number, number, number];
@@ -47,4 +49,17 @@ export function scoreRamsch({ points, tricks, pushes = 0 }: RamschInput): Ramsch
   const factor = 2 ** (jungfrau.length + pushes);
   for (const s of losers) scores[s] = -points[s] * factor;
   return { losers, jungfrau, durchmarsch: null, scores };
+}
+
+/** Oczka i lewy graczy po rozegraniu ramsza; skat dostaje gracz, który wziął ostatnią lewę. */
+export function ramschTally(state: DealState): { points: Triple; tricks: Triple } {
+  const points: Triple = [0, 0, 0];
+  const tricks: Triple = [0, 0, 0];
+  for (const trick of state.tricks) {
+    points[trick.winner] += sumPoints(trick.cards);
+    tricks[trick.winner] += 1;
+  }
+  const last = state.tricks[state.tricks.length - 1];
+  if (last) points[last.winner] += sumPoints(state.skat);
+  return { points, tricks };
 }

@@ -1,6 +1,8 @@
 // src/engine/ramsch.test.ts
 import { describe, expect, it } from 'vitest';
-import { scoreRamsch } from './ramsch';
+import { createDeal, playCard } from './deal';
+import type { GameType } from './game';
+import { ramschTally, scoreRamsch } from './ramsch';
 
 describe('scoreRamsch', () => {
   it('przegrywa gracz z największą liczbą oczek', () => {
@@ -29,5 +31,20 @@ describe('scoreRamsch', () => {
     expect(() => scoreRamsch({ points: [60, 40, 20], tricks: [5, 3, 1] })).toThrow('Nieprawidłowy wynik ramsza');
     expect(() => scoreRamsch({ points: [100, 10, 10], tricks: [8, 2, 0] })).toThrow('Nieprawidłowy wynik ramsza');
     expect(() => scoreRamsch({ points: [60, 40, 20], tricks: [5, 3, 2], pushes: 4 })).toThrow('Nieprawidłowy wynik ramsza');
+  });
+});
+
+describe('ramschTally', () => {
+  it('liczy oczka i lewy każdego gracza, skat dla biorącego ostatnią lewę', () => {
+    const ramsch: GameType = { kind: 'ramsch' };
+    let state = createDeal({
+      game: ramsch,
+      declarer: 0,
+      hands: [['c-A', 'h-7'], ['c-10', 'h-A'], ['c-7', 'h-K']],
+      skat: ['s-A', 's-10'],
+    });
+    for (const card of ['c-A', 'c-10', 'c-7', 'h-7', 'h-A', 'h-K'] as const) state = playCard(state, card);
+    // Lewa 1: c-A bierze (gracz 0) — 21 oczek. Lewa 2: gracz 0 wychodzi h-7, h-A bierze (gracz 1) — 15 oczek + skat 21.
+    expect(ramschTally(state)).toEqual({ points: [21, 36, 0], tricks: [1, 1, 0] });
   });
 });
