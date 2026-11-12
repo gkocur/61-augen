@@ -265,9 +265,9 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 
 ## 9. Decyzje podjęte w trakcie realizacji (Plany 1–3)
 
-- **Ćwiczenie `bid` zastąpione** quizami z polem `verify` (odpowiedź liczona silnikiem: `points`, `trickWinner`, `matadors`, `maxBid`, `nextBid`, `settle`) oraz ćwiczeniem `discard` (wybór 2 kart do skata). Wybór gry pozostaje zwykłym quizem.
+- **Ćwiczenie `bid` zastąpione** quizami z polem `verify` (odpowiedź liczona silnikiem: `points`, `trickWinner`, `matadors`, `maxBid`, `nextBid`, `settle`) oraz ćwiczeniem `discard` (wybór 2 kart do skata). Wybór gry to zwykły quiz (lekcja 19; dalej w lekcjach 20, 24, 25).
 - **Przyciemnianie niedozwolonych kart** dotyczy mini-rozdań; w ćwiczeniach „zagraj kartę” jest wyłączone, bo rozpoznanie dozwolonej karty jest ich celem.
-- **Liczba zadań w lekcji:** zwykle 3–5, w lekcjach ćwiczących kolejność kart do 7.
+- **Liczba zadań w lekcji:** zwykle 3–5, najwyżej 7.
 - **Punkty kontrolne w mini-rozdaniach** (pytania w trakcie gry) — przeniesione do Planu 4 (moduł 6).
 - **Nazwy kart odmieniają się przez przypadki:** `[[card:h-10:B]]` → „dziesiątkę czerwienną”.
 - **Kontra/re** — w Planie 4 (lekcja 30), razem z ewentualną zmianą zapisu wyniku.

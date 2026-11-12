@@ -22,9 +22,9 @@ export const lesson: Lesson = {
         'Chcesz grać z [[atu:Nlm]] w kolorze [[suit:h]] i masz [[mit]] 2. Mnożnik to 2 + 1 = 3, więc {licytujesz|reizujesz} najwyżej do 10 × 3 = **30**.',
     },
     {
-      title: 'Uwaga przy grze [[ohne]]',
+      title: 'Uwaga przy grze „[[ohne]]”',
       text:
-        'Przy [[ohne]] 2 czy [[ohne]] 3 ryzykujesz: jeśli w [[skat:Ms]] leży brakujący [[walet]], liczba [[matador:Dlm]] spada, a gra może się okazać warta mniej niż stawka — czyli [[przelicytowanie]].',
+        'Grając [[ohne]] 2, 3 czy 4, ryzykujesz: jeśli w [[skat:Ms]] leży brakujący [[walet]], liczba [[matador:Dlm]] spada, a gra może się okazać warta mniej niż stawka — czyli [[przelicytowanie]].',
     },
   ],
   exercises: [
@@ -97,7 +97,7 @@ export const lesson: Lesson = {
       correct: 'c',
       verify: { kind: 'maxBid', game: suit('d') },
       explain:
-        'Nie masz żadnego [[walet:D]] — to [[ohne]] 4 (pierwsze [[atu]] w twojej ręce to [[card:d-A]]). Mnożnik 5, 9 × 5 = 45. Ale uwaga: [[walet]] w [[skat:Ms]] obniżyłby tę wartość.',
+        'Nie masz żadnego [[walet:D]] — to [[ohne]] 4 ({pierwsze|pierwszy} [[atu]] w twojej ręce to [[card:d-A]]). Mnożnik 5, 9 × 5 = 45. Ale uwaga: [[walet]] w [[skat:Ms]] obniżyłby tę wartość.',
     },
   ],
 };

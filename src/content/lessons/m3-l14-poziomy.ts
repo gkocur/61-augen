@@ -55,7 +55,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm3-l14-q2',
-      prompt: `Te same karty, ale tym razem to [[reka]]: [[atu]] [[suit:h]], [[mit]] 2, wygrana z 70 [[oczko:Nlm]]. ${ASK}`,
+      prompt: `Te same karty, ale tym razem to [[reka]]: [[atu]] [[suit:h]], [[mit]] 2, wygrana z 70 [[oczko:Nlm]] (karty razem ze [[skat:N]]). ${ASK}`,
       cards: [...HEARTS_WITH_2],
       options: [
         { id: 'a', text: '30' },
@@ -97,7 +97,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm3-l14-q5',
-      prompt: `[[Atu]]: [[suit:d]], [[ohne]] 1, [[reka]] z zapowiedzianym [[krawiec:N]]. [[Rozgrywajacy]] zdobył 92 [[oczko:Dlm]]. ${ASK}`,
+      prompt: `[[Atu]]: [[suit:d]], [[ohne]] 1, [[reka]] z zapowiedzianym [[krawiec:N]] (karty razem ze [[skat:N]]). [[Rozgrywajacy]] zdobył 92 [[oczko:Mlm]]. ${ASK}`,
       cards: ['s-J', 'h-J', 'd-A', 'd-10', 'd-K', 'd-Q', 'd-9', 'c-A', 'c-10', 's-A', 'h-A', 'h-10'],
       options: [
         { id: 'a', text: '36' },

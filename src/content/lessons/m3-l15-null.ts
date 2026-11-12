@@ -87,7 +87,7 @@ export const lesson: Lesson = {
       prompt: 'Ile [[matador:Dlm]] liczy się w [[null:Ms]]?',
       options: [
         { id: 'a', text: 'Wszystkie [[walet:Mlm]]' },
-        { id: 'b', text: 'Żadne — [[null]] ma stałą wartość' },
+        { id: 'b', text: 'Żaden — [[null]] ma stałą wartość' },
         { id: 'c', text: 'Tylko [[as:Mlm]]' },
       ],
       correct: 'b',

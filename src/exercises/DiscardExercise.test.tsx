@@ -65,4 +65,13 @@ describe('DiscardExercise', () => {
     expect(screen.getByText('Lepszy wybór: dziesiątka zielona i dziewiątka zielona.')).toBeInTheDocument();
     expect(screen.getByText('Do skata trafia 15 oczek.')).toBeInTheDocument();
   });
+
+  it('liczba mnoga czasownika: dwa walety to 4 oczka', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<DiscardExercise exercise={exercise} onAnswered={vi.fn()} />);
+    await user.click(screen.getByRole('button', { name: 'niżnik żołędny' }));
+    await user.click(screen.getByRole('button', { name: 'niżnik zielony' }));
+    await user.click(screen.getByRole('button', { name: 'Wyrzuć do skata' }));
+    expect(screen.getByText('Do skata trafiają 4 oczka.')).toBeInTheDocument();
+  });
 });

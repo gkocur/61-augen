@@ -12,7 +12,7 @@ export const lesson: Lesson = {
       title: 'Licytujemy liczbami',
       text:
         'W [[licytacja:Ms]] nie mówi się, jaką grę chcesz grać, tylko **liczby** — wartości gier. Kto zaoferuje najwięcej, zostaje [[rozgrywajacy:N]] i musi zagrać grę wartą co najmniej tyle.\n\n' +
-        'Kolejne stawki: **18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50…** — to wszystkie możliwe wartości gier.',
+        'Kolejne stawki: **18, 20, 22, 23, 24, 27, 30, 33, 35, 36, 40, 44, 45, 46, 48, 50…** — każda z nich to wartość jakiejś gry.',
     },
     {
       title: 'Kto do kogo',
@@ -84,13 +84,13 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm4-l17-q5',
-      prompt: 'Kto pierwszy {licytuje|reizuje} do [[przodek:D]]?',
+      prompt: 'Kto podaje pierwszą stawkę?',
       options: [
-        { id: 'a', text: '[[Srodek]]' },
-        { id: 'b', text: '[[Zadek]]' },
-        { id: 'c', text: 'Rozdający' },
+        { id: 'a', text: '[[Przodek]]' },
+        { id: 'b', text: '[[Srodek]]' },
+        { id: 'c', text: '[[Zadek]]' },
       ],
-      correct: 'a',
+      correct: 'b',
       explain: 'Najpierw [[srodek]] {licytuje|reizuje} do [[przodek:D]], potem [[zadek]] do zwycięzcy.',
     },
     {

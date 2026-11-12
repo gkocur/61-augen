@@ -23,7 +23,7 @@ export const lesson: Lesson = {
     {
       title: '[[Przelicytowanie]]',
       text:
-        'Wartość gry musi być co najmniej równa wylicytowanej stawce. Jeśli po rozdaniu okaże się niższa (np. [[skat]] zamienił [[ohne]] 3 na [[mit]] 1), gra jest **przegrana** — to [[przelicytowanie]].\n\n' +
+        'Wartość gry musi być co najmniej równa wylicytowanej stawce. Jeśli po rozdaniu okaże się niższa (np. ze [[skat:N]] „[[ohne]] 3” zmieniło się w „[[mit]] 1”), gra jest **przegrana** — to [[przelicytowanie]].\n\n' +
         'Wtedy jej wartość to najmniejsza wielokrotność wartości bazowej, która sięga stawki. Przykład: stawka 36, gra z [[atu:Nlm]] w kolorze [[suit:h]] warta tylko 30 → liczy się 40, a przegrana daje −80.',
     },
     {
@@ -53,7 +53,7 @@ export const lesson: Lesson = {
       type: 'quiz',
       id: 'm3-l16-q2',
       prompt:
-        'Wylicytowana stawka: 30. Gra: [[atu]] [[suit:h]], [[mit]] 1, wygrana z 80 [[oczko:Nlm]]. Jaki jest wynik?',
+        'Wylicytowana stawka: 30. Gra: [[atu]] [[suit:h]], [[mit]] 1. [[Rozgrywajacy]] zdobył 80 [[oczko:Dlm]]. Jaki jest wynik?',
       cards: [...HEARTS_WITH_1],
       options: [
         { id: 'a', text: '+20', value: '20' },
@@ -69,7 +69,7 @@ export const lesson: Lesson = {
       type: 'quiz',
       id: 'm3-l16-q3',
       prompt:
-        '[[Atu]]: [[suit:c]], [[mit]] 1, wygrana z [[krawiec:N]] (95 [[oczko:Dlm]]). Ile punktów turniejowych dostaje [[rozgrywajacy]]?',
+        '[[Atu]]: [[suit:c]], [[mit]] 1, wygrana {z|ze} [[krawiec:N]] (95 [[oczko:Dlm]]). Ile punktów turniejowych dostaje [[rozgrywajacy]]?',
       cards: [...CLUBS_WITH_1],
       options: [
         { id: 'a', text: '36' },

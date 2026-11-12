@@ -5,7 +5,7 @@ import { Feedback } from '../components/Feedback';
 import { RichText } from '../components/RichText';
 import type { DiscardExerciseData } from '../content/types';
 import { sortHand, sumPoints, type CardId } from '../engine';
-import { countCase } from '../glossary';
+import { countCase, pluralPl } from '../glossary';
 import { useText } from '../state/AppStateContext';
 import { isBestDiscard } from './evaluateDiscard';
 import { GameBanner } from './GameBanner';
@@ -61,7 +61,7 @@ export function DiscardExercise({ exercise, onAnswered }: Props) {
       <div className="feedback-region" role="status">
         {done && (
           <Feedback correct={correct}>
-            <p>{t(`Do [[skat:D]] trafia ${points} [[oczko:${countCase(points)}]].`)}</p>
+            <p>{t(`Do [[skat:D]] ${pluralPl(points, ['trafia', 'trafiają', 'trafia'])} ${points} [[oczko:${countCase(points)}]].`)}</p>
             {!correct && <RichText text={`Lepszy wybór: [[card:${bestA}]] i [[card:${bestB}]].`} />}
             {!correct && exercise.wrongExplain && <RichText text={exercise.wrongExplain} />}
             <RichText text={exercise.explain} />

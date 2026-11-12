@@ -9,14 +9,14 @@ const GRAND: GameType = { kind: 'grand' };
 export const lesson: Lesson = {
   id: 'm4-l19-skat',
   title: '[[Skat]] i zgłoszenie gry',
-  summary: 'Podnieść [[skat]] czy grać [[reka:B]]? I co wyrzucić?',
+  summary: 'Podnieść [[skat]] czy grać {z ręki|handa}? I co wyrzucić?',
   steps: [
     {
-      title: 'Po wygranej [[licytacja:Ms]]',
+      title: 'Po wygraniu [[licytacja:D]]',
       text:
         'Jako [[rozgrywajacy]] masz dwie drogi:\n\n' +
         '**1. Podnieść [[skat]]** — bierzesz 2 karty ze stołu, potem odkładasz („wyrzucasz”) dowolne 2 karty z powrotem i zgłaszasz grę.\n\n' +
-        '**2. Grać [[reka:B]]** — nie patrzysz w [[skat]], ale gra jest warta o poziom więcej.',
+        '**2. Grać {z ręki|handa}** — nie patrzysz w [[skat]], ale gra jest warta o poziom więcej.',
     },
     {
       title: 'Co wyrzucić do [[skat:D]]',
@@ -27,7 +27,7 @@ export const lesson: Lesson = {
         'Wyrzucanie [[atu:Dlm]] jest dozwolone, ale prawie nigdy nie ma sensu.',
     },
     {
-      title: 'Kiedy grać [[reka:B]]?',
+      title: 'Kiedy grać {z ręki|handa}?',
       text:
         'Gdy twoje karty są tak mocne, że [[skat]] niewiele by pomógł — albo gdy potrzebujesz dodatkowego poziomu, żeby gra była warta wylicytowanej stawki.',
     },
@@ -43,7 +43,7 @@ export const lesson: Lesson = {
         ['s-10', 's-9'],
         ['s-10', 'd-8'],
       ],
-      wrongExplain: 'Najbardziej zagrożona jest [[card:s-10]] — w [[skat:Ms]] jej 10 [[oczko:Dlm]] będzie bezpieczne.',
+      wrongExplain: 'Wyrzuć [[card:s-10:B]] razem z kartą, dzięki której zostajesz bez jakiegoś koloru — w [[skat:Ms]] jej 10 [[oczko:Dlm]] nie przepadnie.',
       explain:
         '[[Card:s-10]] bez [[as:D]] łatwo przepadnie, a w [[skat:Ms]] jej [[oczko:Mlm]] są twoje. Pozbywając się całego koloru, zyskujesz możliwość przebijania go [[atu:Nlm]].',
     },
@@ -72,7 +72,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm4-l19-q2',
-      prompt: 'Grasz [[reka:B]]. O ile rośnie mnożnik?',
+      prompt: 'Grasz {z ręki|handa}. O ile rośnie mnożnik?',
       options: [
         { id: 'a', text: '+0' },
         { id: 'b', text: '+1' },
@@ -84,7 +84,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm4-l19-q3',
-      prompt: 'Grasz [[reka:B]], [[atu]]: [[suit:s]], [[mit]] 3, i wygrywasz. Ile jest warta gra?',
+      prompt: 'Grasz {z ręki|handa}, [[atu]]: [[suit:s]], [[mit]] 3, i wygrywasz. Ile jest warta gra?',
       cards: ['c-J', 's-J', 'h-J', 's-A', 's-K', 's-9', 's-8', 'c-A', 'h-10', 'd-7', 'd-8', 'c-7'],
       options: [
         { id: 'a', text: '44' },
@@ -99,6 +99,20 @@ export const lesson: Lesson = {
         result: 'value',
       },
       explain: '3 ([[matador:Mlm]]) + 1 (gra) + 1 ([[reka]]) = 5. 11 × 5 = 55.',
+    },
+    {
+      type: 'quiz',
+      id: 'm4-l19-q4',
+      prompt: 'Po wygraniu [[licytacja:D]] masz te karty (razem ze [[skat:N]]). Którą grę najlepiej zgłosić?',
+      cards: ['c-J', 's-J', 'h-A', 'h-10', 'h-K', 'h-9', 'h-8', 'c-A', 's-7', 'd-7', 'c-8', 'd-8'],
+      options: [
+        { id: 'a', text: '[[GraKolorowa]], [[atu]]: [[suit:h]]' },
+        { id: 'b', text: '[[Grand]]' },
+        { id: 'c', text: '[[Null]]' },
+      ],
+      correct: 'a',
+      explain:
+        'Masz 2 [[walet:Mlm]] i pięć kart w kolorze [[suit:h]] — razem 7 [[atu:Dlm]]. Na [[grand:B]] masz za mało [[walet:Dlm]] i [[as:Dlm]], a wysokie karty wykluczają [[null:B]].',
     },
   ],
 };
