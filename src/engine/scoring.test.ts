@@ -161,3 +161,19 @@ describe('zapis Seeger-Fabian', () => {
     expect(tournamentPoints(loss)).toEqual({ declarer: -110, eachDefender: 40 });
   });
 });
+
+describe('kontra i re', () => {
+  const outcome = (points: number, tricks: number) => ({ declarerPoints: points, declarerTricks: tricks });
+  it('kontra podwaja, re czterokrotnie zwiększa wartość', () => {
+    expect(settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(75, 6), doubling: 'kontra' })).toMatchObject({ won: true, value: 60, score: 60 });
+    expect(settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(75, 6), doubling: 're' })).toMatchObject({ value: 120 });
+  });
+  it('przegrana z kontrą liczona podwójnie od podwojonej wartości', () => {
+    expect(settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(55, 4), doubling: 'kontra' })).toMatchObject({ won: false, value: 60, score: -120 });
+  });
+  it('null z kontrą i punkty turniejowe', () => {
+    expect(settle({ declaration: decl({ kind: 'null' }), declarerCards: [], outcome: outcome(0, 0), doubling: 'kontra' })).toMatchObject({ value: 46, score: 46 });
+    const won = settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(75, 6), doubling: 'kontra' });
+    expect(tournamentPoints(won)).toEqual({ declarer: 110, eachDefender: 0 });
+  });
+});

@@ -128,6 +128,10 @@ export const TERMS: Record<string, Term> = {
     colloquial: { M: 'przereizowanie', g: 'n', D: 'przereizowania', N: 'przereizowaniem', Ms: 'przereizowaniu' },
   }),
   pas: plain(same({ M: 'pas', g: 'm' })),
+  szmirowanie: plain({
+    official: { M: 'dokładanie', g: 'n', D: 'dokładania', B: 'dokładanie', N: 'dokładaniem', Ms: 'dokładaniu' },
+    colloquial: { M: 'szmirowanie', g: 'n', D: 'szmirowania', B: 'szmirowanie', N: 'szmirowaniem', Ms: 'szmirowaniu' },
+  }),
 };
 
 export function formsFor(term: Term, ctx: TextContext): Forms {

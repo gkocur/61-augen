@@ -40,7 +40,7 @@ export function verifyQuiz(quiz: QuizExerciseData): string[] {
       }
       case 'settle': {
         if (verify.declaration.game.kind !== 'null' && !quiz.cards) return needCards()!;
-        const s = settle({ declaration: verify.declaration, declarerCards: quiz.cards ?? [], outcome: verify.outcome, bid: verify.bid });
+        const s = settle({ declaration: verify.declaration, declarerCards: quiz.cards ?? [], outcome: verify.outcome, bid: verify.bid, doubling: verify.doubling });
         const result = verify.result === 'value' ? s.value : verify.result === 'score' ? s.score : tournamentPoints(s).declarer;
         return expect(String(result));
       }

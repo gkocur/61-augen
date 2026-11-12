@@ -1,5 +1,5 @@
 // src/content/types.ts
-import type { CardId, Declaration, GameType, Hands, PlayOutcome, Seat } from '../engine';
+import type { CardId, Declaration, Doubling, GameType, Hands, PlayOutcome, Seat } from '../engine';
 
 export interface TheoryStep {
   title?: string;
@@ -34,7 +34,7 @@ export type QuizVerify =
   | { kind: 'maxBid'; game: GameType; hand?: boolean }
   | { kind: 'nextBid'; after: number }
   | { kind: 'trumpCount'; game: GameType }
-  | { kind: 'settle'; declaration: Declaration; outcome: PlayOutcome; bid?: number; result: 'value' | 'score' | 'tournament' };
+  | { kind: 'settle'; declaration: Declaration; outcome: PlayOutcome; bid?: number; doubling?: Doubling; result: 'value' | 'score' | 'tournament' };
 
 export interface QuizExerciseData {
   type: 'quiz';

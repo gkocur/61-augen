@@ -13,6 +13,10 @@ export interface Declaration {
   announce: Announcement;
 }
 
+/** Kontra (×2) i re (×4) — dodatek spoza ISkO, typowy w ligach i przy wielu stołach. */
+export type Doubling = 'kontra' | 're';
+const DOUBLING_FACTOR: Record<Doubling, number> = { kontra: 2, re: 4 };
+
 export interface PlayOutcome {
   /** Oczka rozgrywającego razem ze skatem. */
   declarerPoints: number;
@@ -87,9 +91,11 @@ export interface SettleInput {
   outcome: PlayOutcome;
   /** Wylicytowana stawka (do sprawdzenia przelicytowania). */
   bid?: number;
+  /** Kontra/re: mnoży wartość gry (także przelicytowanej i nulla). */
+  doubling?: Doubling;
 }
 
-export function settle({ declaration: d, declarerCards, outcome, bid }: SettleInput): Settlement {
+export function settle({ declaration: d, declarerCards, outcome, bid, doubling }: SettleInput): Settlement {
   const issue = declarationIssue(d);
   if (issue) throw new Error(issue);
   const totalTricks = outcome.totalTricks ?? 10;
@@ -104,12 +110,14 @@ export function settle({ declaration: d, declarerCards, outcome, bid }: SettleIn
   ) {
     throw new Error('Nieprawidłowy wynik rozdania');
   }
+  const factor = doubling ? DOUBLING_FACTOR[doubling] : 1;
 
   if (d.game.kind === 'null') {
-    const value = nullValue(d);
-    if (bid !== undefined && bid > value) {
-      throw new Error(`Nulla (${value}) nie można zgłosić po stawce ${bid} (ISkO 3.6)`);
+    const base = nullValue(d);
+    if (bid !== undefined && bid > base) {
+      throw new Error(`Nulla (${base}) nie można zgłosić po stawce ${bid} (ISkO 3.6)`);
     }
+    const value = base * factor;
     const won = outcome.declarerTricks === 0;
     return { won, value, score: won ? value : -2 * value, overbid: false, schneider: false, schwarz: false };
   }
@@ -141,6 +149,7 @@ export function settle({ declaration: d, declarerCards, outcome, bid }: SettleIn
     won = false;
     value = base * Math.ceil(bid / base);
   }
+  value *= factor;
   return { won, value, score: won ? value : -2 * value, overbid, schneider, schwarz };
 }
 

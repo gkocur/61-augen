@@ -65,4 +65,19 @@ describe('verifyQuiz', () => {
     });
     expect(verifyQuiz(bad)[0]).toMatch(/błąd sprawdzania/);
   });
+
+  it('rozliczenie z kontrą', () => {
+    const q = quiz({
+      cards: [...HEARTS_WITH_2],
+      options: [{ id: 'a', text: '60' }, { id: 'b', text: '30' }],
+      verify: {
+        kind: 'settle',
+        declaration: { game: { kind: 'suit', trump: 'h' }, hand: false, announce: 'none' },
+        outcome: { declarerPoints: 75, declarerTricks: 6 },
+        doubling: 'kontra',
+        result: 'value',
+      },
+    });
+    expect(verifyQuiz(q)).toEqual([]);
+  });
 });
