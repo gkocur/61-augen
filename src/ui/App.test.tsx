@@ -104,4 +104,15 @@ describe('aplikacja', () => {
     expect(screen.getByRole('img', { name: 'Środek: 10 kart' })).toBeInTheDocument();
     expect(screen.getByRole('list', { name: 'Twoje karty' }).children).toHaveLength(10);
   });
+
+  it('lekcja 19: wybór kart do skata', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<AppRoutes />, { route: '/lekcja/m4-l19-skat', storage: storageWithState({ unlockAll: true }) });
+    for (let i = 0; i < 3; i++) await user.click(screen.getByRole('button', { name: 'Dalej' }));
+    await user.click(screen.getByRole('button', { name: 'dziesiątka zielona' }));
+    await user.click(screen.getByRole('button', { name: 'dziewiątka zielona' }));
+    await user.click(screen.getByRole('button', { name: 'Wyrzuć do skata' }));
+    expect(screen.getByText('Dobrze!')).toBeInTheDocument();
+    expect(screen.getByText('Do skata trafia 10 oczek.')).toBeInTheDocument();
+  });
 });

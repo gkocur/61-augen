@@ -15,6 +15,9 @@ import { lesson as l13 } from './lessons/m3-l13-matadory';
 import { lesson as l14 } from './lessons/m3-l14-poziomy';
 import { lesson as l15 } from './lessons/m3-l15-null';
 import { lesson as l16 } from './lessons/m3-l16-przegrana';
+import { lesson as l17 } from './lessons/m4-l17-przebieg';
+import { lesson as l18 } from './lessons/m4-l18-ile-licytowac';
+import { lesson as l19 } from './lessons/m4-l19-skat';
 import type { Course } from './types';
 
 export const COURSE: Course = {
@@ -22,5 +25,6 @@ export const COURSE: Course = {
     { id: 'm1', title: 'Pierwsze kroki', lessons: [l01, l02, l03, l04] },
     { id: 'm2', title: 'Rozgrywka lew', lessons: [l05, l06, l07, l08, l09, l10, l11] },
     { id: 'm3', title: 'Wartość gry', lessons: [l12, l13, l14, l15, l16] },
+    { id: 'm4', title: 'Licytacja', lessons: [l17, l18, l19] },
   ],
 };
