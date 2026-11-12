@@ -25,8 +25,8 @@ export interface QuizOption {
  * - `nextBid`: stawka następna po `after`;
  * - `trumpCount`: liczba atu wśród kart z `cards` w grze `game`;
  * - `settle`: rozliczenie gry; `cards` = karty rozgrywającego (12, ze skatem; w nullu niepotrzebne);
- * - `ramsch`: rozliczenie ramsza (`scoreRamsch`) — porównywany jest wynik gracza `seat`;
  *   `result`: 'value' (wartość), 'score' (wynik ±), 'tournament' (punkty turniejowe rozgrywającego).
+ * - `ramsch`: rozliczenie ramsza (`scoreRamsch`) — porównywany jest wynik gracza `seat`;
  */
 export type QuizVerify =
   | { kind: 'points' }
