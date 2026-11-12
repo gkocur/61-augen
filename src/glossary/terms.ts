@@ -83,7 +83,8 @@ export const TERMS: Record<string, Term> = {
     },
     french: {
       official: { M: 'walet', g: 'm', D: 'waleta', B: 'waleta', N: 'waletem', C: 'waletowi', Ms: 'walecie', Mlm: 'walety', Dlm: 'waletów', Blm: 'walety', Nlm: 'waletami' },
-      colloquial: { M: 'jopek', g: 'm', D: 'jopka', B: 'jopka', N: 'jopkiem', C: 'jopkowi', Ms: 'jopku', Mlm: 'jopki', Dlm: 'jopków', Blm: 'jopki', Nlm: 'jopkami' },
+      // W potocznym rejestrze „unter” w obu taliach (gracze mówią tak też przy kartach francuskich).
+      colloquial: { M: 'unter', g: 'm', D: 'untera', B: 'untera', N: 'unterem', C: 'unterowi', Ms: 'unterze', Mlm: 'untery', Dlm: 'unterów', Blm: 'untery', Nlm: 'unterami' },
     },
   }),
   dama: byDeck({

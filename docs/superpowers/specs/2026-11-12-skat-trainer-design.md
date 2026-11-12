@@ -223,7 +223,7 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | ♠ (Grün / Pik) | wino / zielone ⚠ | grin | pik | grin |
 | ♥ (Rot / Herz) | czerwień | herc | kier | herc |
 | ♦ (Schellen / Karo) | dzwonek | szel | karo | szel |
-| Unter / Bube | niżnik | unter | walet | jopek / unter ⚠ |
+| Unter / Bube | niżnik | unter | walet | unter |
 | Ober / Dame | wyżnik | ober | dama | dama |
 | Daus / As | tuz | as | as | as |
 | König | król | król | król | król |

@@ -19,7 +19,7 @@ describe('nazwy kart', () => {
   it('talia francuska: nazwa koloru po figurze', () => {
     expect(cardName('h-10', { deck: 'french', register: 'official' })).toBe('dziesiątka kier');
     expect(cardName('s-Q', { deck: 'french', register: 'official' })).toBe('dama pik');
-    expect(cardName('c-J', { deck: 'french', register: 'colloquial' })).toBe('jopek krojc');
+    expect(cardName('c-J', { deck: 'french', register: 'colloquial' })).toBe('unter krojc');
   });
 
   it('nazwy kolorów', () => {

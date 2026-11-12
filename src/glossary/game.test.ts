@@ -26,5 +26,5 @@ describe('liczebniki', () => {
 
 it('etykieta ramsza', () => {
   expect(gameLabel({ kind: 'ramsch' }, { deck: 'altenburg', register: 'official' })).toBe('Ramsz · atu: tylko niżniki');
-  expect(gameLabel({ kind: 'ramsch' }, { deck: 'french', register: 'colloquial' })).toBe('Ramsz · trumf: tylko jopki');
+  expect(gameLabel({ kind: 'ramsch' }, { deck: 'french', register: 'colloquial' })).toBe('Ramsz · trumf: tylko untery');
 });

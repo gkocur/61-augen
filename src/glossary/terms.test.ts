@@ -20,7 +20,7 @@ describe('słownik terminów', () => {
     expect(formsFor(TERMS.walet, { deck: 'altenburg', register: 'official' }).M).toBe('niżnik');
     expect(formsFor(TERMS.walet, { deck: 'altenburg', register: 'colloquial' }).M).toBe('unter');
     expect(formsFor(TERMS.walet, { deck: 'french', register: 'official' }).M).toBe('walet');
-    expect(formsFor(TERMS.walet, { deck: 'french', register: 'colloquial' }).M).toBe('jopek');
+    expect(formsFor(TERMS.walet, { deck: 'french', register: 'colloquial' }).M).toBe('unter');
   });
 
   it('terminy zależne od talii mają 4 warianty, zwykłe 2', () => {
