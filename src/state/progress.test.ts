@@ -12,6 +12,23 @@ const course: Course = {
   ],
 };
 
+describe('moduł opcjonalny', () => {
+  const withOptional: Course = {
+    modules: [
+      { id: 'm1', title: 'M1', lessons: [lesson('a'), lesson('b')] },
+      { id: 'd', title: 'D', optional: true, lessons: [lesson('x')] },
+    ],
+  };
+  it('nie blokuje ukończenia kursu', () => {
+    let state = recordResult(createDefaultState(), 'a', 1);
+    expect(nextLessonId(withOptional, state)).toBe('b');
+    state = recordResult(state, 'b', 1);
+    expect(nextLessonId(withOptional, state)).toBeNull();
+    expect(lessonStatuses(withOptional, state).x).toBe('available');
+    expect(lessonAfter(withOptional, 'b')?.id).toBe('x');
+  });
+});
+
 describe('postęp kursu', () => {
   it('na starcie dostępna jest tylko pierwsza lekcja', () => {
     expect(lessonStatuses(course, createDefaultState())).toEqual({ a: 'available', b: 'locked', c: 'locked' });

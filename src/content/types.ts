@@ -24,9 +24,9 @@ export interface QuizOption {
  * - `maxBid`: górna granica licytacji dla kart z `cards`;
  * - `nextBid`: stawka następna po `after`;
  * - `trumpCount`: liczba atu wśród kart z `cards` w grze `game`;
- * - `settle`: rozliczenie gry; `cards` = karty rozgrywającego (12, ze skatem; w nullu niepotrzebne);
+ * - `settle`: rozliczenie gry (`bock`: gra w rundzie bocków (×2)); `cards` = karty rozgrywającego (12, ze skatem; w nullu niepotrzebne);
  *   `result`: 'value' (wartość), 'score' (wynik ±), 'tournament' (punkty turniejowe rozgrywającego).
- * - `ramsch`: rozliczenie ramsza (`scoreRamsch`) — porównywany jest wynik gracza `seat`;
+ * - `ramsch`: rozliczenie ramsza (`scoreRamsch`) — porównywany jest wynik gracza `seat`.
  */
 export type QuizVerify =
   | { kind: 'points' }
@@ -137,7 +137,7 @@ export interface Lesson {
 export interface CourseModule {
   id: string;
   title: string;
-  /** Moduł dodatkowy (np. warianty towarzyskie) — na mapie „Dodatek” zamiast numeru. */
+  /** Moduł dodatkowy (np. warianty towarzyskie) — na mapie „Dodatek” zamiast numeru; niewymagany do ukończenia kursu, a jego lekcje odblokowują się po kolei jak pozostałe. */
   optional?: boolean;
   lessons: Lesson[];
 }

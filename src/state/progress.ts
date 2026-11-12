@@ -27,7 +27,8 @@ export function lessonStatuses(course: Course, state: AppState): Record<string, 
 
 export function nextLessonId(course: Course, state: AppState): string | null {
   const statuses = lessonStatuses(course, state);
-  return flattenLessons(course).find((lesson) => statuses[lesson.id] === 'available')?.id ?? null;
+  const required = course.modules.filter((m) => !m.optional).flatMap((m) => m.lessons);
+  return required.find((lesson) => statuses[lesson.id] === 'available')?.id ?? null;
 }
 
 export function lessonNumber(course: Course, lessonId: string): number {

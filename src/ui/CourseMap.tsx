@@ -31,7 +31,7 @@ export function CourseMap() {
       {COURSE.modules.map((module, moduleIndex) => (
         <section key={module.id} className="module">
           <h2>
-            {module.optional ? 'Dodatek' : `Moduł ${moduleIndex + 1}`}: {t(module.title)}
+            {module.optional ? 'Dodatek' : `Moduł ${COURSE.modules.slice(0, moduleIndex + 1).filter((m) => !m.optional).length}`}: {t(module.title)}
           </h2>
           <ol className="lesson-list">
             {module.lessons.map((lesson) => (
