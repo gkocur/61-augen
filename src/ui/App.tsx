@@ -9,6 +9,7 @@ import { GlossaryPage } from './GlossaryPage';
 import { Layout } from './Layout';
 import { LessonRoute } from './LessonPage';
 import { NotFound } from './NotFound';
+import { GamePage } from '../play/GamePage';
 import { SettingsPage } from './SettingsPage';
 
 function RouteErrorBoundary({ children }: { children: ReactNode }) {
@@ -26,6 +27,7 @@ export function AppRoutes() {
           <Route path="/ustawienia" element={<SettingsPage />} />
           <Route path="/slowniczek" element={<GlossaryPage />} />
           <Route path="/o-kartach" element={<AboutCardsPage />} />
+          <Route path="/gra" element={<GamePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </RouteErrorBoundary>

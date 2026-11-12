@@ -12,6 +12,11 @@ import { AppRoutes } from './App';
 const firstLesson = COURSE.modules[0].lessons[0];
 
 describe('aplikacja', () => {
+  it('menu prowadzi do gry z botami', () => {
+    renderWithProviders(<AppRoutes />);
+    expect(screen.getByRole('link', { name: 'Gra' })).toHaveAttribute('href', '/gra');
+  });
+
   it('mapa kursu: pierwsza lekcja dostępna, druga zablokowana', () => {
     renderWithProviders(<AppRoutes />);
     expect(screen.getByRole('link', { name: 'Zacznij naukę' })).toHaveAttribute('href', `/lekcja/${firstLesson.id}`);

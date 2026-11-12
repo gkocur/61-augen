@@ -17,6 +17,7 @@ export function Layout({ children }: { children: ReactNode }) {
           Trener skata
         </Link>
         <nav className="app-header__nav">
+          <NavLink to="/gra">Gra</NavLink>
           <NavLink to="/slowniczek">Słowniczek</NavLink>
           <NavLink to="/ustawienia">Ustawienia</NavLink>
         </nav>
