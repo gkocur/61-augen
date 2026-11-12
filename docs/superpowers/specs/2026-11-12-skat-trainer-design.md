@@ -260,4 +260,16 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 ### 8.3 Do potwierdzenia przy weryfikacji zasad
 
 - Kontra/re: sposób zapowiedzi i zapisu według aktualnej ISkO (jak w rozgrywkach ligowych) ⚠.
-- Przegrana gra z ręki: liczona podwójnie, jak każda przegrana (wg aktualnej ISkO) ⚠.
+- Przegrana gra z ręki: liczona podwójnie, jak każda przegrana — potwierdzone w ISkO (wyd. 2018, pkt 2.5).
+- Zapis Seeger-Fabian: wygrana +wartość +50; przegrana −2 × wartość −50 i +40 dla każdego obrońcy (stół 3-os.; 30 przy stole 4-os.) — potwierdzone.
+
+## 9. Decyzje podjęte w trakcie realizacji (Plany 1–3)
+
+- **Ćwiczenie `bid` zastąpione** quizami z polem `verify` (odpowiedź liczona silnikiem: `points`, `trickWinner`, `matadors`, `maxBid`, `nextBid`, `settle`) oraz ćwiczeniem `discard` (wybór 2 kart do skata). Wybór gry pozostaje zwykłym quizem.
+- **Przyciemnianie niedozwolonych kart** dotyczy mini-rozdań; w ćwiczeniach „zagraj kartę” jest wyłączone, bo rozpoznanie dozwolonej karty jest ich celem.
+- **Liczba zadań w lekcji:** zwykle 3–5, w lekcjach ćwiczących kolejność kart do 7.
+- **Punkty kontrolne w mini-rozdaniach** (pytania w trakcie gry) — przeniesione do Planu 4 (moduł 6).
+- **Nazwy kart odmieniają się przez przypadki:** `[[card:h-10:B]]` → „dziesiątkę czerwienną”.
+- **Kontra/re** — w Planie 4 (lekcja 30), razem z ewentualną zmianą zapisu wyniku.
+- **Zależności modułów:** `engine` ← `bots` ← `content` (walidacja treści używa silnika i botów) ← `exercises`/`ui`; `glossary` zależy tylko od `engine`.
+- **Null zgłoszony po stawce wyższej niż jego wartość** jest odrzucany przez silnik (ISkO 3.6 liczy to jako przegraną grę kolorową/granda — nie modelujemy tego).
