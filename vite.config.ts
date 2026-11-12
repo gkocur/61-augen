@@ -9,5 +9,7 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
+    // Node 26 ma własne (eksperymentalne) localStorage, które przesłania to z jsdom.
+    poolOptions: { forks: { execArgv: ['--no-experimental-webstorage'] } },
   },
 });
