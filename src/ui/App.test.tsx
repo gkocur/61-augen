@@ -89,4 +89,19 @@ describe('aplikacja', () => {
     await user.click(screen.getByRole('button', { name: 'Zamknij' }));
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
+
+  it('lekcja 11 pokazuje stół mini-rozdania po teorii i quizie', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<AppRoutes />, {
+      route: '/lekcja/m2-l11-pierwsze-rozdanie',
+      storage: storageWithState({ unlockAll: true }),
+    });
+    await user.click(screen.getByRole('button', { name: 'Dalej' }));
+    await user.click(screen.getByRole('button', { name: 'Dalej' }));
+    await user.click(screen.getByRole('button', { name: 'Rozgrywającego' }));
+    await user.click(screen.getByRole('button', { name: 'Dalej' }));
+    expect(screen.getByText('Gra kolorowa · atu: czerwień')).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Środek: 10 kart' })).toBeInTheDocument();
+    expect(screen.getByRole('list', { name: 'Twoje karty' }).children).toHaveLength(10);
+  });
 });
