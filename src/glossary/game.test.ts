@@ -23,3 +23,8 @@ describe('liczebniki', () => {
     expect(pluralPl(7, ['karta', 'karty', 'kart'])).toBe('kart');
   });
 });
+
+it('etykieta ramsza', () => {
+  expect(gameLabel({ kind: 'ramsch' }, { deck: 'altenburg', register: 'official' })).toBe('Ramsz · atu: tylko niżniki');
+  expect(gameLabel({ kind: 'ramsch' }, { deck: 'french', register: 'colloquial' })).toBe('Ramsz · trumf: tylko jopki');
+});

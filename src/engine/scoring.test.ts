@@ -193,3 +193,28 @@ describe('kontra i re', () => {
     expect(settle({ declaration: decl({ kind: 'null' }), declarerCards: [], outcome: outcome(10, 1), doubling: 're' })).toMatchObject({ won: false, value: 92, score: -184 });
   });
 });
+
+describe('bock', () => {
+  const outcome = (points: number, tricks: number) => ({ declarerPoints: points, declarerTricks: tricks });
+  it('bock podwaja wartość gry', () => {
+    expect(settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(75, 6), bock: true })).toMatchObject({ won: true, value: 60, score: 60 });
+  });
+  it('bock łączy się z kontrą; przegrana liczona podwójnie', () => {
+    expect(settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(55, 4), doubling: 'kontra', bock: true })).toMatchObject({ won: false, value: 120, score: -240 });
+  });
+  it('bock w nullu', () => {
+    expect(settle({ declaration: decl({ kind: 'null' }), declarerCards: [], outcome: outcome(0, 0), bock: true })).toMatchObject({ value: 46 });
+  });
+  it('przelicytowanie sprawdza się bez bocka', () => {
+    // 30 < 40 -> 40, w bocku 80
+    expect(settle({ declaration: decl(hearts), declarerCards: HEARTS_WITH_2, outcome: outcome(75, 6), bid: 40, bock: true })).toMatchObject({ overbid: true, value: 80, score: -160 });
+  });
+});
+
+describe('ramsz w wycenie', () => {
+  it('ramsza nie da się zgłosić ani wycenić', () => {
+    expect(declarationIssue(decl({ kind: 'ramsch' }))).toBe('Ramsza się nie zgłasza — to gra bez rozgrywającego');
+    expect(() => settle({ declaration: decl({ kind: 'ramsch' }), declarerCards: [], outcome: { declarerPoints: 60, declarerTricks: 5 } })).toThrow('Ramsza się nie zgłasza');
+    expect(() => matadors(HEARTS_WITH_2, { kind: 'ramsch' })).toThrow('Ramsz nie ma matadorów');
+  });
+});

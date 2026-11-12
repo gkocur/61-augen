@@ -43,6 +43,7 @@ export const NULL_VALUES = { plain: 23, hand: 35, ouvert: 46, ouvertHand: 59 } a
 /** Wartość bazowa; dla nulla `null` (null ma stałe wartości). */
 export function baseValue(game: GameType): number | null {
   if (game.kind === 'null') return null;
+  if (game.kind === 'ramsch') throw new Error('Ramsz nie ma wartości gry');
   return game.kind === 'grand' ? GRAND_BASE : SUIT_BASE[game.trump];
 }
 
@@ -52,6 +53,7 @@ const TRUMP_RANKS = ['A', '10', 'K', 'Q', '9', '8', '7'] as const;
 /** Atu od najwyższego — kolejność, w jakiej liczy się matadory. */
 export function matadorOrder(game: GameType): CardId[] {
   if (game.kind === 'null') throw new Error('Null nie ma matadorów');
+  if (game.kind === 'ramsch') throw new Error('Ramsz nie ma matadorów');
   if (game.kind === 'grand') return [...JACKS];
   return [...JACKS, ...TRUMP_RANKS.map((rank) => `${game.trump}-${rank}` as CardId)];
 }
@@ -72,6 +74,7 @@ export function matadors(cards: readonly CardId[], game: GameType): Matadors {
 
 /** Opis błędu zgłoszenia albo null, gdy zgłoszenie jest poprawne. */
 export function declarationIssue(d: Declaration): string | null {
+  if (d.game.kind === 'ramsch') return 'Ramsza się nie zgłasza — to gra bez rozgrywającego';
   if (d.game.kind === 'null') {
     return d.announce === 'none' || d.announce === 'ouvert' ? null : 'W nullu nie zapowiada się krawca ani czarnego';
   }
@@ -93,9 +96,11 @@ export interface SettleInput {
   bid?: number;
   /** Kontra/re: mnoży wartość gry (także przelicytowanej i nulla). */
   doubling?: Doubling;
+  /** Gra w rundzie bocków: wartość ×2 (łączy się z kontrą/re). */
+  bock?: boolean;
 }
 
-export function settle({ declaration: d, declarerCards, outcome, bid, doubling }: SettleInput): Settlement {
+export function settle({ declaration: d, declarerCards, outcome, bid, doubling, bock }: SettleInput): Settlement {
   const issue = declarationIssue(d);
   if (issue) throw new Error(issue);
   const totalTricks = outcome.totalTricks ?? 10;
@@ -110,7 +115,7 @@ export function settle({ declaration: d, declarerCards, outcome, bid, doubling }
   ) {
     throw new Error('Nieprawidłowy wynik rozdania');
   }
-  const factor = doubling ? DOUBLING_FACTOR[doubling] : 1;
+  const factor = (doubling ? DOUBLING_FACTOR[doubling] : 1) * (bock ? 2 : 1);
 
   if (d.game.kind === 'null') {
     const base = nullValue(d);
@@ -121,6 +126,8 @@ export function settle({ declaration: d, declarerCards, outcome, bid, doubling }
     const won = outcome.declarerTricks === 0;
     return { won, value, score: won ? value : -2 * value, overbid: false, schneider: false, schwarz: false };
   }
+
+  if (d.game.kind === 'ramsch') throw new Error('Ramsza się nie zgłasza');
 
   const base = d.game.kind === 'grand' ? GRAND_BASE : SUIT_BASE[d.game.trump];
   const schneider = outcome.declarerPoints >= 90 || outcome.declarerPoints <= 30;

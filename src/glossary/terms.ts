@@ -132,6 +132,19 @@ export const TERMS: Record<string, Term> = {
     official: { M: 'dokładanie', g: 'n', D: 'dokładania', B: 'dokładanie', N: 'dokładaniem', Ms: 'dokładaniu' },
     colloquial: { M: 'szmirowanie', g: 'n', D: 'szmirowania', B: 'szmirowanie', N: 'szmirowaniem', Ms: 'szmirowaniu' },
   }),
+  ramsz: plain(same({ M: 'ramsz', g: 'm', D: 'ramsza', B: 'ramsza', N: 'ramszem', Ms: 'ramszu' })),
+  jungfrau: plain({
+    official: { M: 'dziewica', g: 'f', D: 'dziewicy', B: 'dziewicę', N: 'dziewicą' },
+    colloquial: { M: 'jungfrau', g: 'f', D: 'jungfrau', B: 'jungfrau', N: 'jungfrau' },
+  }),
+  durchmarsch: plain({
+    official: { M: 'przemarsz', g: 'm', D: 'przemarszu', B: 'przemarsz', N: 'przemarszem' },
+    colloquial: { M: 'durchmarsz', g: 'm', D: 'durchmarszu', B: 'durchmarsz', N: 'durchmarszem' },
+  }),
+  bock: plain({
+    official: { M: 'bock', g: 'm', D: 'bocka', Mlm: 'bocki', Dlm: 'bocków' },
+    colloquial: { M: 'bok', g: 'm', D: 'boka', Mlm: 'boki', Dlm: 'boków' },
+  }),
 };
 
 export function formsFor(term: Term, ctx: TextContext): Forms {

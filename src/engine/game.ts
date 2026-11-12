@@ -1,6 +1,6 @@
 import type { Suit } from './cards';
 
-export type GameType = { kind: 'suit'; trump: Suit } | { kind: 'grand' } | { kind: 'null' };
+export type GameType = { kind: 'suit'; trump: Suit } | { kind: 'grand' } | { kind: 'null' } | { kind: 'ramsch' };
 
 /** 0 = przodek, 1 = środek, 2 = zadek. */
 export type Seat = 0 | 1 | 2;

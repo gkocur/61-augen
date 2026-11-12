@@ -76,3 +76,15 @@ describe('sortowanie ręki', () => {
     expect(sortHand(['h-J', 'c-7', 'h-10', 'c-A'], nullGame)).toEqual(['c-A', 'c-7', 'h-J', 'h-10']);
   });
 });
+
+describe('ramsz', () => {
+  const ramsch: GameType = { kind: 'ramsch' };
+  it('atu są tylko walety', () => {
+    expect(isTrump('d-J', ramsch)).toBe(true);
+    expect(isTrump('h-A', ramsch)).toBe(false);
+  });
+  it('lewę bierze najwyższa karta koloru albo walet', () => {
+    expect(trickWinner(['h-A', 'h-10', 'c-7'], ramsch)).toBe(0);
+    expect(trickWinner(['h-A', 'd-J', 'h-7'], ramsch)).toBe(1);
+  });
+});
