@@ -4,6 +4,7 @@ import { rowPoints, playerAt, type GameDeal, type PlayerId } from '../game';
 import { countCase, gameLabel } from '../glossary';
 import { useText, useTextContext } from '../state/AppStateContext';
 import { PLAYER_NAME, signed } from './labels';
+import { scoreSteps } from './scoreExplain';
 
 interface Props {
   deal: GameDeal;
@@ -48,16 +49,12 @@ export function DealSummary({ deal, dealer, you, onNextDeal, onShowTable }: Prop
             {result.declaration.hand && t(', [[reka]]')}
             {result.doubling && `, ${result.doubling}`}.
           </p>
-          <p>
-            {result.declaration.game.kind === 'null'
-              ? `${t('[[Rozgrywajacy]]')} ${result.settlement.won ? `nie wziął ${t('{żadnej lewy|żadnego sztycha}')}` : `wziął ${t('{lewę|sztycha}')}`}.`
-              : `${t('[[Oczko:Mlm]] [[rozgrywajacy:D]]')}: ${result.outcome.declarerPoints}.`}
-          </p>
-          <p>
-            <strong>{result.settlement.won ? 'Gra wygrana' : 'Gra przegrana'}</strong>
-            {result.settlement.overbid && t(` (${'[[przelicytowanie]]'})`)} — wartość {result.settlement.value}, wynik{' '}
-            {signed(result.settlement.score)}.
-          </p>
+          <h3 className="deal-summary__how">Skąd ten wynik</h3>
+          <ol className="deal-summary__steps">
+            {scoreSteps(result, [...deal.hands[result.declarer], ...deal.skat]).map((step) => (
+              <li key={step}>{t(step)}</li>
+            ))}
+          </ol>
         </>
       )}
       <p className="deal-summary__points">
