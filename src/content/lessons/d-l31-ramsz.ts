@@ -26,7 +26,7 @@ export const lesson: Lesson = {
       title: 'Kto przegrywa',
       text:
         '[[Skat]] dostaje gracz, który weźmie {ostatnią|ostatniego} [[lewa:B]]. Przegrywa ten, kto ma najwięcej [[oczko:Dlm]] — zapisuje tyle punktów na minus. ' +
-        'Pozostali zapisują 0. Przy remisie przegrywają obaj.',
+        'Pozostali zapisują 0. Przy remisie przegrywają obaj, a gdy wszyscy mają po 40 [[oczko:Dlm]], nikt nic nie zapisuje.',
     },
     {
       title: 'Premie i kary',
@@ -136,7 +136,7 @@ export const lesson: Lesson = {
       mode: 'best',
       best: ['s-K'],
       wrongExplain: {
-        's-7': '[[Card:s-7]] też nie bierze [[lewa:D]], ale [[card:s-K]] zostanie w twojej ręce i później może kosztować cię 4 [[oczko:Mlm]].',
+        's-7': '[[Card:s-7]] też nie bierze [[lewa:D]], ale wtedy zostanie ci [[card:s-K]] — po wyjściu [[as:D]] i [[dziesiatka:D]] to najwyższa karta w tym kolorze i później łatwo weźmie [[lewa:B]].',
       },
       explain: '[[Card:s-A]] i tak bierze [[lewa:B]]. Pozbądź się [[card:s-K:D]] — jego 4 [[oczko:Mlm]] trafią do [[przodek:D]], a nie do ciebie.',
     },
@@ -166,13 +166,13 @@ export const lesson: Lesson = {
       game: RAMSCH,
       leader: 0,
       trick: [],
-      hand: ['c-7', 'c-8', 'h-K', 's-A', 'd-J'],
+      hand: ['c-7', 'c-8', 'h-K', 's-A', 'c-J'],
       mode: 'best',
       best: ['c-7', 'c-8'],
       wrongExplain: {
         's-A': '[[Card:s-A]] najpewniej weźmie [[lewa:B]] — razem z [[oczko:Nlm]] dołożonymi przez innych.',
-        'h-K': '[[Card:h-K]] weźmie [[lewa:B]], jeśli nikt nie ma w tym kolorze [[as:D]] ani [[dziesiatka:D]].',
-        'd-J': '[[Card:d-J]] to [[atu]] — weźmie [[lewa:B]], jeśli inni nie mają wyższych [[walet:Dlm]].',
+        'h-K': '[[Card:h-K]] weźmie [[lewa:B]], chyba że ktoś dołoży [[as:B]] albo [[dziesiatka:B]] — a w [[ramsz:Ms]] nikt nie chce brać [[lewa:Dlm]].',
+        'c-J': '[[Card:c-J]] to najwyższa karta w [[ramsz:Ms]] — na pewno weźmie [[lewa:B]], razem z [[oczko:Nlm]] dołożonymi przez innych.',
       },
       explain: 'Wychodź niską kartą: [[card:c-7]] i [[card:c-8]] prawie na pewno przegrają z kartami pozostałych graczy.',
     },
