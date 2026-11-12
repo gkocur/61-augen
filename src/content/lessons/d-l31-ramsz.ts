@@ -128,7 +128,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'd-l31-p1',
       prompt:
-        'Gracie [[ramsz:B]]. [[Przodek]] wyszedł [[card:s-A:N]], [[srodek]] dołożył [[card:s-10:B]]. Którą kartę dołożyć?',
+        'Gracie [[ramsz:B]]. Gracz na [[przodek:Ms]] wyszedł [[card:s-A:N]], gracz na [[srodek:Ms]] dołożył [[card:s-10:B]]. Którą kartę dołożyć?',
       game: RAMSCH,
       leader: 0,
       trick: ['s-A', 's-10'],
@@ -138,13 +138,13 @@ export const lesson: Lesson = {
       wrongExplain: {
         's-7': '[[Card:s-7]] też nie bierze [[lewa:D]], ale wtedy zostanie ci [[card:s-K]] — po wyjściu [[as:D]] i [[dziesiatka:D]] to najwyższa karta w tym kolorze i później łatwo weźmie [[lewa:B]].',
       },
-      explain: '[[Card:s-A]] i tak bierze [[lewa:B]]. Pozbądź się [[card:s-K:D]] — jego 4 [[oczko:Mlm]] trafią do [[przodek:D]], a nie do ciebie.',
+      explain: '[[Card:s-A]] i tak bierze [[lewa:B]]. Pozbądź się [[card:s-K:D]] — jego 4 [[oczko:Mlm]] trafią do gracza na [[przodek:Ms]], a nie do ciebie.',
     },
     {
       type: 'playCard',
       id: 'd-l31-p2',
       prompt:
-        'Gracie [[ramsz:B]]. [[Przodek]] wyszedł [[card:d-9:N]], [[srodek]] dołożył [[card:d-K:B]]. Nie masz tego koloru. Którą kartę oddać?',
+        'Gracie [[ramsz:B]]. Gracz na [[przodek:Ms]] wyszedł [[card:d-9:N]], gracz na [[srodek:Ms]] dołożył [[card:d-K:B]]. Nie masz tego koloru. Którą kartę oddać?',
       game: RAMSCH,
       leader: 0,
       trick: ['d-9', 'd-K'],
@@ -157,7 +157,7 @@ export const lesson: Lesson = {
         'c-7': 'Niska karta przyda się później, żeby nie brać [[lewa:Dlm]]. Teraz pozbądź się [[card:c-A:D]].',
         'h-8': 'Niska karta przyda się później, żeby nie brać [[lewa:Dlm]]. Teraz pozbądź się [[card:c-A:D]].',
       },
-      explain: 'Kto nie ma koloru, może zrzucić dowolną kartę. Oddaj [[card:c-A:B]] — 11 [[oczko:Dlm]] trafi do [[srodek:D]], który bierze [[lewa:B]].',
+      explain: 'Kto nie ma koloru, może zrzucić dowolną kartę. Oddaj [[card:c-A:B]] — 11 [[oczko:Dlm]] trafi do gracza na [[srodek:Ms]], który bierze [[lewa:B]].',
     },
     {
       type: 'playCard',

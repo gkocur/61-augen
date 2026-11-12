@@ -81,7 +81,7 @@ describe('MiniDealExercise', () => {
     const onAnswered = vi.fn();
     renderWithProviders(<MiniDealExercise exercise={declarerDeal} onAnswered={onAnswered} delayMs={0} />);
     expect(screen.getByText('Gra kolorowa · atu: czerwień')).toBeInTheDocument();
-    expect(screen.getByRole('img', { name: 'Środek: 2 karty' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Środkowa ręka: 2 karty' })).toBeInTheDocument();
 
     await playTwice(user, 'niżnik żołędny');
     await playTwice(user, 'as żołędny');

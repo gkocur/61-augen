@@ -236,7 +236,7 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | atu | trumf ⚠ |
 | rozgrywający | szpiler ⚠ |
 | obrońcy | przeciwnicy ⚠ |
-| przodek / środek / zadek | forhand / mitelhand / hinterhand ⚠ |
+| ręka / środkowa ręka / ostatnia ręka (na ręku, na środkowym ręku, na ostatnim ręku) | przodek / środek / zadek (na przodku, na środku, na zadku) |
 | licytacja, licytować | rajcowanie, rajcować |
 | pas | pas / weg ⚠ |
 | gra z ręki | hand |

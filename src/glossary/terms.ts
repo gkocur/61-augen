@@ -39,17 +39,18 @@ export const TERMS: Record<string, Term> = {
       Mlm: 'przeciwnicy', Dlm: 'przeciwników', Clm: 'przeciwnikom', Blm: 'przeciwników', Nlm: 'przeciwnikami',
     },
   }),
+  // Pozycje: oficjalnie „na ręku / na środkowym ręku / na ostatnim ręku”, potocznie „na przodku / na środku / na zadku”.
   przodek: plain({
-    official: { M: 'przodek', g: 'm', D: 'przodka', C: 'przodkowi', B: 'przodka', N: 'przodkiem', Ms: 'przodku' },
-    colloquial: { M: 'forhand', g: 'm', D: 'forhandu', C: 'forhandowi', B: 'forhand', N: 'forhandem', Ms: 'forhandzie' },
+    official: { M: 'ręka', g: 'f', D: 'ręki', C: 'ręce', B: 'rękę', N: 'ręką', Ms: 'ręku' },
+    colloquial: { M: 'przodek', g: 'm', D: 'przodka', C: 'przodkowi', B: 'przodka', N: 'przodkiem', Ms: 'przodku' },
   }),
   srodek: plain({
-    official: { M: 'środek', g: 'm', D: 'środka', C: 'środkowi', B: 'środek', N: 'środkiem', Ms: 'środku' },
-    colloquial: { M: 'mitelhand', g: 'm', D: 'mitelhandu', C: 'mitelhandowi', B: 'mitelhand', N: 'mitelhandem', Ms: 'mitelhandzie' },
+    official: { M: 'środkowa ręka', g: 'f', D: 'środkowej ręki', C: 'środkowej ręce', B: 'środkową rękę', N: 'środkową ręką', Ms: 'środkowym ręku' },
+    colloquial: { M: 'środek', g: 'm', D: 'środka', C: 'środkowi', B: 'środek', N: 'środkiem', Ms: 'środku' },
   }),
   zadek: plain({
-    official: { M: 'zadek', g: 'm', D: 'zadka', C: 'zadkowi', B: 'zadek', N: 'zadkiem', Ms: 'zadku' },
-    colloquial: { M: 'hinterhand', g: 'm', D: 'hinterhandu', C: 'hinterhandowi', B: 'hinterhand', N: 'hinterhandem', Ms: 'hinterhandzie' },
+    official: { M: 'ostatnia ręka', g: 'f', D: 'ostatniej ręki', C: 'ostatniej ręce', B: 'ostatnią rękę', N: 'ostatnią ręką', Ms: 'ostatnim ręku' },
+    colloquial: { M: 'zadek', g: 'm', D: 'zadka', C: 'zadkowi', B: 'zadek', N: 'zadkiem', Ms: 'zadku' },
   }),
   oczko: plain({
     official: { M: 'oczko', g: 'n', D: 'oczka', B: 'oczko', Mlm: 'oczka', Dlm: 'oczek', Blm: 'oczka', Nlm: 'oczkami', Mslm: 'oczkach' },

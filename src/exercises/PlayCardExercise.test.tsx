@@ -39,7 +39,7 @@ describe('PlayCardExercise', () => {
     expect(onAnswered).toHaveBeenCalledWith(true);
     expect(screen.getByText('Dobrze!')).toBeInTheDocument();
     expect(screen.getByText('Ty')).toBeInTheDocument();
-    expect(screen.getByText('Przodek')).toBeInTheDocument();
+    expect(screen.getByText('Ręka')).toBeInTheDocument();
   });
 
   it('wybór innej karty przenosi zaznaczenie', async () => {

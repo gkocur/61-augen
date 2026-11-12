@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { CardRow, Hand } from '../cards/Hand';
 import { OpponentView } from '../cards/OpponentView';
-import { SEAT_LABEL, TrickView } from '../cards/TrickView';
+import { SEAT_AT, SEAT_LABEL, TrickView } from '../cards/TrickView';
 import { Feedback } from '../components/Feedback';
 import { RichText } from '../components/RichText';
 import { checkpointAnswer, checkpointOptions, isGoalReached, miniDealBots, startMiniDeal, teamPoints } from '../content/miniDeal';
@@ -207,7 +207,7 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
         disabled={!yourTurn}
       />
       <p className="mini-deal__seat">
-        Twoje miejsce: {t(SEAT_LABEL[you])}
+        Siedzisz na {t(SEAT_AT[you])}
         {you === declarer ? t(' · [[rozgrywajacy]]') : ''}
       </p>
       <div className="feedback-region" role="status">

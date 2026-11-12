@@ -23,7 +23,7 @@ export const lesson: Lesson = {
       title: 'Typowe ręce do [[grand:D]]',
       text:
         '• 3–4 [[walet:Mlm]] i kilka [[as:Dlm]] — prawie zawsze [[grand]].\n\n' +
-        '• 2 [[walet:Mlm]], długi kolor z [[as:N]] i dziesiątką oraz drugi [[as]] — dobry [[grand]], zwłaszcza gdy wychodzisz jako [[przodek]].\n\n' +
+        '• 2 [[walet:Mlm]], długi kolor z [[as:N]] i dziesiątką oraz drugi [[as]] — dobry [[grand]], zwłaszcza gdy siedzisz na [[przodek:Ms]] i wychodzisz.\n\n' +
         '• 1 [[walet]] — zwykle za mało.',
     },
     {

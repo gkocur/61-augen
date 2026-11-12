@@ -36,7 +36,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm6-l26-p1',
       prompt:
-        '[[Rozgrywajacy]] siedzi zaraz po tobie ([[srodek]]). [[Atu]]: [[suit:c]]. Wychodzisz. Którą kartę zagrać?',
+        '[[Rozgrywajacy]] siedzi zaraz po tobie, na [[srodek:Ms]]. [[Atu]]: [[suit:c]]. Wychodzisz. Którą kartę zagrać?',
       game: CLUBS,
       leader: 0,
       trick: [],
@@ -56,7 +56,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm6-l26-p2',
       prompt:
-        '[[Rozgrywajacy]] siedzi na końcu ([[zadek]]), twój partner zaraz po tobie. [[Atu]]: [[suit:c]]. Wychodzisz. Którą kartę zagrać?',
+        '[[Rozgrywajacy]] siedzi na [[zadek:Ms]], twój partner zaraz po tobie. [[Atu]]: [[suit:c]]. Wychodzisz. Którą kartę zagrać?',
       game: CLUBS,
       leader: 0,
       trick: [],

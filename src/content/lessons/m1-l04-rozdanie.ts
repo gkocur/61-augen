@@ -2,9 +2,9 @@
 import type { Lesson } from '../types';
 
 const SEATS = [
-  { id: 'a', text: '[[Przodek]]' },
-  { id: 'b', text: '[[Srodek]]' },
-  { id: 'c', text: '[[Zadek]]' },
+  { id: 'a', text: 'Gracz na [[przodek:Ms]]' },
+  { id: 'b', text: 'Gracz na [[srodek:Ms]]' },
+  { id: 'c', text: 'Gracz na [[zadek:Ms]]' },
 ];
 
 export const lesson: Lesson = {
@@ -21,13 +21,13 @@ export const lesson: Lesson = {
     {
       title: 'Pozycje przy stole',
       text:
-        'Karty rozdaje się zgodnie z ruchem wskazówek zegara. Pierwszy gracz po lewej stronie rozdającego to **[[przodek]]**, następny to **[[srodek]]**, a trzeci to **[[zadek]]**.\n\n' +
-        'Przy trzech graczach [[zadek]] jest zarazem rozdającym.',
+        'Karty rozdaje się zgodnie z ruchem wskazówek zegara. Pierwszy gracz po lewej stronie rozdającego siedzi na **[[przodek:Ms]]**, następny na **[[srodek:Ms]]**, a trzeci na **[[zadek:Ms]]**.\n\n' +
+        'Przy trzech graczach gracz na [[zadek:Ms]] jest zarazem rozdającym.',
     },
     {
       title: 'Kto zaczyna?',
       text:
-        '**[[Przodek]]** zawsze wychodzi {do pierwszej lewy|do pierwszego sztycha} — bez względu na to, kto jest [[rozgrywajacy:N]].\n\n' +
+        'Gracz na **[[przodek:Ms]]** zawsze wychodzi {do pierwszej lewy|do pierwszego sztycha} — bez względu na to, kto jest [[rozgrywajacy:N]].\n\n' +
         '{Każdą następną lewę rozpoczyna gracz, który wziął poprzednią.|Każdego następnego sztycha rozpoczyna gracz, który wziął poprzedniego.}',
     },
   ],
@@ -50,7 +50,7 @@ export const lesson: Lesson = {
       prompt: 'Kto wychodzi {do pierwszej lewy|do pierwszego sztycha}?',
       options: [...SEATS, { id: 'd', text: '[[Rozgrywajacy]]' }],
       correct: 'a',
-      explain: 'Zawsze [[przodek]] — nawet jeśli [[rozgrywajacy:N]] jest ktoś inny.',
+      explain: 'Zawsze gracz na [[przodek:Ms]] — nawet jeśli [[rozgrywajacy:N]] jest ktoś inny.',
     },
     {
       type: 'quiz',
@@ -58,14 +58,14 @@ export const lesson: Lesson = {
       prompt: 'Kto rozdaje karty przy trzech graczach?',
       options: SEATS,
       correct: 'c',
-      explain: 'Przy trzech graczach rozdający to [[zadek]], a [[przodek]] siedzi po jego lewej stronie.',
+      explain: 'Przy trzech graczach rozdający siedzi na [[zadek:Ms]], a gracz na [[przodek:Ms]] — po jego lewej stronie.',
     },
     {
       type: 'quiz',
       id: 'm1-l04-q4',
       prompt: 'Kto rozpoczyna {drugą lewę|drugiego sztycha}?',
       options: [
-        { id: 'a', text: '[[Przodek]]' },
+        { id: 'a', text: 'Gracz na [[przodek:Ms]]' },
         { id: 'b', text: '{Gracz, który wziął pierwszą lewę|Gracz, który wziął pierwszego sztycha}' },
         { id: 'c', text: '[[Rozgrywajacy]]' },
       ],

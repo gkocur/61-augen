@@ -17,14 +17,14 @@ export const lesson: Lesson = {
     {
       title: 'Kto do kogo',
       text:
-        'Najpierw **[[srodek]] {licytuje|rajcuje} do [[przodek:D]]**: podaje kolejne stawki, a [[przodek]] odpowiada „tak” (trzyma) albo „[[pas]]”. ' +
-        'Potem **[[zadek]] {licytuje|rajcuje} do zwycięzcy** pierwszej części.\n\n' +
+        'Najpierw **gracz na [[srodek:Ms]] {licytuje|rajcuje} do gracza na [[przodek:Ms]]**: podaje kolejne stawki, a gracz na [[przodek:Ms]] odpowiada „tak” (trzyma) albo „[[pas]]”. ' +
+        'Potem **gracz na [[zadek:Ms]] {licytuje|rajcuje} do zwycięzcy** pierwszej części.\n\n' +
         'Przy tej samej stawce wygrywa ten, kto odpowiada — wystarczy mu „tak”.',
     },
     {
       title: 'Gdy wszyscy pasują',
       text:
-        'Jeśli [[srodek]] i [[zadek]] spasują, [[przodek]] może zagrać za 18 albo też spasować. ' +
+        'Jeśli gracze na [[srodek:Ms]] i na [[zadek:Ms]] spasują, gracz na [[przodek:Ms]] może zagrać za 18 albo też spasować. ' +
         'Gdy pasują wszyscy, rozdanie nie jest grane, a karty rozdaje kolejny gracz.',
     },
   ],
@@ -86,12 +86,12 @@ export const lesson: Lesson = {
       id: 'm4-l17-q5',
       prompt: 'Kto podaje pierwszą stawkę?',
       options: [
-        { id: 'a', text: '[[Przodek]]' },
-        { id: 'b', text: '[[Srodek]]' },
-        { id: 'c', text: '[[Zadek]]' },
+        { id: 'a', text: 'Gracz na [[przodek:Ms]]' },
+        { id: 'b', text: 'Gracz na [[srodek:Ms]]' },
+        { id: 'c', text: 'Gracz na [[zadek:Ms]]' },
       ],
       correct: 'b',
-      explain: 'Najpierw [[srodek]] {licytuje|rajcuje} do [[przodek:D]], potem [[zadek]] do zwycięzcy.',
+      explain: 'Najpierw gracz na [[srodek:Ms]] {licytuje|rajcuje} do gracza na [[przodek:Ms]], potem gracz na [[zadek:Ms]] do zwycięzcy.',
     },
     {
       type: 'quiz',

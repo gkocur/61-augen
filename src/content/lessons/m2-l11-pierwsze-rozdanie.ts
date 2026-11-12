@@ -12,7 +12,7 @@ export const lesson: Lesson = {
     {
       title: 'Całe rozdanie',
       text:
-        'Czas na pełne rozdanie: 10 [[lewa:Dlm]]. {[[Przodek]] wychodzi do pierwszej lewy, a każdą następną zaczyna ten, kto wziął poprzednią.|[[Przodek]] wychodzi do pierwszego sztycha, a każdego następnego zaczyna ten, kto wziął poprzedniego.}\n\n' +
+        'Czas na pełne rozdanie: 10 [[lewa:Dlm]]. {Gracz na [[przodek:Ms]] wychodzi do pierwszej lewy, a każdą następną zaczyna ten, kto wziął poprzednią.|Gracz na [[przodek:Ms]] wychodzi do pierwszego sztycha, a każdego następnego zaczyna ten, kto wziął poprzedniego.}\n\n' +
         'Na koniec liczymy [[oczko:Blm]]. [[Rozgrywajacy]] dostaje także karty ze [[skat:D]] — w [[graKolorowa:Ms]] i w [[grand:Ms]] ich [[oczko:Mlm]] liczą się dla niego.',
     },
     {
@@ -51,7 +51,7 @@ export const lesson: Lesson = {
       solution: ['c-J', 's-J', 'h-J', 'd-J', 'c-A', 'c-10', 's-A', 'h-A', 'h-10', 'h-K'],
       goal: { kind: 'win' },
       explain:
-        'Z czterema [[walet:Nlm]] najpierw wyciąga się [[atu:Blm]] [[obronca:Dlm]]. Gdy już ich nie mają, nie mogą przebić twoich [[as:Dlm]] i dziesiątek — {lewy są twoje bez ryzyka|sztychy są twoje bez ryzyka}. Gdy zaczyna się od [[as:Dlm]], [[zadek]] może je przebić [[atu:Nlm]].',
+        'Z czterema [[walet:Nlm]] najpierw wyciąga się [[atu:Blm]] [[obronca:Dlm]]. Gdy już ich nie mają, nie mogą przebić twoich [[as:Dlm]] i dziesiątek — {lewy są twoje bez ryzyka|sztychy są twoje bez ryzyka}. Gdy zaczyna się od [[as:Dlm]], gracz na [[zadek:Ms]] może je przebić [[atu:Nlm]].',
     },
   ],
 };

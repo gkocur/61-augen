@@ -78,7 +78,7 @@ export const lesson: Lesson = {
       goal: { kind: 'win' },
       explain:
         'Wyciągając najpierw [[atu:Blm]] ([[card:c-J]], [[card:s-J]], [[card:h-A]]…), zabierasz [[obronca:Clm]] możliwość przebijania. ' +
-        'Gdy zaczyna się od [[as:Dlm]], [[zadek]] przebija je [[atu:Nlm]] — i gra przepada.',
+        'Gdy zaczyna się od [[as:Dlm]], gracz na [[zadek:Ms]] przebija je [[atu:Nlm]] — i gra przepada.',
     },
   ],
 };

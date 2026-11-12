@@ -4,6 +4,8 @@ import { useText } from '../state/AppStateContext';
 import { PlayingCard } from './PlayingCard';
 
 export const SEAT_LABEL: Record<Seat, string> = { 0: '[[Przodek]]', 1: '[[Srodek]]', 2: '[[Zadek]]' };
+/** Pozycja w miejscowniku: „siedzisz na ręku / na przodku”. */
+export const SEAT_AT: Record<Seat, string> = { 0: '[[przodek:Ms]]', 1: '[[srodek:Ms]]', 2: '[[zadek:Ms]]' };
 
 interface Props {
   cards: CardId[];

@@ -29,7 +29,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm6-l27-p1',
       prompt:
-        'Grasz w obronie. [[Rozgrywajacy]] ([[przodek]]) wyszedł [[card:s-9:N]], partner dołożył [[card:s-A:B]]. Grasz jako ostatni. Którą kartę dołożyć?',
+        'Grasz w obronie. [[Rozgrywajacy]] (na [[przodek:Ms]]) wyszedł [[card:s-9:N]], partner dołożył [[card:s-A:B]]. Grasz jako ostatni. Którą kartę dołożyć?',
       game: HEARTS,
       leader: 0,
       trick: ['s-9', 's-A'],
@@ -43,7 +43,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm6-l27-p2',
       prompt:
-        'Partner ([[przodek]]) wyszedł [[card:d-A:N]]. Po tobie zagra jeszcze [[rozgrywajacy]] — może nie mieć tego koloru i przebić. Którą kartę dołożyć?',
+        'Partner (na [[przodek:Ms]]) wyszedł [[card:d-A:N]]. Po tobie zagra jeszcze [[rozgrywajacy]] — może nie mieć tego koloru i przebić. Którą kartę dołożyć?',
       game: HEARTS,
       leader: 0,
       trick: ['d-A'],
@@ -59,7 +59,7 @@ export const lesson: Lesson = {
       type: 'playCard',
       id: 'm6-l27-p3',
       prompt:
-        '[[Rozgrywajacy]] ([[przodek]]) wyszedł [[card:c-A:N]], partner dołożył [[card:c-7:B]]. Nie masz tego koloru ani [[atu:Dlm]]. Którą kartę oddać?',
+        '[[Rozgrywajacy]] (na [[przodek:Ms]]) wyszedł [[card:c-A:N]], partner dołożył [[card:c-7:B]]. Nie masz tego koloru ani [[atu:Dlm]]. Którą kartę oddać?',
       game: HEARTS,
       leader: 0,
       trick: ['c-A', 'c-7'],

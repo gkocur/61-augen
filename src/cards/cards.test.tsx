@@ -37,7 +37,7 @@ describe('karty', () => {
 
   it('stół podpisuje karty miejscami graczy', () => {
     renderWithProviders(<TrickView cards={['h-K', 'h-A']} leader={2} you={0} />);
-    expect(screen.getByText('Zadek')).toBeInTheDocument();
+    expect(screen.getByText('Ostatnia ręka')).toBeInTheDocument();
     expect(screen.getByText('Ty')).toBeInTheDocument();
   });
 
@@ -48,12 +48,12 @@ describe('karty', () => {
 
   it('przeciwnik: miejsce, rola i liczba kart', () => {
     renderWithProviders(<OpponentView seat={1} cardCount={7} isDeclarer active={false} />);
-    expect(screen.getByRole('img', { name: 'Środek · rozgrywający: 7 kart' })).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'Środkowa ręka · rozgrywający: 7 kart' })).toBeInTheDocument();
   });
 
   it('przeciwnik: odmiana liczby kart', () => {
     renderWithProviders(<OpponentView seat={2} cardCount={3} isDeclarer={false} active />);
-    expect(screen.getByRole('img', { name: 'Zadek: 3 karty' })).toHaveClass('opponent--active');
+    expect(screen.getByRole('img', { name: 'Ostatnia ręka: 3 karty' })).toHaveClass('opponent--active');
   });
 
   it('stół: własny tekst pustego stołu', () => {
