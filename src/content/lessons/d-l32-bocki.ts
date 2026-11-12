@@ -89,7 +89,7 @@ export const lesson: Lesson = {
       prompt: 'Które zdarzenie często rozpoczyna rundę [[bock:Dlm]]?',
       options: [
         { id: 'a', text: 'Wynik 60:60' },
-        { id: 'b', text: 'Wygrana [[graKolorowa]]' },
+        { id: 'b', text: '{Wygrana|Wygrany} [[graKolorowa]]' },
         { id: 'c', text: 'Pas wszystkich graczy' },
       ],
       correct: 'a',
