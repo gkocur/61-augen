@@ -1,5 +1,6 @@
 // src/game/deal.ts
 import {
+  SUITS,
   createDeal,
   currentPlayer,
   dealResult,
@@ -178,7 +179,8 @@ function step(state: GameDeal, seat: Seat, action: GameAction): GameDeal {
     }
     case 'declare': {
       if (action.type !== 'declare') wrongAction(state.phase, action);
-      if (action.game.kind === 'ramsch') throw new Error('Ramsza się nie zgłasza');
+      if ((action.game as { kind?: unknown } | null)?.kind === 'ramsch') throw new Error('Ramsza się nie zgłasza');
+      if (!isDeclarable(action.game) || !ANNOUNCEMENTS.includes(action.announce)) throw new Error('Nieprawidłowe zgłoszenie');
       const declaration: Declaration = { game: action.game, hand: state.hand, announce: action.announce };
       const issue = declarationIssue(declaration);
       if (issue) throw new Error(issue);
@@ -208,6 +210,16 @@ function step(state: GameDeal, seat: Seat, action: GameAction): GameDeal {
     case 'done':
       throw new Error('Rozdanie jest zakończone');
   }
+}
+
+const ANNOUNCEMENTS: readonly Announcement[] = ['none', 'schneider', 'schwarz', 'ouvert'];
+
+/** Gra, którą można zgłosić: grand, null albo kolor z poprawnym atutem (ramsza się nie zgłasza). */
+function isDeclarable(game: unknown): game is GameType {
+  if (typeof game !== 'object' || game === null) return false;
+  const g = game as { kind?: unknown; trump?: unknown };
+  if (g.kind === 'grand' || g.kind === 'null') return true;
+  return g.kind === 'suit' && typeof g.trump === 'string' && (SUITS as readonly string[]).includes(g.trump);
 }
 
 function withHand(hands: Hands, seat: Seat, cards: CardId[]): Hands {

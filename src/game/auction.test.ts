@@ -65,6 +65,13 @@ describe('licytacja (ISkO)', () => {
     expect(() => applyAuction(run([[1, pass], [2, pass], [0, pass]]), 0, pass)).toThrow('Licytacja jest zakończona');
   });
 
+  it('w etapie 2 można przebić skokiem po wstrzymanej stawce z etapu 1', () => {
+    const a = run([[1, bid(18)], [0, hold], [1, pass], [2, bid(24)]]);
+    expect(a).toMatchObject({ stage: 2, highest: 24, turn: 'listener', listener: 0 });
+    expect(applyAuction(a, 0, pass)).toMatchObject({ stage: 'done', winner: 2, highest: 24 });
+    expect(applyAuction(a, 0, hold)).toMatchObject({ stage: 2, turn: 'bidder' });
+  });
+
   it('zapisuje przebieg wypowiedzi', () => {
     const a = run([[1, bid(18)], [0, hold], [1, pass]]);
     expect(a.log.map((e) => [e.seat, e.action.type])).toEqual([[1, 'bid'], [0, 'hold'], [1, 'pass']]);

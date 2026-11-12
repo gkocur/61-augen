@@ -168,3 +168,98 @@ describe('rozdanie: rozgrywka i wynik', () => {
     expect(s.history).toHaveLength(3);
   });
 });
+
+describe('rozdanie: dodatkowe scenariusze', () => {
+  const NO_KONTRA: GameOptions = { kontra: false, ramsch: true };
+  const toDeclarer1 = (value: number, options = NO_KONTRA) =>
+    act(startGameDeal(1, options, CARDS), [[1, { type: 'bid', value }], [0, pass], [2, pass]]);
+
+  it('walet w nietkniętym skacie w grze z ręki liczy się do matadorów', () => {
+    const cards: DealtCards = {
+      hands: [
+        ['s-J', 'h-A', 'h-10', 'h-K', 'h-Q', 'h-9', 'h-8', 'c-A', 's-A', 'd-A'],
+        ['h-J', 'd-J', 'c-10', 'c-K', 'c-Q', 'c-9', 's-10', 's-K', 'd-10', 'd-K'],
+        ['h-7', 'c-8', 'c-7', 's-Q', 's-9', 's-8', 's-7', 'd-Q', 'd-9', 'd-8'],
+      ],
+      skat: ['c-J', 'd-7'],
+    };
+    const s = act(startGameDeal(1, NO_KONTRA, cards), [
+      [1, pass], [2, pass], [0, { type: 'bid', value: 18 }],
+      [0, { type: 'playHand' }],
+      [0, { type: 'declare', game: HEARTS, announce: 'none' }],
+    ]);
+    const done = playOut(s);
+    const result = done.result!;
+    if (result.kind !== 'game') throw new Error('oczekiwano gry');
+    // „Z 2” (c-J ze skata, s-J z ręki): 2 + gra 1 + ręka 1 = 4, plus ewentualny krawiec i czarny.
+    const { schneider, schwarz } = result.settlement;
+    expect(result.settlement.value).toBe(10 * (4 + (schneider ? 1 : 0) + (schwarz ? 1 : 0)));
+  });
+
+  it('przelicytowanie przez cały przebieg rozdania', () => {
+    const s = act(toDeclarer1(48), [
+      [1, { type: 'takeSkat' }],
+      [1, { type: 'discard', cards: ['d-8', 'd-7'] }],
+      [1, { type: 'declare', game: { kind: 'suit', trump: 'd' }, announce: 'none' }],
+    ]);
+    expect(s).toMatchObject({ declarer: 1, bid: 48, phase: 'play' });
+    const result = playOut(s).result!;
+    if (result.kind !== 'game') throw new Error('oczekiwano gry');
+    expect(result.settlement).toMatchObject({ overbid: true, won: false, value: 54 });
+  });
+
+  it('null kończy się z chwilą wzięcia lewy przez rozgrywającego', () => {
+    const s = act(forehandWins(NO_KONTRA), [
+      [0, { type: 'takeSkat' }],
+      [0, { type: 'discard', cards: ['d-A', 's-A'] }],
+      [0, { type: 'declare', game: { kind: 'null' }, announce: 'none' }],
+    ]);
+    const done = playOut(s);
+    expect(done.phase).toBe('done');
+    const result = done.result!;
+    if (result.kind !== 'game') throw new Error('oczekiwano gry');
+    expect(result.outcome.declarerTricks).toBeGreaterThanOrEqual(1);
+    expect(result.settlement.won).toBe(false);
+    expect(done.play!.tricks.length).toBeLessThan(10);
+  });
+
+  it('null otwarty: 46 po stawce 46, a po 48 tylko z ręki (59)', () => {
+    const ouvert = { type: 'declare', game: { kind: 'null' }, announce: 'ouvert' } as const;
+    const after46 = act(toDeclarer1(46), [[1, { type: 'takeSkat' }], [1, { type: 'discard', cards: ['d-8', 'd-7'] }]]);
+    expect(applyGameAction(after46, 1, ouvert).phase).toBe('play');
+    const won48 = toDeclarer1(48);
+    const after48 = act(won48, [[1, { type: 'takeSkat' }], [1, { type: 'discard', cards: ['d-8', 'd-7'] }]]);
+    expect(() => applyGameAction(after48, 1, ouvert)).toThrow('Nulla (46) nie można zgłosić po stawce 48 (ISkO 3.6)');
+    const hand48 = applyGameAction(won48, 1, { type: 'playHand' });
+    expect(applyGameAction(hand48, 1, ouvert).phase).toBe('play');
+  });
+
+  it('kontra pierwszego obrońcy pomija pytanie drugiego', () => {
+    const s = act(declaredHearts(), [[1, { type: 'double' }]]);
+    expect(s.doublingAsk).toEqual([0]);
+    expect(gameActor(s)).toBe(0);
+    expect(() => applyGameAction(s, 2, noDouble)).toThrow('Teraz ruch gracza 0, a nie 2');
+    expect(applyGameAction(s, 0, noDouble)).toMatchObject({ phase: 'play', doubling: 'kontra' });
+  });
+});
+
+describe('rozdanie: sfałszowane ruchy', () => {
+  const garbage = (a: unknown) => a as GameAction;
+  const declareFrom = (action: unknown) =>
+    applyGameAction(applyGameAction(forehandWins(), 0, { type: 'playHand' }), 0, garbage(action));
+
+  it('odrzuca zgłoszenia o złym kształcie', () => {
+    const bad = 'Nieprawidłowe zgłoszenie';
+    expect(() => declareFrom({ type: 'declare', game: { kind: 'suit', trump: 'x' }, announce: 'none' })).toThrow(bad);
+    expect(() => declareFrom({ type: 'declare', game: { kind: 'suit' }, announce: 'none' })).toThrow(bad);
+    expect(() => declareFrom({ type: 'declare', game: { kind: 'foo' }, announce: 'none' })).toThrow(bad);
+    expect(() => declareFrom({ type: 'declare', game: HEARTS, announce: 'foo' })).toThrow(bad);
+    expect(() => declareFrom({ type: 'declare', game: null, announce: 'none' })).toThrow(bad);
+  });
+
+  it('odrzuca kartę spoza talii i stawkę w złym typie', () => {
+    const playing = declaredHearts({ kontra: false, ramsch: true });
+    expect(() => applyGameAction(playing, 0, garbage({ type: 'play', card: 'x-99' }))).toThrow();
+    expect(() => applyGameAction(startGameDeal(1, BOTH, CARDS), 1, garbage({ type: 'bid', value: '18' }))).toThrow();
+  });
+});
