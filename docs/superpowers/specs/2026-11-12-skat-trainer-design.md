@@ -241,7 +241,7 @@ Aplikacja i silnik budowane w całości od razu; treść partiami:
 | pas | pas / weg ⚠ |
 | gra z ręki | hand |
 | gra kolorowa | farbszpil ⚠ |
-| oczka | augi ⚠ |
+| oczka | oczka |
 | krawiec | szneider |
 | czarny | szwarc |
 | gra otwarta | overt |
