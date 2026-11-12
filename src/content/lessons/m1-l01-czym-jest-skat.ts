@@ -9,7 +9,7 @@ export const lesson: Lesson = {
     {
       title: 'Jeden przeciw dwóm',
       text:
-        'Skat to gra karciana dla trzech osób. W każdym rozdaniu jeden gracz zostaje **[[rozgrywajacy:N]]** i gra sam przeciwko pozostałym dwóm.\n\n' +
+        'Skat to gra karciana dla trzech osób. W rozdaniu zwykle jeden gracz zostaje **[[rozgrywajacy:N]]** i gra sam przeciwko pozostałym dwóm.\n\n' +
         'Ci dwaj to **[[obronca:Mlm]]** — grają razem, jak drużyna, i wspólnie liczą zdobyte karty.',
     },
     {
@@ -48,7 +48,7 @@ export const lesson: Lesson = {
         { id: 'c', text: '90' },
       ],
       correct: 'b',
-      explain: 'Wystarczy **61** ze 120. Przy 60 [[oczko:Dlm]] nie ma remisu — [[rozgrywajacy]] przegrywa.',
+      explain: 'Wystarczy **61** ze 120. Przy 60 [[oczko:Mslm]] nie ma remisu — [[rozgrywajacy]] przegrywa.',
     },
     {
       type: 'quiz',
@@ -69,7 +69,7 @@ export const lesson: Lesson = {
       options: [
         { id: 'a', text: 'Każdy na siebie' },
         { id: 'b', text: 'Razem, jako drużyna' },
-        { id: 'c', text: 'Razem z [[rozgrywajacy:N]]' },
+        { id: 'c', text: 'Po stronie [[rozgrywajacy:D]]' },
       ],
       correct: 'b',
       explain: '[[Obronca:Mlm]] tworzą drużynę i wspólnie pilnują, żeby [[rozgrywajacy]] nie zdobył 61 [[oczko:Dlm]].',

@@ -1,5 +1,6 @@
 // src/ui/App.tsx
-import { HashRouter, Route, Routes } from 'react-router-dom';
+import type { ReactNode } from 'react';
+import { HashRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { AppStateProvider } from '../state/AppStateContext';
 import { CourseMap } from './CourseMap';
 import { ErrorBoundary } from './ErrorBoundary';
@@ -9,10 +10,15 @@ import { LessonRoute } from './LessonPage';
 import { NotFound } from './NotFound';
 import { SettingsPage } from './SettingsPage';
 
+function RouteErrorBoundary({ children }: { children: ReactNode }) {
+  const { pathname } = useLocation();
+  return <ErrorBoundary key={pathname}>{children}</ErrorBoundary>;
+}
+
 export function AppRoutes() {
   return (
     <Layout>
-      <ErrorBoundary>
+      <RouteErrorBoundary>
         <Routes>
           <Route path="/" element={<CourseMap />} />
           <Route path="/lekcja/:lessonId" element={<LessonRoute />} />
@@ -20,7 +26,7 @@ export function AppRoutes() {
           <Route path="/slowniczek" element={<GlossaryPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </ErrorBoundary>
+      </RouteErrorBoundary>
     </Layout>
   );
 }

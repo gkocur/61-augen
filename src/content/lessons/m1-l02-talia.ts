@@ -10,7 +10,7 @@ export const lesson: Lesson = {
       title: 'Cztery kolory',
       text:
         'Do skata używa się **32 kart**: 4 kolory po 8 kart.\n\n' +
-        'W ustawieniach możesz wybrać wygląd talii — niemiecką (Altenburg) albo francuską. Zasady są w obu identyczne.',
+        'W ustawieniach możesz wybrać talię — niemiecką (Altenburg) albo francuską. Zasady są w obu identyczne.',
       cards: ['c-A', 's-A', 'h-A', 'd-A'],
       cardsCaption: 'Kolory: [[suit:c]], [[suit:s]], [[suit:h]] i [[suit:d]].',
     },

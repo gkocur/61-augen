@@ -62,6 +62,10 @@ function validateExercise(exercise: ExerciseData, report: Report, checkText: (te
       return validateQuiz(exercise, report, checkText);
     case 'playCard':
       return validatePlayCard(exercise, report, checkText);
+    default: {
+      const unknown: never = exercise;
+      report(`nieznany typ ćwiczenia: ${(unknown as { type: string }).type}`);
+    }
   }
 }
 

@@ -34,16 +34,14 @@ export function LessonPlayer({ lesson, lessonNumber, onFinish, nextLessonPath }:
 
   const titleRef = useRef<HTMLHeadingElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
-  const firstRender = useRef(true);
-  const phaseKey = phase.kind === 'summary' ? 'summary' : `${phase.kind}-${phase.index}`;
+  const currentKey = `${phase.kind}-${phase.kind === 'summary' ? '' : phase.index}-${attempt}`;
+  const lastKey = useRef(currentKey);
 
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
+    if (lastKey.current === currentKey) return;
+    lastKey.current = currentKey;
     titleRef.current?.focus();
-  }, [phaseKey, attempt]);
+  }, [currentKey]);
 
   useEffect(() => {
     if (answeredCurrent) nextRef.current?.focus();

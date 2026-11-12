@@ -41,7 +41,7 @@ export const lesson: Lesson = {
       trick: ['h-K'],
       hand: ['h-7', 'h-A', 's-10', 'c-K', 'd-8'],
       mode: 'legal',
-      explain: 'Masz karty w kolorze [[suit:h]], więc musisz dołożyć jedną z nich: [[card:h-7]] albo [[card:h-A]].',
+      explain: 'W kolorze [[suit:h]] masz [[card:h-7]] i [[card:h-A]] — musisz dołożyć jedną z nich.',
     },
     {
       type: 'playCard',
@@ -74,7 +74,7 @@ export const lesson: Lesson = {
       trick: ['c-Q', 'c-7'],
       hand: ['c-A', 'c-9', 'h-A', 's-7'],
       mode: 'legal',
-      explain: 'Masz dwie karty w kolorze [[suit:c]]: możesz dołożyć [[card:c-A]] (i wziąć {lewę|sztycha}) albo [[card:c-9]].',
+      explain: 'W kolorze [[suit:c]] masz dwie karty: [[card:c-A]] i [[card:c-9]]. Obie są dozwolone, a pierwsza weźmie {lewę|sztycha}.',
     },
   ],
 };
