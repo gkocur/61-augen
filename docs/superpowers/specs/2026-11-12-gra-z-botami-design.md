@@ -207,3 +207,9 @@ Implementacja w trzech planach:
   - kontra: co najmniej 4 atu, w tym 2 wysokie, i 2 asy z boku (w grandzie 2 walety i 3 asy);
   - re: co najmniej 8 atu albo 7 atu i 3 walety.
 - **Ramsz w silniku rozgrywki:** `createDeal` z `declarer: 0`, bo w ramszu nie ma rozgrywającego. Wynik liczy `ramschTally`.
+- **Ekrany (Plan 8):** `src/play/`.
+  - Licytacja: przycisk z kolejną stawką albo „tak” i „pas”. Skoków stawek w interfejsie nie ma, choć silnik je przyjmuje.
+  - Wyrzucanie: 2 karty z 12, jak w lekcji 19.
+  - Zgłoszenie: kolory, grand i null. Zapowiedzi tylko przy grze z ręki, a przy nullu — null otwarty. Null poniżej stawki jest zablokowany.
+  - Wypowiedzi botów pokazują się w dymkach (i w etykiecie dostępności przeciwnika). Ruch bota następuje co 0,8 s.
+  - Po rozdaniu: podsumowanie, odkryty skat i tabela serii. „Nowa seria” (z potwierdzeniem) jest dostępna także w trakcie rozdania.
