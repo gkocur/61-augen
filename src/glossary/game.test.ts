@@ -11,7 +11,7 @@ describe('etykieta gry', () => {
     expect(gameLabel({ kind: 'suit', trump: 'h' }, official)).toBe('Gra kolorowa · atu: czerwień');
     expect(gameLabel({ kind: 'suit', trump: 'h' }, colloquial)).toBe('Farbszpil · trumf: herc');
     expect(gameLabel({ kind: 'grand' }, official)).toBe('Grand · atu: tylko niżniki');
-    expect(gameLabel({ kind: 'null' }, colloquial)).toBe('Nul · bez trumfa');
+    expect(gameLabel({ kind: 'null' }, colloquial)).toBe('Nul · bez trumfów');
   });
 });
 

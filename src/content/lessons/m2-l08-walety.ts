@@ -7,7 +7,7 @@ const PLAY = 'Zagraj dozwoloną kartę.';
 
 export const lesson: Lesson = {
   id: 'm2-l08-walety',
-  title: '[[Walet]] należy do [[atu:D]]',
+  title: '[[Walet]] należy do [[atu:Dlm]]',
   summary: 'Najczęstszy błąd początkujących — i jak go uniknąć.',
   steps: [
     {
@@ -26,7 +26,7 @@ export const lesson: Lesson = {
       title: 'Wyjście w [[atu:Ms]]',
       text:
         'Gdy wychodzi [[atu]] — również [[walet]] — musisz dołożyć [[atu:B]], {jeśli je masz|jeśli go masz}. [[Walet]] w twojej ręce też się liczy jako [[atu]].\n\n' +
-        'Wyjątek: w [[null:Ms]] nie ma [[atu:D]], a [[walet]] jest zwykłą kartą swojego koloru (lekcja 10).',
+        'Wyjątek: w [[null:Ms]] nie ma [[atu:Dlm]], a [[walet]] jest zwykłą kartą swojego koloru (lekcja 10).',
     },
   ],
   exercises: [
@@ -80,7 +80,7 @@ export const lesson: Lesson = {
     {
       type: 'quiz',
       id: 'm2-l08-q1',
-      prompt: 'Ile kart jest [[atu:N]] w [[graKolorowa:Ms]]?',
+      prompt: 'Ile jest [[atu:Dlm]] w [[graKolorowa:Ms]]?',
       options: [
         { id: 'a', text: '7' },
         { id: 'b', text: '8' },

@@ -9,7 +9,7 @@ const VERIFY = { kind: 'trickWinner', game: HEARTS } as const;
 export const lesson: Lesson = {
   id: 'm2-l07-atu',
   title: '[[Atu]] w [[graKolorowa:Ms]]',
-  summary: 'Karta [[atu:D]] bije nawet [[as:B]].',
+  summary: '[[Atu]] bije nawet [[as:B]].',
   steps: [
     {
       title: 'Czym jest [[atu]]?',
@@ -20,7 +20,7 @@ export const lesson: Lesson = {
     {
       title: 'Także [[walet:Mlm]] są [[atu:Nlm]]',
       text:
-        'Do [[atu:D]] należą również **wszystkie cztery [[walet:Mlm]]** — i to one są najsilniejsze, w kolejności: [[card:c-J]], [[card:s-J]], [[card:h-J]], [[card:d-J]].\n\n' +
+        'Do [[atu:Dlm]] należą również **wszystkie cztery [[walet:Mlm]]** — i to one są najsilniejsze, w kolejności: [[card:c-J]], [[card:s-J]], [[card:h-J]], [[card:d-J]].\n\n' +
         'Razem [[atu:Mlm]] to 11 kart: 4 [[walet:Mlm]] i 7 kart koloru [[atu:D]].',
       cards: ['c-J', 's-J', 'h-J', 'd-J', 'h-A', 'h-10', 'h-K', 'h-Q', 'h-9', 'h-8', 'h-7'],
       cardsCaption: '[[Atu:Mlm]], gdy kolorem [[atu:D]] jest [[suit:h]] — od najsilniejszego.',
@@ -28,9 +28,9 @@ export const lesson: Lesson = {
     {
       title: 'Kto bierze [[lewa:B]]?',
       text:
-        'Jeśli {w lewie|w sztychu} jest choć jedna karta [[atu:D]], wygrywa **{najwyższe atu|najwyższy trumf}**. ' +
+        'Jeśli {w lewie|w sztychu} jest {choć jedna karta atu|choć jeden trumf}, wygrywa **{najwyższe atu|najwyższy trumf}**. ' +
         'Jeśli nie ma żadnej — najwyższa karta w kolorze wyjścia, jak w poprzedniej lekcji.\n\n' +
-        '[[Atu]] wolno zagrać tylko wtedy, gdy nie masz koloru wyjścia (albo gdy wyjście jest w [[atu:Ms]]).',
+        '[[Atu:B]] wolno zagrać tylko wtedy, gdy nie masz koloru wyjścia (albo gdy wyjście jest w [[atu:Ms]]).',
     },
   ],
   exercises: [
@@ -59,7 +59,7 @@ export const lesson: Lesson = {
       correct: 'b',
       verify: VERIFY,
       explain:
-        '[[Card:d-J]] to najsłabszy z [[walet:Dlm]], ale i tak bije wszystkie pozostałe karty koloru [[atu:D]] — także [[as:B]].',
+        '[[Card:d-J]] to najsłabszy z [[walet:Dlm]], ale i tak bije wszystkie karty koloru [[atu:D]] — także [[as:B]].',
     },
     {
       type: 'quiz',
@@ -110,7 +110,7 @@ export const lesson: Lesson = {
       hand: ['s-7', 'h-8', 'c-K'],
       mode: 'legal',
       explain:
-        'Masz kartę w kolorze wyjścia — [[card:s-7:B]] — więc musisz ją dołożyć. [[Atu]] możesz zagrać dopiero wtedy, gdy koloru wyjścia nie masz.',
+        'Masz kartę w kolorze wyjścia — [[card:s-7:B]] — więc musisz ją dołożyć. [[Atu:B]] możesz zagrać dopiero wtedy, gdy koloru wyjścia nie masz.',
     },
     {
       type: 'playCard',
@@ -127,7 +127,7 @@ export const lesson: Lesson = {
         'd-9': 'Bez [[atu:D]] nie przebijesz [[as:D]].',
       },
       explain:
-        'Nie masz koloru [[suit:s]], więc możesz przebić [[as:B]] kartą [[atu:D]] — [[card:h-8:N]].',
+        'Nie masz koloru [[suit:s]], więc możesz przebić [[as:B]] {kartą atu|trumfem} — [[card:h-8:N]].',
     },
   ],
 };

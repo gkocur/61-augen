@@ -10,7 +10,7 @@ const PLAY = 'Zagraj dozwoloną kartę.';
 export const lesson: Lesson = {
   id: 'm2-l09-grand',
   title: '[[Grand]]',
-  summary: 'Gra, w której [[atu:Mlm]] są tylko [[walet:Mlm]].',
+  summary: 'Gra, w której [[atu:Nlm]] są tylko [[walet:Mlm]].',
   steps: [
     {
       title: 'Tylko [[walet:Mlm]]',
@@ -29,7 +29,7 @@ export const lesson: Lesson = {
     {
       title: 'Kiedy grać [[grand:B]]?',
       text:
-        '[[Grand]] jest wart najwięcej spośród zwykłych gier (wyceny poznasz w module 3). ' +
+        '[[Grand]] ma najwyższą wartość bazową spośród gier z [[atu:Nlm]] (wyceny poznasz w module 3). ' +
         'Gra się go zwykle z kilkoma [[walet:Nlm]] i mocnymi kolorami — szczegóły w module 5.',
     },
   ],

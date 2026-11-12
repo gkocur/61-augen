@@ -9,7 +9,7 @@ const VERIFY = { kind: 'trickWinner', game: NULL_GAME } as const;
 export const lesson: Lesson = {
   id: 'm2-l10-null',
   title: '[[Null]]',
-  summary: 'Gra, w której nie wolno wziąć ani jednej [[lewa:D]].',
+  summary: 'Gra, w której nie wolno wziąć {ani jednej lewy|ani jednego sztycha}.',
   steps: [
     {
       title: 'Gra bez [[lewa:Dlm]]',
@@ -18,9 +18,9 @@ export const lesson: Lesson = {
         '[[Oczko:Mlm]] nie mają tu żadnego znaczenia.',
     },
     {
-      title: 'Bez [[atu:D]], inna kolejność',
+      title: 'Bez [[atu:Dlm]], inna kolejność',
       text:
-        'W [[null:Ms]] nie ma [[atu:D]], a [[walet]] jest zwykłą kartą swojego koloru. Kolejność w każdym kolorze:\n\n' +
+        'W [[null:Ms]] nie ma [[atu:Dlm]], a [[walet]] jest zwykłą kartą swojego koloru. Kolejność w każdym kolorze:\n\n' +
         '**[[As]] · [[krol]] · [[dama]] · [[walet]] · 10 · 9 · 8 · 7**\n\n' +
         'Dziesiątka stoi tu między [[walet:N]] a dziewiątką.',
       cards: ['h-A', 'h-K', 'h-Q', 'h-J', 'h-10', 'h-9', 'h-8', 'h-7'],

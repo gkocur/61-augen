@@ -50,7 +50,11 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
   // Ruch bota.
   useEffect(() => {
     if (over || showLast || current === you) return;
-    const id = setTimeout(() => setDeal((d) => playCard(d, bots[current](d, current))), delayMs);
+    const id = setTimeout(() => setDeal((d) => {
+        if (isDealOver(d)) return d;
+        const seat = currentPlayer(d);
+        return seat === you ? d : playCard(d, bots[seat](d, seat));
+      }), delayMs);
     return () => clearTimeout(id);
   }, [deal, over, showLast, current, you, bots, delayMs]);
 
@@ -74,7 +78,11 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
       return;
     }
     setSelected(null);
-    setDeal((d) => playCard(d, card));
+    setDeal((d) =>
+      !isDealOver(d) && currentPlayer(d) === you && legalMoves(d.hands[you], d.trick, d.game).includes(card)
+        ? playCard(d, card)
+        : d,
+    );
   };
 
   const shown =

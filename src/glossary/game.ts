@@ -10,6 +10,6 @@ export function gameLabel(game: GameType, ctx: TextContext): string {
     case 'grand':
       return resolveText('[[Grand]] · [[atu]]: tylko [[walet:Mlm]]', ctx);
     case 'null':
-      return resolveText('[[Null]] · bez [[atu:D]]', ctx);
+      return resolveText('[[Null]] · bez [[atu:Dlm]]', ctx);
   }
 }
