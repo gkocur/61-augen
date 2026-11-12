@@ -75,7 +75,11 @@ export function evaluateHand(cards: readonly CardId[]): GameChoice | null {
  * Null tylko wtedy, gdy jego wartość nie jest niższa od stawki.
  */
 export function chooseGame(cards: readonly CardId[], bid: number): GameType {
-  const playable = playableGames(cards).filter((c) => c.game.kind !== 'null' || c.limit >= bid);
+  // Null oceniamy po wyrzuceniu dwóch najgroźniejszych kart (przy 12 kartach).
+  const nullCards = cards.length === 12 ? cards.filter((c) => !chooseDiscard(cards, NULL_GAME).includes(c)) : cards;
+  const nullChoice: GameChoice[] = nullPlayable(nullCards) ? [{ game: NULL_GAME, limit: maxBidFor(nullCards, NULL_GAME) }] : [];
+  const all = [...playableGames(cards).filter((c) => c.game.kind !== 'null'), ...nullChoice];
+  const playable = all.filter((c) => c.game.kind !== 'null' || c.limit >= bid);
   const enough = playable.filter((c) => c.limit >= bid);
   const pool = enough.length > 0 ? enough : playable;
   if (pool.length > 0) return pool.reduce((best, c) => (c.limit > best.limit ? c : best)).game;
@@ -86,9 +90,10 @@ export function chooseGame(cards: readonly CardId[], bid: number): GameType {
 /** Dwie karty do wyrzucenia z 12 dla wybranej gry. */
 export function chooseDiscard(cards: readonly CardId[], game: GameType): [CardId, CardId] {
   if (game.kind === 'null') {
-    // Najgroźniejsze: najwyższe karty w kolorach bez siódemki.
+    // Najgroźniejsze: najwyższe karty w kolorach bez siódemki i ósemki (tak jak w nullPlayable).
     const risk = (c: CardId) =>
-      (cards.some((x) => suitOf(x) === suitOf(c) && rankOf(x) === '7') ? 0 : 100) + cardStrength(c, game);
+      (cards.some((x) => suitOf(x) === suitOf(c) && (rankOf(x) === '7' || rankOf(x) === '8')) ? 0 : 100) +
+      cardStrength(c, game);
     const [a, b] = [...cards].sort((x, y) => risk(y) - risk(x));
     return [a, b];
   }

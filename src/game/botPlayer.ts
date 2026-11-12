@@ -28,8 +28,11 @@ export function botAction(state: GameDeal, seat: Seat): GameAction {
       const cards = state.hands[seat];
       return { type: 'discard', cards: chooseDiscard(cards, chooseGame(cards, state.bid!)) };
     }
-    case 'declare':
-      return { type: 'declare', game: chooseGame([...state.hands[seat], ...state.skat], state.bid!), announce: 'none' };
+    case 'declare': {
+      // W grze z ręki skat jest ukryty — bot (i podpowiedź) nie może z niego korzystać.
+      const cards = state.hand ? state.hands[seat] : [...state.hands[seat], ...state.skat];
+      return { type: 'declare', game: chooseGame(cards, state.bid!), announce: 'none' };
+    }
     case 'kontra': {
       const declaration = state.declaration!;
       const wants = seat === state.declarer ? wantsRe(state.hands[seat], declaration) : wantsKontra(state.hands[seat], declaration);

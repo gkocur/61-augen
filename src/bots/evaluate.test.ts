@@ -44,6 +44,13 @@ describe('wybór gry po licytacji', () => {
   });
 });
 
+describe('null po wyrzuceniu do skata', () => {
+  it('z 12 kart null oceniany jest po wyrzuceniu dwóch asów', () => {
+    const cards: CardId[] = ['c-7', 'c-8', 'c-9', 's-7', 's-8', 'h-7', 'h-8', 'h-9', 'd-7', 'd-K', 'c-A', 's-A'];
+    expect(chooseGame(cards, 23)).toEqual({ kind: 'null' });
+  });
+});
+
 describe('wyrzucanie do skata', () => {
   it('kolor: chowa dziesiątkę i króla bez asa, nie wyrzuca atu ani asów', () => {
     const cards: CardId[] = ['c-J', 's-J', 'h-A', 'h-10', 'h-K', 'h-Q', 'h-9', 'c-A', 's-A', 'd-10', 'd-K', 'c-7'];
@@ -51,8 +58,13 @@ describe('wyrzucanie do skata', () => {
   });
 
   it('null: wyrzuca najwyższe karty z kolorów bez siódemki', () => {
-    const cards: CardId[] = ['c-7', 'c-8', 's-7', 's-9', 'h-7', 'h-8', 'd-8', 'd-9', 'd-A', 'c-9', 's-8', 'h-9'];
-    expect(chooseDiscard(cards, { kind: 'null' })).toEqual(['d-A', 'd-9']);
+    const cards: CardId[] = ['c-7', 'c-8', 's-7', 's-9', 'h-7', 'h-8', 'd-Q', 'd-9', 'd-A', 'c-9', 's-8', 'h-9'];
+    expect(chooseDiscard(cards, { kind: 'null' })).toEqual(['d-A', 'd-Q']);
+  });
+
+  it('null: kolor z siódemką albo ósemką jest bezpieczny', () => {
+    const cards: CardId[] = ['c-7', 'c-8', 'c-9', 's-7', 's-8', 'h-7', 'h-8', 'h-9', 'd-7', 'd-K', 'c-A', 's-A'];
+    expect(chooseDiscard(cards, { kind: 'null' }).sort()).toEqual(['c-A', 's-A']);
   });
 
   it('zawsze 2 różne karty z ręki', () => {
