@@ -51,6 +51,12 @@ describe('karty', () => {
     expect(screen.getByRole('img', { name: 'Środkowa ręka · rozgrywający: 7 kart' })).toBeInTheDocument();
   });
 
+  it('przeciwnik: nazwa gracza i dymek z wypowiedzią', () => {
+    renderWithProviders(<OpponentView seat={1} cardCount={10} isDeclarer={false} active={false} player="Bot z lewej" speech="pas" />);
+    expect(screen.getByRole('img', { name: 'Bot z lewej · Środkowa ręka: 10 kart' })).toBeInTheDocument();
+    expect(screen.getByText('pas')).toBeInTheDocument();
+  });
+
   it('przeciwnik: odmiana liczby kart', () => {
     renderWithProviders(<OpponentView seat={2} cardCount={3} isDeclarer={false} active />);
     expect(screen.getByRole('img', { name: 'Ostatnia ręka: 3 karty' })).toHaveClass('opponent--active');

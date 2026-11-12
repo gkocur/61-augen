@@ -11,11 +11,15 @@ interface Props {
   isDeclarer: boolean;
   /** Ten gracz jest teraz na ruchu. */
   active: boolean;
+  /** Nazwa gracza przed pozycją (np. „Bot z lewej”). */
+  player?: string;
+  /** Ostatnia wypowiedź (np. „18”, „pas”) — pokazywana w dymku. */
+  speech?: string;
 }
 
-export function OpponentView({ seat, cardCount, isDeclarer, active }: Props) {
+export function OpponentView({ seat, cardCount, isDeclarer, active, player, speech }: Props) {
   const t = useText();
-  const name = t(SEAT_LABEL[seat]) + (isDeclarer ? t(' · [[rozgrywajacy]]') : '');
+  const name = (player ? `${player} · ` : '') + t(SEAT_LABEL[seat]) + (isDeclarer ? t(' · [[rozgrywajacy]]') : '');
   const count = `${cardCount} ${pluralPl(cardCount, ['karta', 'karty', 'kart'])}`;
   return (
     <div className={`opponent${active ? ' opponent--active' : ''}`} role="img" aria-label={`${name}: ${count}`}>
@@ -28,6 +32,11 @@ export function OpponentView({ seat, cardCount, isDeclarer, active }: Props) {
         </span>
         <span className="opponent__count">{cardCount}</span>
       </span>
+      {speech && (
+        <span className="opponent__speech" aria-hidden="true">
+          {speech}
+        </span>
+      )}
     </div>
   );
 }
