@@ -19,6 +19,14 @@ const exercise: PlayCardExerciseData = {
 };
 
 describe('PlayCardExercise', () => {
+  it('pokazuje rodzaj gry, chyba że showGame: false', () => {
+    const { unmount } = renderWithProviders(<PlayCardExercise exercise={exercise} onAnswered={vi.fn()} />);
+    expect(screen.getByText('Gra kolorowa · atu: żołądź')).toBeInTheDocument();
+    unmount();
+    renderWithProviders(<PlayCardExercise exercise={{ ...exercise, showGame: false }} onAnswered={vi.fn()} />);
+    expect(screen.queryByText(/Gra kolorowa/)).not.toBeInTheDocument();
+  });
+
   it('pierwsze dotknięcie wybiera, drugie zagrywa', async () => {
     const user = userEvent.setup();
     const onAnswered = vi.fn();

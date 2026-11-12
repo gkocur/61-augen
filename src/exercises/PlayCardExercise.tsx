@@ -7,6 +7,7 @@ import { RichText } from '../components/RichText';
 import type { PlayCardExerciseData } from '../content/types';
 import { legalMoves, nextSeat, sortHand, type CardId } from '../engine';
 import { evaluatePlay } from './evaluatePlay';
+import { GameBanner } from './GameBanner';
 
 interface Props {
   exercise: PlayCardExerciseData;
@@ -37,6 +38,7 @@ export function PlayCardExercise({ exercise, onAnswered }: Props) {
       <div className="exercise__prompt">
         <RichText text={exercise.prompt} />
       </div>
+      {exercise.showGame !== false && <GameBanner game={exercise.game} />}
       <TrickView cards={played ? [...exercise.trick, played] : exercise.trick} leader={exercise.leader} you={you} />
       {!played && <p className="hint">Dotknij kartę, aby ją wybrać, i dotknij jej ponownie, aby zagrać.</p>}
       <Hand

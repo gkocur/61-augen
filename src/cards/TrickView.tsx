@@ -9,14 +9,15 @@ interface Props {
   cards: CardId[];
   leader: Seat;
   you: Seat;
+  emptyText?: string;
 }
 
-export function TrickView({ cards, leader, you }: Props) {
+export function TrickView({ cards, leader, you, emptyText = 'Stół jest pusty — wychodzisz pierwszy.' }: Props) {
   const t = useText();
   return (
     <div className="trick" role="group" aria-label="Karty na stole">
       {cards.length === 0 ? (
-        <p className="trick__empty">Stół jest pusty — wychodzisz pierwszy.</p>
+        <p className="trick__empty">{emptyText}</p>
       ) : (
         <ol className="trick__cards">
           {cards.map((card, i) => {

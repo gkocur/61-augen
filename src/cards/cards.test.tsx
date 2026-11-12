@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { renderWithProviders } from '../test/render';
 import { storageWithState } from '../test/storage';
 import { Hand } from './Hand';
+import { OpponentView } from './OpponentView';
 import { PlayingCard } from './PlayingCard';
 import { TrickView } from './TrickView';
 
@@ -43,5 +44,20 @@ describe('karty', () => {
   it('niedozwolone karty mają opis dla czytników ekranu', () => {
     renderWithProviders(<Hand cards={['h-7']} isDimmed={() => true} onCardClick={vi.fn()} />);
     expect(screen.getByRole('button')).toHaveAttribute('aria-description', 'niedozwolona');
+  });
+
+  it('przeciwnik: miejsce, rola i liczba kart', () => {
+    renderWithProviders(<OpponentView seat={1} cardCount={7} isDeclarer active={false} />);
+    expect(screen.getByRole('group', { name: 'Środek · rozgrywający: 7 kart' })).toBeInTheDocument();
+  });
+
+  it('przeciwnik: odmiana liczby kart', () => {
+    renderWithProviders(<OpponentView seat={2} cardCount={3} isDeclarer={false} active />);
+    expect(screen.getByRole('group', { name: 'Zadek: 3 karty' })).toHaveClass('opponent--active');
+  });
+
+  it('stół: własny tekst pustego stołu', () => {
+    renderWithProviders(<TrickView cards={[]} leader={0} you={1} emptyText="Stół jest pusty." />);
+    expect(screen.getByText('Stół jest pusty.')).toBeInTheDocument();
   });
 });
