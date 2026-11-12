@@ -14,5 +14,7 @@ export function ExerciseView({ exercise, onAnswered }: Props) {
       return <QuizExercise exercise={exercise} onAnswered={onAnswered} />;
     case 'playCard':
       return <PlayCardExercise exercise={exercise} onAnswered={onAnswered} />;
+    case 'miniDeal':
+      return null;
   }
 }

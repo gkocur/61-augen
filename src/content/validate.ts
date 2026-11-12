@@ -1,9 +1,11 @@
 // src/content/validate.ts
-import { isLegalMove, type CardId } from '../engine';
+import { isLegalMove, sumPoints, trickWinner, type CardId } from '../engine';
 import { findTextIssues } from '../glossary';
-import type { Course, ExerciseData, PlayCardExerciseData, QuizExerciseData } from './types';
+import { simulateMiniDeal } from './miniDeal';
+import type { Course, ExerciseData, MiniDealExerciseData, PlayCardExerciseData, QuizExerciseData } from './types';
 
 type Report = (message: string) => void;
+type CheckText = (text: string | undefined) => void;
 
 /** Lista problemów w treści kursu (pusta = OK). Uruchamiana w teście `course.test.ts`. */
 export function validateCourse(course: Course): string[] {
@@ -56,12 +58,14 @@ export function validateCourse(course: Course): string[] {
   return issues;
 }
 
-function validateExercise(exercise: ExerciseData, report: Report, checkText: (text: string | undefined) => void) {
+function validateExercise(exercise: ExerciseData, report: Report, checkText: CheckText) {
   switch (exercise.type) {
     case 'quiz':
       return validateQuiz(exercise, report, checkText);
     case 'playCard':
       return validatePlayCard(exercise, report, checkText);
+    case 'miniDeal':
+      return validateMiniDeal(exercise, report);
     default: {
       const unknown: never = exercise;
       report(`nieznany typ ćwiczenia: ${(unknown as { type: string }).type}`);
@@ -69,7 +73,7 @@ function validateExercise(exercise: ExerciseData, report: Report, checkText: (te
   }
 }
 
-function validateQuiz(quiz: QuizExerciseData, report: Report, checkText: (text: string | undefined) => void) {
+function validateQuiz(quiz: QuizExerciseData, report: Report, checkText: CheckText) {
   if (quiz.options.length < 2) report('quiz potrzebuje co najmniej 2 odpowiedzi');
   const ids = new Set<string>();
   for (const option of quiz.options) {
@@ -82,9 +86,29 @@ function validateQuiz(quiz: QuizExerciseData, report: Report, checkText: (text: 
   }
   if (!ids.has(quiz.correct)) report(`poprawna odpowiedź „${quiz.correct}” nie istnieje`);
   if (quiz.cards) checkUnique(quiz.cards, report);
+  verifyQuiz(quiz, report);
 }
 
-function validatePlayCard(ex: PlayCardExerciseData, report: Report, checkText: (text: string | undefined) => void) {
+function verifyQuiz(quiz: QuizExerciseData, report: Report) {
+  const correct = quiz.options.find((option) => option.id === quiz.correct);
+  if (!quiz.verify || !correct) return;
+  if (quiz.verify.kind === 'points') {
+    if (!quiz.cards) return report('verify points wymaga kart w pytaniu');
+    const expected = String(sumPoints(quiz.cards));
+    if (correct.text !== expected) report(`poprawna odpowiedź powinna wynosić ${expected}`);
+    return;
+  }
+  const cards = quiz.options.map((option) => option.card);
+  if (cards.length !== 3 || cards.some((card) => card === undefined)) {
+    return report('verify trickWinner wymaga dokładnie 3 odpowiedzi-kart');
+  }
+  const trick = cards as CardId[];
+  checkUnique(trick, report);
+  const winner = trick[trickWinner(trick, quiz.verify.game)];
+  if (correct.card !== winner) report(`lewę bierze ${winner}, a nie ${correct.card}`);
+}
+
+function validatePlayCard(ex: PlayCardExerciseData, report: Report, checkText: CheckText) {
   if (ex.hand.length < 1 || ex.hand.length > 10) report('ręka musi mieć od 1 do 10 kart');
   if (ex.trick.length > 2) report('na stole mogą leżeć najwyżej 2 karty');
   checkUnique([...ex.trick, ...ex.hand], report);
@@ -99,6 +123,25 @@ function validatePlayCard(ex: PlayCardExerciseData, report: Report, checkText: (
     if (!ex.hand.includes(card as CardId)) report(`wrongExplain dla karty spoza ręki: ${card}`);
     checkText(text);
   }
+}
+
+function validateMiniDeal(ex: MiniDealExerciseData, report: Report) {
+  const size = ex.hands[0].length;
+  if (size < 1 || size > 10 || ex.hands.some((hand) => hand.length !== size)) {
+    report('ręce muszą mieć tyle samo kart (1–10)');
+  }
+  if (ex.skat.length > 2) report('skat ma najwyżej 2 karty');
+  if (ex.goal.kind === 'win' && size !== 10) report('cel „win” wymaga pełnego rozdania (10 kart)');
+  checkUnique([...ex.hands.flat(), ...ex.skat], report);
+  if (ex.scripts?.[ex.you]) report('gracz nie może mieć skryptu');
+  for (const seat of [0, 1, 2] as const) {
+    for (const card of ex.scripts?.[seat] ?? []) {
+      if (!ex.hands[seat].includes(card)) report(`skrypt gracza ${seat}: karty ${card} nie ma w ręce`);
+    }
+  }
+  const outcome = simulateMiniDeal(ex);
+  if (outcome.error) report(outcome.error);
+  else if (!outcome.goalReached) report('wzorcowe rozegranie nie osiąga celu');
 }
 
 function checkUnique(cards: readonly CardId[], report: Report) {

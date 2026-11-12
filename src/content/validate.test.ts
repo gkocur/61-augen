@@ -1,6 +1,6 @@
 // src/content/validate.test.ts
 import { describe, expect, it } from 'vitest';
-import type { Course, ExerciseData, Lesson } from './types';
+import type { Course, ExerciseData, Lesson, MiniDealExerciseData } from './types';
 import { validateCourse } from './validate';
 
 const quiz = (overrides: Partial<Extract<ExerciseData, { type: 'quiz' }>> = {}): ExerciseData => ({
@@ -54,5 +54,42 @@ describe('validateCourse', () => {
     const issues = validateCourse(courseWith(lessonWith([play])));
     expect(issues).toContain('l1/p1: karta h-K występuje więcej niż raz');
     expect(issues).toContain('l1/p1: najlepsza karta s-A jest niedozwolona');
+  });
+
+  it('verify: suma oczek musi zgadzać się z kartami', () => {
+    const points = quiz({
+      cards: ['h-A', 's-10'],
+      options: [{ id: 'a', text: '20' }, { id: 'b', text: '21' }],
+      correct: 'a',
+      verify: { kind: 'points' },
+    });
+    expect(validateCourse(courseWith(lessonWith([points])))).toEqual(['l1/q1: poprawna odpowiedź powinna wynosić 21']);
+  });
+
+  it('verify: zwycięzca lewy liczony silnikiem', () => {
+    const winner = quiz({
+      options: [{ id: 'a', card: 's-K' }, { id: 'b', card: 's-10' }, { id: 'c', card: 's-9' }],
+      correct: 'a',
+      verify: { kind: 'trickWinner', game: { kind: 'suit', trump: 'd' } },
+    });
+    expect(validateCourse(courseWith(lessonWith([winner])))).toEqual(['l1/q1: lewę bierze s-10, a nie s-K']);
+  });
+
+  it('mini-rozdanie: wzorcowe rozegranie musi osiągać cel', () => {
+    const deal: MiniDealExerciseData = {
+      type: 'miniDeal', id: 'd1', prompt: 'P', explain: 'E', game: { kind: 'suit', trump: 'h' },
+      declarer: 0, you: 0, hands: [['c-J', 'c-A'], ['c-7', 's-7'], ['c-8', 's-8']], skat: [],
+      solution: ['c-J', 'c-A'], goal: { kind: 'minPoints', points: 13 },
+    };
+    expect(validateCourse(courseWith(lessonWith([deal])))).toEqual([]);
+    expect(validateCourse(courseWith(lessonWith([{ ...deal, goal: { kind: 'minPoints', points: 50 } }])))).toEqual([
+      'l1/d1: wzorcowe rozegranie nie osiąga celu',
+    ]);
+    expect(validateCourse(courseWith(lessonWith([{ ...deal, goal: { kind: 'win' } }])))).toContain(
+      'l1/d1: cel „win” wymaga pełnego rozdania (10 kart)',
+    );
+    expect(validateCourse(courseWith(lessonWith([{ ...deal, hands: [['c-J', 'c-A'], ['c-7', 'c-J'], ['c-8', 's-8']] }])))).toContain(
+      'l1/d1: karta c-J występuje więcej niż raz',
+    );
   });
 });

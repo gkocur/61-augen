@@ -34,6 +34,7 @@ export const lesson: Lesson = {
       id: 'm1-l03-q1',
       prompt: PROMPT,
       cards: ['h-A', 's-10', 'c-K'],
+      verify: { kind: 'points' },
       options: [
         { id: 'a', text: '25' },
         { id: 'b', text: '24' },
@@ -47,6 +48,7 @@ export const lesson: Lesson = {
       id: 'm1-l03-q2',
       prompt: PROMPT,
       cards: ['d-J', 'c-9', 'd-Q'],
+      verify: { kind: 'points' },
       options: [
         { id: 'a', text: '5' },
         { id: 'b', text: '6' },
@@ -71,6 +73,7 @@ export const lesson: Lesson = {
       id: 'm1-l03-q4',
       prompt: PROMPT,
       cards: ['c-A', 'c-10', 'h-A'],
+      verify: { kind: 'points' },
       options: [
         { id: 'a', text: '31' },
         { id: 'b', text: '32' },
