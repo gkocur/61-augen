@@ -10,6 +10,9 @@ import type { CheckpointAsk, MiniDealCheckpoint, MiniDealExerciseData } from '..
 import { currentPlayer, isDealOver, legalMoves, nextSeat, playCard, sortHand, type CardId } from '../engine';
 import { countCase } from '../glossary';
 import { useText } from '../state/AppStateContext';
+import { SeatTag } from '../play/SeatTag';
+import { Stage3D, useStage3D } from '../three/Stage';
+import { buildSceneCards, sideOf } from '../three/sceneCards';
 import { GameBanner } from './GameBanner';
 
 const ILLEGAL_HINT = 'Tej karty nie możesz teraz zagrać — musisz dołożyć do wyjścia.';
@@ -43,6 +46,7 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
   const bots = useMemo(() => miniDealBots(exercise), [exercise]);
   const reported = useRef(false);
   const firstOption = useRef<HTMLButtonElement>(null);
+  const stage3D = useStage3D();
 
   const over = isDealOver(deal);
   const tricksDone = deal.tricks.length;
@@ -153,27 +157,72 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
         <RichText text={exercise.prompt} />
       </div>
       <GameBanner game={exercise.game} />
-      <div className="mini-deal__opponents">
-        {[nextSeat(you, 1), nextSeat(you, 2)].map((seat) => (
-          <OpponentView
-            key={seat}
-            seat={seat}
-            cardCount={deal.hands[seat].length}
-            isDeclarer={seat === declarer}
-            active={!over && !pending && current === seat}
-          />
-        ))}
-      </div>
+      {stage3D && (
+        <Stage3D
+          className="stage--inline"
+          label="Stół z rozdaniem"
+          cards={buildSceneCards({
+            you,
+            hand: sortHand(deal.hands[you], deal.game),
+            left: deal.hands[nextSeat(you, 1)],
+            right: deal.hands[nextSeat(you, 2)],
+            trick: shown,
+            taken: deal.trick.length === 0 && showLast && last ? deal.tricks.slice(0, -1) : deal.tricks,
+          })}
+          selected={selected ? [selected] : []}
+          dimmed={yourTurn ? (card) => !legal.includes(card) : undefined}
+          onCardClick={yourTurn ? handleClick : undefined}
+          activeSide={!over && !pending && !showLast ? sideOf(current, you) : null}
+        >
+          <div className="hud__top">
+            {[nextSeat(you, 1), nextSeat(you, 2)].map((seat) => (
+              <SeatTag
+                key={seat}
+                side={sideOf(seat, you)}
+                seat={seat}
+                cardCount={deal.hands[seat].length}
+                isDeclarer={seat === declarer}
+                active={!over && !pending && current === seat}
+              />
+            ))}
+          </div>
+          <div className="hud__low">
+            <p className={`hud__status${yourTurn ? ' hud__status--you' : ''}`} aria-live="polite">
+              {status}
+            </p>
+            <p className="hud__hint" role="status">
+              {hint ?? (yourTurn && selected ? 'Dotknij karty jeszcze raz, żeby ją zagrać.' : '')}
+            </p>
+          </div>
+        </Stage3D>
+      )}
+      {!stage3D && (
+        <div className="mini-deal__opponents">
+          {[nextSeat(you, 1), nextSeat(you, 2)].map((seat) => (
+            <OpponentView
+              key={seat}
+              seat={seat}
+              cardCount={deal.hands[seat].length}
+              isDeclarer={seat === declarer}
+              active={!over && !pending && current === seat}
+            />
+          ))}
+        </div>
+      )}
       {exercise.ouvert && you !== declarer && (
         <div className="mini-deal__open">
           <p className="mini-deal__open-label">{t('Karty [[rozgrywajacy:D]] — [[otwarta]]')}</p>
           <CardRow cards={sortHand(deal.hands[declarer], deal.game)} />
         </div>
       )}
-      <TrickView cards={shown.cards} leader={shown.leader} you={you} emptyText="Stół jest pusty." />
-      <p className="mini-deal__status" aria-live="polite">
-        {status}
-      </p>
+      {!stage3D && (
+        <>
+          <TrickView cards={shown.cards} leader={shown.leader} you={you} emptyText="Stół jest pusty." />
+          <p className="mini-deal__status" aria-live="polite">
+            {status}
+          </p>
+        </>
+      )}
       {pending && (
         <div className="checkpoint" role="group" aria-label="Pytanie w trakcie gry">
           <p className="checkpoint__prompt">{t(CHECKPOINT_PROMPT[pending.ask])}</p>
@@ -196,16 +245,20 @@ export function MiniDealExercise({ exercise, onAnswered, delayMs = 700 }: Props)
       {!(exercise.checkpoints?.length && !over) && (
         <p className="mini-deal__score">{scoreText}</p>
       )}
-      <p className="hint hint--warn" role="status">
-        {hint}
-      </p>
-      <Hand
-        cards={sortHand(deal.hands[you], deal.game)}
-        selected={selected}
-        isDimmed={yourTurn ? (card) => !legal.includes(card) : undefined}
-        onCardClick={handleClick}
-        disabled={!yourTurn}
-      />
+      {!stage3D && (
+        <>
+          <p className="hint hint--warn" role="status">
+            {hint}
+          </p>
+          <Hand
+            cards={sortHand(deal.hands[you], deal.game)}
+            selected={selected}
+            isDimmed={yourTurn ? (card) => !legal.includes(card) : undefined}
+            onCardClick={handleClick}
+            disabled={!yourTurn}
+          />
+        </>
+      )}
       <p className="mini-deal__seat">
         Siedzisz na {t(SEAT_AT[you])}
         {you === declarer ? t(' · [[rozgrywajacy]]') : ''}

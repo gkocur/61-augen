@@ -10,6 +10,9 @@ import { useText } from '../state/AppStateContext';
 import { BiddingControls, DeclareControls, DiscardControls, KontraControls, SkatControls } from './Controls';
 import { DealSummary } from './DealSummary';
 import { PLAYER_NAME, speechText } from './labels';
+import { Stage3D, useStage3D } from '../three/Stage';
+import { buildSceneCards, sideOf } from '../three/sceneCards';
+import { SeatTag } from './SeatTag';
 
 const ILLEGAL_HINT = 'Tej karty nie możesz teraz zagrać — musisz dołożyć do wyjścia.';
 const SORT_BEFORE_DECLARE: GameType = { kind: 'grand' };
@@ -46,6 +49,8 @@ export function GameTable({ deal, dealNo, dealer, you, onAction, onNextDeal, onS
   const [seenTricks, setSeenTricks] = useState(() => deal.play?.tricks.length ?? 0);
   const [selected, setSelected] = useState<CardId | null>(null);
   const [hint, setHint] = useState<string | null>(null);
+  const [discards, setDiscards] = useState<CardId[]>([]);
+  const stage3D = useStage3D();
 
   const play = deal.play;
   const tricksDone = play?.tricks.length ?? 0;
@@ -102,6 +107,110 @@ export function GameTable({ deal, dealNo, dealer, you, onAction, onNextDeal, onS
   else if (botTurn) status = `Ruch: ${name(actor)}…`;
   else if (deal.phase === 'play') status = play!.trick.length === 0 ? 'Twój ruch — wychodzisz.' : 'Twój ruch.';
   else status = 'Twój ruch.';
+
+  if (stage3D) {
+    const discarding = yourTurn && deal.phase === 'discard';
+    const playing = deal.phase === 'play';
+    const showingLast = Boolean(play && play.trick.length === 0 && showLast && last);
+    const hands = play ? play.hands : deal.hands;
+    const left = nextSeat(you, 1);
+    const right = nextSeat(you, 2);
+    const cards = buildSceneCards({
+      you,
+      hand: sortHand(handCards, game),
+      left: hands[left],
+      right: hands[right],
+      trick: play ? shown : undefined,
+      taken: play ? (showingLast ? play.tricks.slice(0, -1) : play.tricks) : [],
+      skat: { cards: deal.skat.length > 0 ? deal.skat : (play?.skat ?? []), faceUp: deal.phase === 'done' },
+    });
+    const toggleDiscard = (card: CardId) =>
+      setDiscards((cur) => (cur.includes(card) ? cur.filter((c) => c !== card) : cur.length < 2 ? [...cur, card] : cur));
+    const tag = (seat: Seat) => (
+      <SeatTag
+        side={sideOf(seat, you)}
+        name={name(seat)}
+        seat={seat}
+        cardCount={hands[seat].length}
+        isDeclarer={seat === deal.declarer}
+        active={actor === seat && !showLast}
+        speech={said[seat]}
+      />
+    );
+    return (
+      <section className="game-table game-table--3d">
+        <Stage3D
+          className="stage--game"
+          label="Stół do gry"
+          cards={cards}
+          selected={discarding ? discards : selected ? [selected] : []}
+          dimmed={yourTurn && playing ? (card) => !legal.includes(card) : undefined}
+          onCardClick={discarding ? toggleDiscard : yourTurn && playing ? clickCard : undefined}
+          activeSide={playing && actor !== null && !showLast ? sideOf(actor, you) : null}
+        >
+          <div className="hud__top">
+            {tag(left)}
+            <div className="hud__center">
+              <p className="hud__deal">
+                Rozdanie {dealNo}, {t(`siedzisz na ${SEAT_AT[you]}`)}
+                {deal.bid !== null && `, stawka ${deal.bid}`}
+                {deal.doubling && `, ${deal.doubling}`}
+                {deal.hand && t(', [[reka]]')}
+              </p>
+              {(deal.declaration || play?.game.kind === 'ramsch') && <GameBanner game={game} />}
+            </div>
+            {tag(right)}
+          </div>
+
+          {yourTurn && deal.phase !== 'play' && (
+            <div className="hud__panel">
+              {deal.phase === 'bidding' && <BiddingControls deal={deal} you={you} onAction={act} />}
+              {deal.phase === 'skat' && <SkatControls deal={deal} you={you} onAction={act} />}
+              {deal.phase === 'declare' && <DeclareControls deal={deal} you={you} onAction={act} />}
+              {deal.phase === 'kontra' && <KontraControls deal={deal} you={you} onAction={act} />}
+              {discarding && (
+                <div className="game-bar game-bar--column" role="group" aria-label={t('Wyrzucanie do [[skat:D]]')}>
+                  <p className="game-bar__info">{t('Wybierz 2 karty do [[skat:D]].')} Wybrane: {discards.length} z 2.</p>
+                  <button
+                    type="button"
+                    className="button button--primary"
+                    disabled={discards.length !== 2}
+                    onClick={() => discards.length === 2 && act({ type: 'discard', cards: [discards[0], discards[1]] })}
+                  >
+                    {t('Wyrzuć do [[skat:D]]')}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {deal.phase === 'done' && (
+            <div className="hud__panel hud__panel--summary">
+              <DealSummary deal={deal} dealer={dealer} you={you} onNextDeal={onNextDeal} onShowTable={onShowTable} />
+              {play && (
+                <figure className="game-table__skat">
+                  <CardRow cards={deal.skat} />
+                  <figcaption>{t('[[Skat]]')}</figcaption>
+                </figure>
+              )}
+            </div>
+          )}
+
+          {deal.phase !== 'done' && (
+            <div className="hud__low">
+              {said[you] && <p className="hud__said">Twoja odpowiedź: {said[you]}</p>}
+              <p className={`hud__status${yourTurn ? ' hud__status--you' : ''}`} aria-live="polite">
+                {status}
+              </p>
+              <p className="hud__hint" role="status">
+                {hint ?? (yourTurn && playing && selected ? 'Dotknij karty jeszcze raz, żeby ją zagrać.' : '')}
+              </p>
+            </div>
+          )}
+        </Stage3D>
+      </section>
+    );
+  }
 
   return (
     <section className="game-table">

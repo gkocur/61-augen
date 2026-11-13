@@ -25,7 +25,7 @@ export function GamePage({ storage, delayMs, seedSource }: Props) {
   };
 
   return (
-    <div className="game-page">
+    <div className={`game-page${series?.current ? ' game-page--playing' : ''}`}>
       <h1>Gra z botami</h1>
       {game.notice === 'corrupted' && (
         <div className="notice" role="alert">
