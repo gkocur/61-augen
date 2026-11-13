@@ -1,6 +1,6 @@
 // src/ui/Layout.tsx
 import type { ReactNode } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useAppState } from '../state/AppStateContext';
 
 const NOTICE_TEXT = {
@@ -10,11 +10,14 @@ const NOTICE_TEXT = {
 
 export function Layout({ children }: { children: ReactNode }) {
   const { notice, dismissNotice } = useAppState();
+  const { pathname } = useLocation();
+  // Strona główna i stół do gry zajmują całą szerokość okna.
+  const wide = pathname === '/' || pathname === '/gra';
   return (
     <div className="app">
       <header className="app-header">
         <Link to="/" className="app-header__brand">
-          Trener skata
+          Szkat <span className="app-header__sub">trener</span>
         </Link>
         <nav className="app-header__nav">
           <NavLink to="/gra">Gra</NavLink>
@@ -30,7 +33,7 @@ export function Layout({ children }: { children: ReactNode }) {
           </button>
         </div>
       )}
-      <main className="app-main">{children}</main>
+      <main className={`app-main${wide ? ' app-main--wide' : ''}`}>{children}</main>
       <footer className="app-footer">
         <Link to="/o-kartach">O kartach i licencjach</Link>
       </footer>
